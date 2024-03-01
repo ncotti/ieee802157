@@ -13,21 +13,18 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-cplusplus {{
-#include "SomeType.h"
-}}
-class noncobject SomeType;
-
-cplusplus {{
-#include <map>
-typedef OtherType std::map<int,int>;
-}}
-class noncobject OtherType;
-
 //
 // TODO generated message class
 //
 packet MacFrame {
-    SomeType field1;
-    OtherType field2;
+    @customize(true);
+    uint16_t frameControl;
+    uint8_t sequenceNumber;
+    uint16_t destinationOWPANId[];
+    uint16_t destinationAddress[];
+    uint16_t sourceOWPANId[];
+    uint16_t sourceAddress[];
+    uint8_t auxiliarySecurityHeader[];
+    uint8_t payload[];
+    uint16_t fcs;
 }
