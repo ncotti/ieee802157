@@ -1,0 +1,128 @@
+version 3
+run General-0-20240309-13:46:53-15164
+attr configname General
+attr datetime 20240309-13:46:53
+attr datetimef 20240309-134653
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network NetworkPeer
+attr processid 15164
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config network NetworkPeer
+
+par NetworkPeer.peer1.indicationOut.channel typename "\"ned.IdealChannel\""
+par NetworkPeer.peer2.indicationOut.channel typename "\"ned.IdealChannel\""
+par NetworkPeer.peer1.netPeer.requestOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer1.netPeer.requestOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer1.netPeer.requestOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer1.macPeer.confirmOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer1.macPeer.confirmOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer1.macPeer.confirmOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer1.macPeer.indicationOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer1.macPeer.indicationOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer1.macPeer.indicationOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer1.phyPeer.confirmOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer1.phyPeer.confirmOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer1.phyPeer.confirmOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer1.macPeer typename "\"ieee802157.simulations.Mac\""
+par NetworkPeer.peer1.macPeer powerSource true
+par NetworkPeer.peer1.macPeer batteryInformation 3
+par NetworkPeer.peer1.macPeer coordinatorCapability true
+par NetworkPeer.peer1.macPeer traficSupport true
+par NetworkPeer.peer1.macPeer broadcastSupport true
+par NetworkPeer.peer1.macPeer peerToPeerSupport true
+par NetworkPeer.peer1.macPeer starSupport true
+par NetworkPeer.peer1.macPeer deviceType 0
+par NetworkPeer.peer1.macPeer beaconSupport true
+par NetworkPeer.peer1.macPeer dimmingSupport true
+par NetworkPeer.peer1.macPeer continuousVisibilityTransmission true
+par NetworkPeer.peer1.macPeer cvdSupport false
+par NetworkPeer.peer1.macPeer phyISupport true
+par NetworkPeer.peer1.macPeer phyIISupport true
+par NetworkPeer.peer1.macPeer colorStabilizationCapability 0
+par NetworkPeer.peer1.macPeer maxTxClock 100
+par NetworkPeer.peer1.macPeer maxRxClock 100
+par NetworkPeer.peer1.macPeer explicitClockNotificationRequest false
+par NetworkPeer.peer1.macPeer ccaSupport true
+par NetworkPeer.peer1.macPeer numberOfOpticalSources 1
+par NetworkPeer.peer1.macPeer multipleDirectionSupport 1
+par NetworkPeer.peer1.macPeer numberOfCellsSupported 1
+par NetworkPeer.peer1.phyPeer typename "\"ieee802157.simulations.Phy\""
+par NetworkPeer.peer1.netPeer typename "\"ieee802157.simulations.Net\""
+par NetworkPeer.peer1.netPeer sendMsgOnInit true
+par NetworkPeer.peer1 typename "\"ieee802157.simulations.Peer\""
+par NetworkPeer.peer1 sendMsgOnInit true
+par NetworkPeer.peer2.netPeer.requestOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer2.netPeer.requestOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer2.netPeer.requestOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer2.macPeer.confirmOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer2.macPeer.confirmOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer2.macPeer.confirmOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer2.macPeer.indicationOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer2.macPeer.indicationOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer2.macPeer.indicationOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer2.phyPeer.confirmOut.channel typename "\"ned.DelayChannel\""
+par NetworkPeer.peer2.phyPeer.confirmOut.channel disabled false
+attr mutable ""
+par NetworkPeer.peer2.phyPeer.confirmOut.channel delay 0.1s
+attr mutable ""
+attr unit s
+par NetworkPeer.peer2.macPeer typename "\"ieee802157.simulations.Mac\""
+par NetworkPeer.peer2.macPeer powerSource true
+par NetworkPeer.peer2.macPeer batteryInformation 3
+par NetworkPeer.peer2.macPeer coordinatorCapability true
+par NetworkPeer.peer2.macPeer traficSupport true
+par NetworkPeer.peer2.macPeer broadcastSupport true
+par NetworkPeer.peer2.macPeer peerToPeerSupport true
+par NetworkPeer.peer2.macPeer starSupport true
+par NetworkPeer.peer2.macPeer deviceType 0
+par NetworkPeer.peer2.macPeer beaconSupport true
+par NetworkPeer.peer2.macPeer dimmingSupport true
+par NetworkPeer.peer2.macPeer continuousVisibilityTransmission true
+par NetworkPeer.peer2.macPeer cvdSupport false
+par NetworkPeer.peer2.macPeer phyISupport true
+par NetworkPeer.peer2.macPeer phyIISupport true
+par NetworkPeer.peer2.macPeer colorStabilizationCapability 0
+par NetworkPeer.peer2.macPeer maxTxClock 100
+par NetworkPeer.peer2.macPeer maxRxClock 100
+par NetworkPeer.peer2.macPeer explicitClockNotificationRequest false
+par NetworkPeer.peer2.macPeer ccaSupport true
+par NetworkPeer.peer2.macPeer numberOfOpticalSources 1
+par NetworkPeer.peer2.macPeer multipleDirectionSupport 1
+par NetworkPeer.peer2.macPeer numberOfCellsSupported 1
+par NetworkPeer.peer2.phyPeer typename "\"ieee802157.simulations.Phy\""
+par NetworkPeer.peer2.netPeer typename "\"ieee802157.simulations.Net\""
+par NetworkPeer.peer2.netPeer sendMsgOnInit false
+par NetworkPeer.peer2 typename "\"ieee802157.simulations.Peer\""
+par NetworkPeer.peer2 sendMsgOnInit false
+par NetworkPeer typename "\"ieee802157.simulations.NetworkPeer\""
+

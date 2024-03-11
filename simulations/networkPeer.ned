@@ -14,6 +14,26 @@
 // 
 
 package ieee802157.simulations;
+import ieee802157.simulations.Peer;
+import ned.IdealChannel;
+
+
 //
 // TODO auto-generated type
 //
+network NetworkPeer
+{
+    types:
+    submodules:
+        peer1: Peer { 
+            parameters:
+                @display("p=97,118;is=l");
+                sendMsgOnInit = true;
+        }
+        peer2: Peer {
+            @display("p=314,118;is=vl");
+        }
+    connections:
+        peer1.indicationOut --> IdealChannel --> peer2.responseIn;
+        peer2.indicationOut --> IdealChannel --> peer1.responseIn;
+}

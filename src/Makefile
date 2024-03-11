@@ -33,7 +33,14 @@ PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cpp, .msg and .sm files
-OBJS = $O/MacFrame/MacFrame.o $O/MacFrame/MacFrame_m.o
+OBJS = \
+    $O/Mac/mac.o \
+    $O/Mac/mac_command_frame.o \
+    $O/Mac/mac_procedures.o \
+    $O/MacFrame/MacFrame.o \
+    $O/Net/Net.o \
+    $O/Phy/phy.o \
+    $O/MacFrame/MacFrame_m.o
 
 # Message files
 MSGFILES = \

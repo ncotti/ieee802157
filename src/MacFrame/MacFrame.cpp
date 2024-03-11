@@ -15,6 +15,24 @@ void MacFrame::copy(const MacFrame& other) {
     // TODO Complete copy constructor
 }
 
+/******************************************************************************
+ * MHR: MAC Header
+ *****************************************************************************/
+void MacFrame::setMHR(frameType_t type, bool securityEnabled, bool framePending, bool ackRequest,
+        addressingMode_t destinationAddressMode, addressingMode_t sourceAddressMode, uint8_t sequenceNumber,
+        uint16_t destinationOWPANId, uint64_t destinationAddress, uint16_t sourceOWPANId, uint64_t sourceAddress) {
+    this->setFrameVersion();
+    this->setFrameType(type);
+    this->setSecurityEnabled(securityEnabled);
+    this->setFramePending(framePending);
+    this->setAckRequest(ackRequest);
+    this->setDestinationAddressingMode(destinationAddressMode);
+    this->setSourceAddressingMode(sourceAddressMode);
+    this->setSequenceNumber(sequenceNumber);
+    this->setAddress(destinationOWPANId, destinationAddress, sourceOWPANId, sourceAddress);
+}
+
+/********************* Frame Control *****************************************/
 void MacFrame::setFrameVersion(void) {
     BIT_SET(this->frameControl, 0b01, 0); // IEEE 802.15.7 2018
 }
@@ -58,14 +76,15 @@ void MacFrame::setSourceAddressingMode(addressingMode_t mode) {
     BIT_SET(this->frameControl, mode, 14);
 }
 
-MacFrame::addressingMode_t MacFrame::getDestinationAddressingMode(void) const {
+addressingMode_t MacFrame::getDestinationAddressingMode(void) const {
     return (addressingMode_t) (BIT_GET(this->frameControl, 12, 0b11));
 }
 
-MacFrame::addressingMode_t MacFrame::getSourceAddressingMode(void) const {
+addressingMode_t MacFrame::getSourceAddressingMode(void) const {
     return (addressingMode_t) (BIT_GET(this->frameControl, 14, 0b11));
 }
 
+/************************ Addressing Fields **********************************/
 void MacFrame::setAddress(uint16_t destinationID, uint64_t destinationAddress,
         uint16_t sourceID, uint64_t sourceAddress) {
     switch (this->getDestinationAddressingMode()) {
@@ -129,28 +148,167 @@ void MacFrame::setAddress(uint16_t destinationID, uint64_t destinationAddress,
             break;
         }
     }
-
 }
 
-void MacFrame::setBeaconFrame(bool enableSecurity, bool framePending, uint8_t macBSN,
-        addressingMode_t sourceMode, uint16_t sourceOWPANID, uint64_t sourceAddress) {
-    this->setFrameVersion();
-    this->setFrameType(frameType_t::beacon);
-    this->setSecurityEnabled(enableSecurity);
-    this->setFramePending(framePending);
-    this->setAckRequest(false);
-    this->setDestinationAddressingMode(addressingMode_t::noAddress);
+/******************************************************************************
+ * Beacon Frame
+ *****************************************************************************/
+//void MacFrame::setBeaconFrame(bool securityEnabled, bool framePending, uint8_t macBSN,
+//        addressingMode_t sourceAddressMode, uint16_t sourceOWPANId, uint64_t sourceAddress) {
+//
+//    if (sourceAddressMode == addressingMode_t::broadcast || sourceAddressMode == addressingMode_t::noAddress) {
+//            throw omnetpp::cRuntimeError("Wrong source addressing mode in MAC beacon frame");
+//    }
+//
+//    this->setMHR(frameType_t::beacon, securityEnabled, framePending, false,
+//            addressingMode_t::noAddress, sourceAddressMode, macBSN,
+//            0, 0, sourceOWPANId, sourceAddress);
+//
+//    // TODO beacon payload
+//    this->setBeaconPayload()
+//}
 
-    if (sourceMode == addressingMode_t::broadcast || sourceMode == addressingMode_t::noAddress) {
-        throw omnetpp::cRuntimeError("Wrong source addressing mode in MAC beacon frame");
+
+// TODO
+//void MacFrame::setBeaconPayload(uint8_t beaconOrder, uint8_t superframeOrder, uint8_t finalCAPSlot,
+//        bool isCoordinator, bool associationPermit, bool cellSearchEn,
+//        uint8_t GTSDescriptorCount, bool GTSPermit) {
+//
+//    this->setBeaconOrder(beaconOrder);
+//    this->setSuperframeOrder(superframeOrder);
+//    this->setFinalCAPSlot(finalCAPSlot);
+//    this->setOWPANCoordinator(isCoordinator);
+//    this->setAssociationPermit(associationPermit);
+//    this->setCellSearchEn(cellSearchEn);
+//
+//    // TODO
+//
+//
+//}
+
+/************************* Superframe Specification **************************/
+void MacFrame::setBeaconOrder(uint8_t beaconOrder) {
+    if (beaconOrder > 15) {
+        throw omnetpp::cRuntimeError("Beacon Order > 15");
     }
-    this->setSourceAddressingMode(sourceMode);
+    if (this->getPayloadArraySize() > 0) {
+        BIT_SET(this->payload[0], beaconOrder, 0)
+    } else {
+        this->appendPayload(beaconOrder & 0xf);
+    }
+}
 
-    this->setSequenceNumber(macBSN);
+void MacFrame::setSuperframeOrder(uint8_t superframeOrder) {
+    if (superframeOrder > 15) {
+        throw omnetpp::cRuntimeError("Superframe Order > 15");
+    }
+    BIT_SET(this->payload[0], superframeOrder, 4);
+}
 
-    this->setAddress(0, 0, sourceOWPANID, sourceAddress);
+void MacFrame::setFinalCAPSlot(uint8_t finalCAPSlot) {
+    if (finalCAPSlot > 15) {
+        throw omnetpp::cRuntimeError("finalCAPSlot > 15");
+    }
+    if (this->getPayloadArraySize() > 1) {
+        BIT_SET(this->payload[1], finalCAPSlot, 0);
+    } else {
+        this->appendPayload(finalCAPSlot & 0xf);
+    }
+}
 
-    // TODO beacon payload
+void MacFrame::setOWPANCoordinator(bool isCoordinator) {
+    if (isCoordinator) {
+        BIT_SET(this->payload[1], 0b1, 5);
+    } else {
+        BIT_CLEAR(this->payload[1], 0b1, 5);
+    }
+}
+
+void MacFrame::setAssociationPermit(bool associationPermit) {
+    if (associationPermit) {
+        BIT_SET(this->payload[1], 0b1, 6);
+    } else {
+        BIT_CLEAR(this->payload[1], 0b1, 6);
+    }
+}
+
+void MacFrame::setCellSearchEn(bool cellSearchEn) {
+    if (cellSearchEn) {
+        BIT_SET(this->payload[1], 0b1, 7);
+    } else {
+        BIT_CLEAR(this->payload[1], 0b1, 7);
+    }
+}
+
+//void MacFrame::setGTSSpecification(uint8_t GTSDescriptorCount, bool GTSPermit) {
+//    if (GTSDescriptorCount > 7) {
+//        throw omnetpp::cRuntimeError("GTS Descriptor Count > 7");
+//    }
+//    if(getPayloadArraySize() > 2) {
+//        this->appendPayload(GTSDescriptorCount & 0x7 | (((uint8_t) GTSPermit) << 7));
+//    } else {
+//        BIT_CLEAR(this->payload[2], 0b111, 0);
+//        BIT_SET(this->payload[2], GTSDescriptorCount, 0);
+//        if (GTSPermit) {
+//            BIT_SET(this->payload[2], 0b1, 7);
+//        } else {
+//            BIT_CLEAR(this->payload[2], 0b1, 7);
+//        }
+//    }
+//}
+
+//void MacFrame::setGTSDirections(uint8_t directionsMask) {
+//    // TODO, habría que ver como agregar nuevo GTS
+//    // GTS descriptor count
+//    if (BIT_GET(this->payload[2], 0, 0b111) == 0) {
+//        throw omnetpp::cRuntimeError("Trying to set GTS directions with no GTS");
+//    } else {
+//        this->insertPayload(3, directionsMask);
+//    }
+//}
+//
+//void MacFrame::setGTSList(uint16_t deviceShortAddress, uint8_t startingSlot, uint8_t length) {
+//    // TODO, habría que ver como agregar nuevo GTS
+//    if ()
+//}
+
+
+/******************************************************************************
+ * Data Frame
+ *****************************************************************************/
+void MacFrame::setDataFrame(bool securityEnabled, bool framePending, bool ackRequest,
+        addressingMode_t destinationAddressMode, addressingMode_t sourceAddressMode,
+        uint8_t macDSN, uint16_t destinationOWPANId, uint64_t destinationAddress,
+        uint16_t sourceOWPANId, uint64_t sourceAddress,
+        dataType_t dataType, uint8_t numberOfPPDU, uint8_t* data, size_t size) {
+    this->setMHR(frameType_t::data, securityEnabled, framePending, ackRequest,
+            destinationAddressMode, sourceAddressMode, macDSN, destinationOWPANId,
+            destinationAddress, sourceOWPANId, sourceAddress);
+
+    this->setDataPayload(dataType, numberOfPPDU, data, size);
+
 
 }
+
+
+void MacFrame::setDataPayload(dataType_t dataType, uint8_t numberOfPPDU, uint8_t* data, size_t size) {
+    this->setPayloadArraySize(size + 1);
+    this->setPayload(0, (uint8_t) dataType | ((numberOfPPDU & 0x3f) << 2) );
+
+    for (size_t i = 0; i < size; i++) {
+        this->setPayload(i+1, data[i]);
+    }
+}
+
+/******************************************************************************
+ * Acknowledgment Frame
+******************************************************************************/
+
+//void MacFrame::setAckFrame() {
+    //this->setMHR(frameType_t::ack, fal, framePending, ackRequest, destinationAddressMode, sourceAddressMode, sequenceNumber, destinationOWPANId, destinationAddress, sourceOWPANId, sourceAddress)
+//}
+
+//void MacFrame::setAckPayload() {
+
+//}
 
