@@ -36,15 +36,14 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 OBJS = \
     $O/Mac/mac.o \
     $O/Mac/mac_command_frame.o \
+    $O/Mac/mac_fsm_random_access.o \
+    $O/Mac/mac_primitives.o \
     $O/Mac/mac_procedures.o \
-    $O/MacFrame/MacFrame.o \
     $O/Net/Net.o \
-    $O/Phy/phy.o \
-    $O/MacFrame/MacFrame_m.o
+    $O/Phy/phy.o
 
 # Message files
-MSGFILES = \
-    MacFrame/MacFrame.msg
+MSGFILES =
 
 # SM files
 SMFILES =
