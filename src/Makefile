@@ -39,6 +39,9 @@ OBJS = \
     $O/Mac/mac_fsm_random_access.o \
     $O/Mac/mac_primitives.o \
     $O/Mac/mac_procedures.o \
+    $O/Mac/fsm_superframe/fsm_superframe.o \
+    $O/Mac/fsm_superframe/states.o \
+    $O/Mac/fsm_superframe/transitions.o \
     $O/Net/Net.o \
     $O/Phy/phy.o
 

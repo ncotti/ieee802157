@@ -9,40 +9,36 @@
 
 void Mac::mcps_data_request(addressingMode_t srcAddrMode,
         addressingMode_t dstAddrMode, uint16_t dstOWPANId, uint64_t dstAddr,
-    uint64_t msduLength, uint8_t* msdu, uint8_t msduHandle, uint8_t txOptions,
-    security_t security,
-    dataRate_t dataRate, bool burstMode,  bool colorReceived, bool colorNotReceived) {
+        uint64_t msduLength, uint8_t* msdu, uint8_t msduHandle, uint8_t txOptions,
+        security_t security,
+        dataRate_t dataRate, bool burstMode,  bool colorReceived, bool colorNotReceived) {
 
-//    mcps_data_confirm confirm;
-//    confirm.msduHandle = msduHandle;
-//    confirm.timestamp = 0;
-//
-//    bool ack = txOptions & 0b001;
-//    bool gts = txOptions & 0b010;
-//    bool indirectTx = txOptions & 0b100;
-//
-//    // Check for all possible errors
-//    if (srcAddrMode == addressingMode_t::noAddress && dstAddrMode == addressingMode_t::noAddress) {
-//        confirm.status = mcpsDataStatus_t::INVALID_ADDRESS;
-//    } else if (gts) {
-//        // If not valid GTS
-//        confirm.status = mcpsDataStatus_t::INVALID_GTS;
-//    }
-//
-//
-//
-//    if (msduLength > aMaxMACPayloadSize) {
-//        // FRAME_TOO_LONG
-//    }
-//
-//
-//    return confirm;
+    macStatus_t status = macStatus_t::SUCCESS;
+    uint32_t timestamp;
 
+    bool ack        = txOptions & 0b001;
+    bool gts        = txOptions & 0b010;
+    bool indirectTx = txOptions & 0b100;
+
+    // Check for all possible errors
+    if (srcAddrMode == addressingMode_t::noAddress && dstAddrMode == addressingMode_t::noAddress) {
+        status = macStatus_t::INVALID_ADDRESS;
+    } else if (gts) {
+        // If not valid GTS
+        status = macStatus_t::INVALID_GTS;
+    }
+
+
+
+    if (msduLength > aMaxMACPayloadSize) {
+        // FRAME_TOO_LONG
+    }
+
+
+    //this->mcps_data_confirm(msduHandle, status, timestamp)
 }
 
-void Mac::mcps_data_confirm(uint8_t msduHandle,
-        macStatus_t status,
-        uint32_t timestamp) {
+void Mac::mcps_data_confirm(uint8_t msduHandle, macStatus_t status, uint32_t timestamp) {
 }
 
 
@@ -65,7 +61,7 @@ void Mac::mlme_associate_request(opticalChannel_t logicalChannel,
 
     if (this->macAssociationPermit) {
         // Update MAC and PHY attributes
-        this->phy.plme_set_request(phyPIBAtrribute_t::PHY_CURRENT_CHANNEL, (uint64_t) logicalChannel);
+        //this->phy.plme_set_request(phyPIBAtrribute_t::PHY_CURRENT_CHANNEL, (uint64_t) logicalChannel);
 
         this->macOWPANId = coordOWPANId;
 
@@ -163,7 +159,7 @@ void Mac::mlme_gts_confirm(uint8_t GTSCharacteristics, macStatus_t status) {
 
 void Mac::mlme_reset_request(bool setDefaultPIB) {
 
-    this->phy.plme_set_trx_state_request(phyStatus_t::FORCE_TRX_OFF);
+    //this->phy.plme_set_trx_state_request(phyStatus_t::FORCE_TRX_OFF);
     //this->waitForConfirm(); // SUCCESS_PHY
 
     // reset all internal variables to zero

@@ -9,24 +9,10 @@
 #define MAC_H_
 
 #include "../types.h"
-#include "../Phy/phy.h"
+#include "../bit_macros.h"
 #include <omnetpp.h>
 
-/* MAC sublayer constants, as defined in Table 61 of the IEEE 802.15.7 */
-#define aBaseSlotDuration           60
-#define aBaseSuperframeDuration     (aBaseSlotDuration * aNumSuperframeSlots)
-#define aExtendedAddress            ((uint64_t) 0x1) // Device specific
-#define aGTSDDescPersistenceTime    4
-#define aMaxBeaconOverhead          75
-#define aMaxBeaconPayloadLength     (aMaxPHYFrameSize - aMaxBeaconOverhead)
-#define aMaxLostBeacons             4
-#define aMaxMACPayloadSize          (aMaxPHYFrameSize - AMinMPDUOOverhead)
-#define aMaxMPDUUnsecuredOverhead   25
-#define aMaxSIFSFrameSize           18
-#define aMinCAPLength               440
-#define aMinMPDUOverhead            9
-#define aNumSuperframeSlots         16
-#define aUnitBackoffPeriod          20
+#include "../constants.h"
 
 using namespace omnetpp;
 
@@ -36,15 +22,25 @@ protected:
     virtual void handleMessage(cMessage *msg) override;
 
 private:
-    Phy phy;
+
+
+
+public:
 
     // Timers
     cMessage* timerBackoff = nullptr;
     cMessage* timerBeaconInterval = nullptr;
+    cMessage* timerOpticalClock = nullptr;
+    cMessage* timerSlot = nullptr;
 
     // Internal variables
     capabilityInformation_t varCapabilities;
     uint32_t varOpticalClockDuration;
+
+    uint16_t varBeaconInterval;
+    uint16_t varSuperframeDuration;
+    uint16_t varSlotDuration;
+    uint8_t varSlotCount;
 
     // All MAC PIB attributes
     int macAckWaitDuration;
@@ -110,109 +106,11 @@ private:
     uint8_t macOffsetVPWMDataUsage          = 0;
     uint8_t mac2DCODETxDataType             = 0;
 
-public:
-
     void waitForConfirm();
     uint16_t formatMHR(uint8_t* frame, uint16_t i, uint16_t frameControl, uint8_t sequenceNumber,
             uint16_t destOWPANId, uint64_t destAddress, uint16_t srcOWPANId, uint64_t srcAddress);
 
     void beaconFrame();
-
-    void mcps_data_request(addressingMode_t srcAddrMode,
-            addressingMode_t dstAddrMode, uint16_t dstOWPANId, uint64_t dstAddr,
-        uint64_t msduLength, uint8_t* msdu, uint8_t msduHandle, uint8_t txOptions,
-        security_t security,
-        dataRate_t dataRate, bool burstMode,  bool colorReceived, bool colorNotReceived);
-
-    void mcps_data_confirm(uint8_t msduHandle,
-            macStatus_t status,
-            uint32_t timestamp);
-
-
-    void mcps_data_indication(addressingMode_t dstAddrMode, uint16_t dstOWPANId,
-            uint64_t dstAddr, uint64_t msduLength, uint8_t* msdu, uint8_t mpduLinkQuality,
-            uint8_t dsn, uint32_t timestamp, security_t security,
-            dataRate_t dataRate, bool burstMode, bool colorReceived, bool colorNotReceived);
-
-    void mlme_associate_request(opticalChannel_t logicalChannel,
-            addressingMode_t coordAddrMode, uint16_t coordOWPANId,
-            uint64_t coordAddress, capabilityInformation_t capabilityInformation,
-            security_t security, bool colorAssoc);
-
-
-    void mlme_associate_indication(uint64_t deviceAddress, capabilityInformation_t capabilityInformation,
-            security_t security);
-
-    void mlme_associate_response(uint64_t deviceAddress, uint16_t assocShortAddress,
-            macStatus_t status, colorStabilizationScheme_t capabilityNegotiationResponse,
-            security_t security);
-
-    void mlme_associate_confirm(uint16_t assocShortAddress, macStatus_t status,
-            colorStabilizationScheme_t capabilityNegotationResponse,
-            security_t security);
-
-    void mlme_disassociate_request(addressingMode_t deviceAddrMode, uint16_t deviceOWPANId,
-            uint64_t deviceAddress, uint8_t disassociateReason, bool txIndirect,
-            security_t security, bool colorDisAssoc);
-
-    void mlme_disassociate_indication(uint64_t deviceAddress, uint8_t disassociateReason,
-            security_t security);
-
-    void mlme_disassociate_confirm(macStatus_t statis, addressingMode_t deviceAddrMode,
-            uint16_t deviceOWPANId, uint64_t deviceAddress);
-
-    void mlme_beacon_notify_indication(uint8_t bsn, OWPANDescritpor_t OWPANDescriptor,
-            uint8_t pendAddrSpec, uint64_t* addrList, int sduLength, uint8_t* sdu);
-
-    void mlme_get_request(int PIBAttribute, int PIBAttributeIndex);
-
-    void mlme_get_confirm(macStatus_t status, int PIBAttribute,
-            int PIBAttributeIndex, uint64_t PIBAttributeValue);
-
-    void mlme_gts_request(uint8_t GTSCharacteristics,
-            security_t security);
-
-    void mlme_gts_confirm(uint8_t GTSCharacteristics, macStatus_t status);
-
-    void mlme_reset_request(bool setDefaultPIB);
-    void mlme_reset_confirm(macStatus_t status);
-
-
-    void mlme_rx_enable_request(bool deferPermit, uint32_t rxOnTime, uint32_t rxOnDuration);
-
-    void mlme_rx_enable_confirm(macStatus_t status);
-
-    void mlme_scan_request(scanType_t scanType, uint8_t scanChannels, uint8_t scanDuration,
-            security_t security, bool colorScan);
-
-    void mlme_scan_confirm(macStatus_t status, uint8_t scanType, uint8_t unscannedChannels,
-            int resultListSize, uint8_t* OWPANDescriptorList);
-
-    void mlme_comm_status_indication(uint16_t OWPANId, addressingMode_t srcAddrMode,
-            uint64_t srcAddr, addressingMode_t dstAddrMode, uint64_t dstAddr, macStatus_t status,
-            security_t security);
-
-    void mlme_set_request(int PIBAttribute, int PIBAttributeIndex, int PIBAttributeValue);
-
-    void mlme_set_confirm(macStatus_t status, int PIBAttribute, int PIBAttributeIndex);
-
-    void mlme_start_request(uint16_t OWPANId, opticalChannel_t logicalChannel,
-            uint32_t startTime, uint8_t beaconOrder, uint8_t superframeOrder,
-            bool OWPANCoordinator, bool coordRealignment, security_t coordSecurity,
-            security_t beaconSecurity);
-
-    void mlme_start_confirm(macStatus_t status);
-
-    void mlme_sync_request(opticalChannel_t logicalChannel, bool trackBeacon);
-
-    void mlme_sync_loss_indication(uint8_t lossReason, uint16_t OWPANId,
-            opticalChannel_t logicalChannel, security_t security);
-
-    void mlme_poll_request(addressingMode_t coordAddrMode, uint16_t coordOWPANId,
-            uint64_t coordAddress, security_t security);
-
-    void mlme_poll_confirm(macStatus_t status);
-
 
     uint16_t getFrameControl(frameType_t type, bool framePending, bool ackRequest,
             addressingMode_t destinationAddressMode, addressingMode_t sourceAddressMode);
@@ -223,6 +121,87 @@ public:
     void activeChannelScan(uint8_t scanChannels);
     void randomAccess();
     void association(bool activeScan);
+
+    // --------------- Start primitives ------------------- //
+
+    void mcps_data_request(addressingMode_t srcAddrMode,
+            addressingMode_t dstAddrMode, uint16_t dstOWPANId, uint64_t dstAddr,
+            uint64_t msduLength, uint8_t* msdu, uint8_t msduHandle, uint8_t txOptions,
+            security_t security,
+            dataRate_t dataRate, bool burstMode,  bool colorReceived, bool colorNotReceived);
+    void mcps_data_confirm(uint8_t msduHandle,
+            macStatus_t status,
+            uint32_t timestamp);
+    void mcps_data_indication(addressingMode_t dstAddrMode, uint16_t dstOWPANId,
+            uint64_t dstAddr, uint64_t msduLength, uint8_t* msdu, uint8_t mpduLinkQuality,
+            uint8_t dsn, uint32_t timestamp, security_t security,
+            dataRate_t dataRate, bool burstMode, bool colorReceived, bool colorNotReceived);
+
+    void mlme_associate_request(opticalChannel_t logicalChannel,
+            addressingMode_t coordAddrMode, uint16_t coordOWPANId,
+            uint64_t coordAddress, capabilityInformation_t capabilityInformation,
+            security_t security, bool colorAssoc);
+    void mlme_associate_indication(uint64_t deviceAddress, capabilityInformation_t capabilityInformation,
+            security_t security);
+    void mlme_associate_response(uint64_t deviceAddress, uint16_t assocShortAddress,
+            macStatus_t status, colorStabilizationScheme_t capabilityNegotiationResponse,
+            security_t security);
+    void mlme_associate_confirm(uint16_t assocShortAddress, macStatus_t status,
+            colorStabilizationScheme_t capabilityNegotationResponse,
+            security_t security);
+
+    void mlme_disassociate_request(addressingMode_t deviceAddrMode, uint16_t deviceOWPANId,
+            uint64_t deviceAddress, uint8_t disassociateReason, bool txIndirect,
+            security_t security, bool colorDisAssoc);
+    void mlme_disassociate_indication(uint64_t deviceAddress, uint8_t disassociateReason,
+            security_t security);
+    void mlme_disassociate_confirm(macStatus_t statis, addressingMode_t deviceAddrMode,
+            uint16_t deviceOWPANId, uint64_t deviceAddress);
+
+    void mlme_beacon_notify_indication(uint8_t bsn, OWPANDescritpor_t OWPANDescriptor,
+            uint8_t pendAddrSpec, uint64_t* addrList, int sduLength, uint8_t* sdu);
+
+    void mlme_get_request(int PIBAttribute, int PIBAttributeIndex);
+    void mlme_get_confirm(macStatus_t status, int PIBAttribute,
+            int PIBAttributeIndex, uint64_t PIBAttributeValue);
+
+    void mlme_gts_request(uint8_t GTSCharacteristics,
+            security_t security);
+    void mlme_gts_confirm(uint8_t GTSCharacteristics, macStatus_t status);
+
+    void mlme_reset_request(bool setDefaultPIB);
+    void mlme_reset_confirm(macStatus_t status);
+
+    void mlme_rx_enable_request(bool deferPermit, uint32_t rxOnTime, uint32_t rxOnDuration);
+    void mlme_rx_enable_confirm(macStatus_t status);
+
+    void mlme_scan_request(scanType_t scanType, uint8_t scanChannels, uint8_t scanDuration,
+            security_t security, bool colorScan);
+    void mlme_scan_confirm(macStatus_t status, uint8_t scanType, uint8_t unscannedChannels,
+            int resultListSize, uint8_t* OWPANDescriptorList);
+
+    void mlme_comm_status_indication(uint16_t OWPANId, addressingMode_t srcAddrMode,
+            uint64_t srcAddr, addressingMode_t dstAddrMode, uint64_t dstAddr, macStatus_t status,
+            security_t security);
+
+    void mlme_set_request(int PIBAttribute, int PIBAttributeIndex, int PIBAttributeValue);
+    void mlme_set_confirm(macStatus_t status, int PIBAttribute, int PIBAttributeIndex);
+
+    void mlme_start_request(uint16_t OWPANId, opticalChannel_t logicalChannel,
+            uint32_t startTime, uint8_t beaconOrder, uint8_t superframeOrder,
+            bool OWPANCoordinator, bool coordRealignment, security_t coordSecurity,
+            security_t beaconSecurity);
+    void mlme_start_confirm(macStatus_t status);
+
+    void mlme_sync_request(opticalChannel_t logicalChannel, bool trackBeacon);
+    void mlme_sync_loss_indication(uint8_t lossReason, uint16_t OWPANId,
+            opticalChannel_t logicalChannel, security_t security);
+
+    void mlme_poll_request(addressingMode_t coordAddrMode, uint16_t coordOWPANId,
+            uint64_t coordAddress, security_t security);
+    void mlme_poll_confirm(macStatus_t status);
+
+    // --------------- End primitives ------------------- //
 };
 
 

@@ -6,7 +6,6 @@
  */
 
 #include "mac.h"
-#include "../bit_macros.h"
 
 uint16_t Mac::getFrameControl(frameType_t type, bool framePending, bool ackRequest,
         addressingMode_t destinationAddressMode, addressingMode_t sourceAddressMode) {
@@ -64,7 +63,6 @@ uint16_t Mac::formatMHR(uint8_t* frame, uint16_t i, uint16_t frameControl, uint8
 
     return i;
 }
-
 
 
 // Destination Address mode should be set to the same mode as indicated in the beacon frame.

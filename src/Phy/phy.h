@@ -13,13 +13,7 @@
 
 using namespace omnetpp;
 
-#define aMaxPHYIFrameSize 1023
-#define aMaxPHYIIFrameSize 65535
-#define aTurnaroundTime_TX_RX 0
-#define aTurnaroundTime_RX_TX_PHYI 240
-#define aTurnaroundTime_RX_TX_PHYII 5120
-#define aPreambleFrequency 2232
-#define aFrequencyLabelingRatio 1.5
+
 
 
 

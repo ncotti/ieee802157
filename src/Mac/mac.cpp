@@ -6,7 +6,7 @@
  */
 
 #include "mac.h"
-#include <omnetpp.h>
+#include "fsm_superframe/fsm_superframe.h"
 
 using namespace omnetpp;
 
@@ -56,21 +56,25 @@ void Mac::initialize() {
     this->varCapabilities.bandsUsedForPhy3                  = 0x00;
 
     // Initialize timers
-    this->timerBackoff = new cMessage("timer_backoff");
-    this->timerBeaconInterval = new cMessage("timer_beacon");
-
+    this->timerBackoff          = new cMessage("timer_backoff");         // Timer triggered every "aUnitBackoffPeriod" optical clock
+    this->timerBeaconInterval   = new cMessage("timer_beacon");
+    this->timerOpticalClock     = new cMessage("timer_optical_clock");
+    this->timerSlot             = new cMessage("timer_slot");
 }
 
 void Mac::handleMessage(cMessage *msg) {
-    EV << "Received message " << msg->getName() << " , sending it out again\n";
-    send(msg, "indicationOut"); // send out the message
+//    EV << "Received message " << msg->getName() << " , sending it out again\n";
+//    send(msg, "indicationOut"); // send out the message
 
-
+    stateSuperframe_t currentSuperframeState = stInactive;
 
     // Internal timer or something else
     if (msg->isSelfMessage()) {
 
-        // Timer triggered every "aUnitBackoffPeriod"
+
+        currentSuperframeState = fsmSuperframe(currentSuperframeState, msg, this);
+
+
         if (msg == this->timerBackoff) {
             scheduleAfter(aUnitBackoffPeriod * this->varOpticalClockDuration, this->timerBackoff);
 
@@ -105,8 +109,6 @@ void Mac::handleMessage(cMessage *msg) {
                 //scheduleAt(simTime() + beaconInterval * this->varOpticalClockDuration);
             }
         }
-
-
     }
 }
 
