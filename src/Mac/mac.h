@@ -33,14 +33,38 @@ public:
     cMessage* timerOpticalClock = nullptr;
     cMessage* timerSlot = nullptr;
 
-    // Internal variables
+    // Internal variables used by several fsm
     capabilityInformation_t varCapabilities;
     uint32_t varOpticalClockDuration;
 
+    // Used by the FSM Superframe
     uint16_t varBeaconInterval;
     uint16_t varSuperframeDuration;
     uint16_t varSlotDuration;
     uint8_t varSlotCount;
+
+    uint8_t macSuperframeOrder              = 15;
+    uint8_t macBeaconOrder                  = 15;
+
+    cMessage* notificationAckNotReceived = nullptr;
+    cMessage* notificationAckReceived = nullptr;
+    cMessage* notificationChannelIdle = nullptr;
+    cMessage* notificationChannelBusy = nullptr;
+    cMessage* notificationStartTx = nullptr;
+    cMessage* notificationFinishTx = nullptr;
+    cMessage* notificationTxSuccess = nullptr;
+    cMessage* notificationTxFailure = nullptr;
+
+    // Used by the FSM RandomAccess
+    uint16_t varBackoffExponent;
+    uint16_t varNumberOfBackoffs;
+    bool varSlottedTx;
+    uint16_t varRandomDelay;
+    bool varAckRequired;
+
+    uint8_t macMinBE                        = 3;
+
+
 
     // All MAC PIB attributes
     int macAckWaitDuration;
@@ -49,7 +73,7 @@ public:
     bool macAutoRequest                     = true;
     uint8_t* macBeaconPayload               = NULL;
     int macBeaconPayloadLength              = 0;
-    uint8_t macBeaconOrder                  = 15;
+
     uint32_t macBeaconTxTime                = 0;
     uint8_t macBSN                          = 0;                 // Random value for default
     uint64_t macCoordExtendedAddress;
@@ -60,7 +84,8 @@ public:
     uint8_t macMaxCSMABackoffs              = 4;
     int macMaxFrameTotalWaitTime;
     uint8_t macMaxFrameRetries              = 3;
-    uint8_t macMinBE                        = 3;
+    uint16_t macMaxRABackoffs;              // TODO this variables is mentioned, but not in the general PIB table.
+
     uint16_t macMinLIFSPeriod;
     uint16_t macMinSIFSPeriod;
     uint16_t macOWPANId                     = 0xffff;
@@ -68,7 +93,7 @@ public:
     bool macRxOnWhenIdle                    = false;
     bool macSecurityEnabled                 = true;
     uint16_t macShortAddress                = 0xffff;
-    uint16_t macSuperframeOrder             = 15;
+
     bool macTimestampSupported;
     uint16_t macTransactionPersistenceTime  = 0x01f4;
     uint16_t macDim                         = 0;

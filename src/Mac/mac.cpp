@@ -7,6 +7,7 @@
 
 #include "mac.h"
 #include "fsm_superframe/fsm_superframe.h"
+#include "fsm_random_access/fsm_random_access.h"
 
 using namespace omnetpp;
 
@@ -60,55 +61,25 @@ void Mac::initialize() {
     this->timerBeaconInterval   = new cMessage("timer_beacon");
     this->timerOpticalClock     = new cMessage("timer_optical_clock");
     this->timerSlot             = new cMessage("timer_slot");
+
+    // Initialize notifications
+    this->notificationAckNotReceived = new cMessage("notification_ack_not_received");
+    this->notificationAckReceived = new cMessage("notification_ack_received");
+    this->notificationChannelIdle = new cMessage("notification_channel_idle");
+    this->notificationChannelBusy = new cMessage("notification_channel_busy");
+    this->notificationStartTx = new cMessage("notification_start_tx");
+    this->notificationTxSuccess = new cMessage("notification_tx_success");
+    this->notificationTxFailure = new cMessage("notification_tx_failure");
 }
 
 void Mac::handleMessage(cMessage *msg) {
 //    EV << "Received message " << msg->getName() << " , sending it out again\n";
 //    send(msg, "indicationOut"); // send out the message
 
-    stateSuperframe_t currentSuperframeState = stInactive;
-
     // Internal timer or something else
     if (msg->isSelfMessage()) {
-
-
-        currentSuperframeState = fsmSuperframe(currentSuperframeState, msg, this);
-
-
-        if (msg == this->timerBackoff) {
-            scheduleAfter(aUnitBackoffPeriod * this->varOpticalClockDuration, this->timerBackoff);
-
-        // Timer that starts a new beacon frame
-        } else if (msg == this->timerBeaconInterval) {
-            if (this->macBeaconOrder == 15) {
-                // No beacon, nothing to do
-                cancelEvent(this->timerBackoff);
-            } else {
-                // Beacon enabled
-                uint16_t beaconInterval = aBaseSuperframeDuration * pow(2, this->macBeaconOrder);
-                uint16_t superframeDuration;
-                uint16_t slotDuration;
-
-                if (this->macSuperframeOrder == 15) {
-                    superframeDuration = 0;
-                    slotDuration = 0;
-                } else {
-                    superframeDuration = aBaseSuperframeDuration * pow(2, this->macSuperframeOrder);
-                    slotDuration = aBaseSlotDuration * pow(2, this->macSuperframeOrder);
-                }
-
-                rescheduleAfter(this->varOpticalClockDuration, this->timerBackoff);
-
-                // We schedule the last 15 slots, and wait to schedule the first slot after
-                // the end of the beacon transmission
-                for (uint8_t i = 1; i < aNumSuperframeSlots; i++) {
-                    //scheduleAt(simTime() + i * slotDuration * this->varOpticalClockDuration);
-                }
-
-                // Schedule next beacon
-                //scheduleAt(simTime() + beaconInterval * this->varOpticalClockDuration);
-            }
-        }
+        fsm_superframe(msg, this);
+       fsm_random_access(msg, this);
     }
 }
 

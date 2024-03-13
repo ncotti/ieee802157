@@ -36,12 +36,12 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 OBJS = \
     $O/Mac/mac.o \
     $O/Mac/mac_command_frame.o \
-    $O/Mac/mac_fsm_random_access.o \
     $O/Mac/mac_primitives.o \
     $O/Mac/mac_procedures.o \
-    $O/Mac/fsm_superframe/fsm_superframe.o \
-    $O/Mac/fsm_superframe/states.o \
-    $O/Mac/fsm_superframe/transitions.o \
+    $O/Mac/fsm_random_access/fsm_random_access_states.o \
+    $O/Mac/fsm_random_access/fsm_random_access_transitions.o \
+    $O/Mac/fsm_superframe/fsm_superframe_states.o \
+    $O/Mac/fsm_superframe/fsm_superframe_transitions.o \
     $O/Net/Net.o \
     $O/Phy/phy.o
 
