@@ -41,11 +41,11 @@ static fsm_superframe_state_t st_CFP_fn(const cMessage* msg, Mac* mac) {
         }
     }
 
-    return ST_CAP;
+    return ST_CFP;
 }
 
 static fsm_superframe_state_t st_inactive_fn(const cMessage* msg, Mac* mac) {
-    if (msg == mac->timerBeaconInterval) {
+    if (msg == mac->timerBeaconInterval || msg == mac->notificationBeaconEnabled) {
         if (mac->macBeaconOrder != 15) {
             return ST_BEACON;
         }

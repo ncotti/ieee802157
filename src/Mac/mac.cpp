@@ -9,6 +9,8 @@
 #include "fsm_superframe/fsm_superframe.h"
 #include "fsm_random_access/fsm_random_access.h"
 
+
+
 using namespace omnetpp;
 
 typedef enum {
@@ -63,6 +65,8 @@ void Mac::initialize() {
     this->timerSlot             = new cMessage("timer_slot");
 
     // Initialize notifications
+    this->notificationBeaconEnabled = new cMessage("notification_beacon_enabled");
+
     this->notificationAckNotReceived = new cMessage("notification_ack_not_received");
     this->notificationAckReceived = new cMessage("notification_ack_received");
     this->notificationChannelIdle = new cMessage("notification_channel_idle");
@@ -73,43 +77,88 @@ void Mac::initialize() {
 }
 
 void Mac::handleMessage(cMessage *msg) {
-//    EV << "Received message " << msg->getName() << " , sending it out again\n";
+    //EV << "Received message " << msg->getName() << " , sending it out again\n";
 //    send(msg, "indicationOut"); // send out the message
 
     // Internal timer or something else
     if (msg->isSelfMessage()) {
         fsm_superframe(msg, this);
        fsm_random_access(msg, this);
+    } else if (msg->arrivedOn("requestIn")) {
+        EV << "Arrived on requestIn\n";
+        this->processMsgFromHigherLayer(msg);
     }
 }
 
-//void Mac::sendMessage(uint8_t* msg, uint16_t size, transmitType_t type) {
-//
-//    // Messages should have a delay between them
-//    // TODO burst mode
-//    if (size <= aMaxSIFSFrameSize) {
-//        scheduleAt(simTime() + macMinSIFSPeriod * this->varOpticalClockDuration);
-//    } else {
-//        scheduleAt(simTime() + macMinLIFSPeriod * this->varOpticalClockDuration);
-//    }
-//
-//    // TODO send message
-//    uint16_t numberOfBackoffs = 0;
-//    uint16_t backoffExponent = this->macMinBE;
-//
-//    if (type == transmitType_t::SLOTTED_RANDOM_ACCESS || type == transmitType_t::SLOTTED_CSMA_CA) {
-//        // locate backoff period boundary
-//    }
-//
-//    //
-//
-//}
+void Mac::processMsgFromHigherLayer(cMessage *msg) {
+    switch(msg->getKind()) {
+        case MLME_ASSOCIATE_REQUEST: {
+            MLMEAssociateRequest *xMsg = check_and_cast<MLMEAssociateRequest *>(msg);
+            this->mlme_associate_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_DISASSOCIATE_REQUEST: {
+            MLMEDisassociateRequest *xMsg = check_and_cast<MLMEDisassociateRequest *>(msg);
+            this->mlme_disassociate_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_GET_REQUEST: {
+            MLMEGetRequest *xMsg = check_and_cast<MLMEGetRequest *>(msg);
+            this->mlme_get_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_RESET_REQUEST: {
+            MLMEResetRequest *xMsg = check_and_cast<MLMEResetRequest *>(msg);
+            this->mlme_reset_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_RX_ENABLE_REQUEST: {
+            MLMERxEnableRequest *xMsg = check_and_cast<MLMERxEnableRequest *>(msg);
+            this->mlme_rx_enable_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_SCAN_REQUEST: {
+            MLMEScanRequest *xMsg = check_and_cast<MLMEScanRequest *>(msg);
+            this->mlme_scan_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_SET_REQUEST: {
+            MLMESetRequest *xMsg = check_and_cast<MLMESetRequest *>(msg);
+            this->mlme_set_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_START_REQUEST: {
+            MLMEStartRequest *xMsg = check_and_cast<MLMEStartRequest *>(msg);
+            this->mlme_start_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_SYNC_REQUEST: {
+            MLMESyncRequest *xMsg = check_and_cast<MLMESyncRequest *>(msg);
+            this->mlme_sync_request(xMsg);
+            delete xMsg;
+            break;
+        }
 
+        case MLME_POLL_REQUEST: {
+            MLMEPollRequest *xMsg = check_and_cast<MLMEPollRequest *>(msg);
+            this->mlme_poll_request(xMsg);
+            break;
+        }
+    }
+}

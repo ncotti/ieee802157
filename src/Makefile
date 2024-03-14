@@ -43,10 +43,23 @@ OBJS = \
     $O/Mac/fsm_superframe/fsm_superframe_states.o \
     $O/Mac/fsm_superframe/fsm_superframe_transitions.o \
     $O/Net/Net.o \
-    $O/Phy/phy.o
+    $O/Phy/phy.o \
+    $O/Phy/phy_primitives.o \
+    $O/msgs/mac_msgs/mcps_m.o \
+    $O/msgs/mac_msgs/mlme_m.o \
+    $O/msgs/mac_msgs/types_m.o \
+    $O/msgs/phy_msgs/pd_m.o \
+    $O/msgs/phy_msgs/phy_msg_m.o \
+    $O/msgs/phy_msgs/plme_m.o
 
 # Message files
-MSGFILES =
+MSGFILES = \
+    msgs/mac_msgs/mcps.msg \
+    msgs/mac_msgs/mlme.msg \
+    msgs/mac_msgs/types.msg \
+    msgs/phy_msgs/pd.msg \
+    msgs/phy_msgs/phy_msg.msg \
+    msgs/phy_msgs/plme.msg
 
 # SM files
 SMFILES =

@@ -111,10 +111,10 @@ void Mac::transmitCommandFrame(commandFrameIdentifier_t id, addressingMode_t des
             frame[i++] = info.bandsUsedForPhy3;
 
             for(int j=0; j < info.numberOfCellsSupported; j++) {
-                frame[i++] = info.aggregationBitmap[j];
+                // TODO frame[i++] = info.aggregationBitmap[j];
             }
             for(int j=0; j< info.numberOfCellsSupported; j++) {
-                frame[i++] = info.guardBitmap[j];
+                // TODO frame[i++] = info.guardBitmap[j];
             }
             break;
         }

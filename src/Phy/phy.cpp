@@ -17,117 +17,85 @@ void Phy::initialize() {
 }
 
 void Phy::handleMessage(cMessage *msg) {
-    EV << "Received message " << msg->getName() << " , sending it out again\n";
-    send(msg, "indicationOut"); // send out the message
-}
-
-void Phy::plme_cca_request() {
-
-}
-
-void Phy::plme_cca_confirm(phyStatus_t status) {
-
-}
-
-void Phy::plme_get_request(uint8_t PIBAttribute) {
-
-}
-
-void Phy::plme_get_confirm(phyStatus_t status, uint8_t PIBAttribute,
-        uint64_t PIBAttributeValue) {
-
-}
-
-void Phy::plme_set_request(phyPIBAtrribute_t PIBAttribute, uint64_t PIBAttributeValue) {
-
-}
-
-void Phy::plme_set_confirm(phyStatus_t status, phyPIBAtrribute_t PIBAttribute) {
-
-}
-
-void Phy::plme_set_trx_state_request(phyStatus_t state) {
-
-    if (state == this->phyStatus) {
-        this->plme_set_trx_state_confirm(state);
+//    EV << "Received message " << msg->getName() << " , sending it out again\n";
+//    send(msg, "indicationOut"); // send out the message
+    if (msg->arrivedOn("requestIn")) {
+        this->processMsgFromHigherLayer(msg);
     }
 
-    switch(state) {
-        case phyStatus_t::RX_ON: {
-            if(this->isBusyTx) {
-                this->plme_set_trx_state_confirm(phyStatus_t::BUSY_TX);
-                // wait until not busy
-                this->phyStatus = state;
-            } else {
-                this->plme_set_trx_state_confirm(phyStatus_t::SUCCESS_PHY);
-            }
+}
+
+void Phy::processMsgFromHigherLayer(cMessage* msg) {
+    switch (msg->getKind()) {
+        case PD_DATA_REQUEST: {
+            PDDataRequest *xMsg = check_and_cast<PDDataRequest *>(msg);
+            this->pd_data_request(xMsg);
+            delete xMsg;
             break;
         }
 
-        case phyStatus_t::TRX_OFF: {
-            if(this->isBusyTx) {
-                this->plme_set_trx_state_confirm(phyStatus_t::BUSY_TX);
-                // wait until not busy
-                this->phyStatus = state;
-            } else if(this->phyStatus == phyStatus_t::RX_ON && this->isBusyRx) {
-                this->plme_set_trx_state_confirm(phyStatus_t::BUSY_RX);
-                // wait until not busy
-                this->phyStatus = state;
-            } else {
-                this->plme_set_trx_state_confirm(phyStatus_t::SUCCESS_PHY);
-            }
-
-
+        case PLME_CCA_REQUEST: {
+            PLMECCARequest *xMsg = check_and_cast<PLMECCARequest *>(msg);
+            this->plme_cca_request(xMsg);
+            delete xMsg;
             break;
         }
 
-        case phyStatus_t::FORCE_TRX_OFF: {
-            // maybe some abort RX or TX
-            this->phyStatus = phyStatus_t::TRX_OFF;
-            this->plme_set_trx_state_confirm(phyStatus_t::SUCCESS_PHY);
+        case PLME_GET_REQUEST: {
+            PLMEGetRequest *xMsg = check_and_cast<PLMEGetRequest *>(msg);
+            this->plme_get_request(xMsg);
+            delete xMsg;
             break;
         }
 
-        case phyStatus_t::TX_ON: {
-            if(this->phyStatus == phyStatus_t::RX_ON && this->isBusyRx) {
-                this->plme_set_trx_state_confirm(phyStatus_t::BUSY_RX);
-                // wait until not busy
-                this->phyStatus = state;
-            } else {
-                this->plme_set_trx_state_confirm(phyStatus_t::SUCCESS_PHY);
-            }
+        case PLME_SET_REQUEST: {
+            PLMESetRequest *xMsg = check_and_cast<PLMESetRequest *>(msg);
+            this->plme_set_request(xMsg);
+            delete xMsg;
             break;
         }
 
-        default: {
+        case PLME_SET_TRX_STATE_REQUEST: {
+            PLMESetTrxStateRequest *xMsg = check_and_cast<PLMESetTrxStateRequest *>(msg);
+            this->plme_set_trx_state_request(xMsg);
+            delete xMsg;
+            break;
+        }
+
+        case PLME_SWITCH_REQUEST: {
+            PLMESwitchRequest *xMsg = check_and_cast<PLMESwitchRequest *>(msg);
+            this->plme_switch_request(xMsg);
+            delete xMsg;
             break;
         }
     }
 }
 
-void Phy::plme_set_trx_state_confirm(phyStatus_t status) {
-    // send confirm to MLME
+void Phy::transmitToChannel(uint8_t* payload, size_t payloadLength) {
+    // Add FLP
+    uint64_t FLP = 0xaaaaaaaaaaaaaaaa;
+    uint64_t TDP;
+
+    if (this->varTopology == 1) {
+        TDP = (TDP_VISIBILITY_P1) | ((~TDP_VISIBILITY_P1) << 15) | (TDP_VISIBILITY_P1 << 30) | ((~TDP_VISIBILITY_P1) << 45);
+    } else if (this->varTopology == 2) {
+        TDP = (TDP_PEER_TO_PEER_P2) | ((~TDP_PEER_TO_PEER_P2) << 15) | (TDP_PEER_TO_PEER_P2 << 30) | ((~TDP_PEER_TO_PEER_P2) << 45);
+    } else if (this->varTopology == 3) {
+        TDP = (TDP_STAR_P3) | ((~TDP_STAR_P3) << 15) | (TDP_STAR_P3 << 30) | ((~TDP_STAR_P3) << 45);
+    } else if (this->varTopology == 4) {
+        TDP = (TDP_BROADCAST_P4) | ((~TDP_BROADCAST_P4) << 15) | (TDP_BROADCAST_P4 << 30) | ((~TDP_BROADCAST_P4) << 45);
+    }
+
+    uint32_t phyHeader;
+    // phyHeader |= burstMode << 0;
+    phyHeader |= this->phyCurrentChannel << 1;
+    phyHeader |= this->varMCS << 4;
+    phyHeader |= this->phyPSDULength << 10;
+    //phyHeader |= dimmed ook extension << 26;
+
 }
 
-void Phy::plme_switch_request(bool* swBitMap, bool dir) {
 
-}
-
-void Phy::plme_switch_confirm(phyStatus_t status) {
-
-}
-
-void Phy::pd_data_request(uint64_t psduLength, uint8_t* psdu, uint8_t bandplanID) {
-
-}
-
-void Phy::pd_data_confirm(phyStatus_t status) {
-
-}
-
-void Phy::pd_data_indication(uint64_t psduLength, uint8_t* psdu, uint8_t ppduLinkQuality) {
-
-}
 
 
 

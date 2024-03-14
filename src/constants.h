@@ -8,14 +8,9 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-/// PHY sublayer constants
-#define aMaxPHYIFrameSize 1023
-#define aMaxPHYIIFrameSize 65535
-#define aTurnaroundTime_TX_RX 0
-#define aTurnaroundTime_RX_TX_PHYI 240
-#define aTurnaroundTime_RX_TX_PHYII 5120
-#define aPreambleFrequency 2232
-#define aFrequencyLabelingRatio 1.5
+#include "phy_constants.h"
+
+
 
 /// MAC sublayer constants, as defined in Table 61 of the IEEE 802.15.7
 #define aBaseSlotDuration           60
