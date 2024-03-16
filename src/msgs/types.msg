@@ -137,6 +137,9 @@ enum macStatus_t {
     UNAVAILABLE_KEY = 0x89;
     UNSUPPORTED_SECURITY = 0x8a;
     INVALID_PARAMETER = 0x8b;
+    INVALID_INDEX = 0x8c;
+    UNSUPPORTED_ATTRIBUTE_MAC = 0x8d;
+    READ_ONLY = 0x8e;
 };
 
 enum frameType_t {
@@ -160,7 +163,17 @@ enum dataType_t {
    burst = 2;
 };
 
-enum macPibIdentifier_t {
+enum PIBAttribute_t {
+    PHY_CURRENT_CHANNEL                 = 0x00;
+    PHY_CCA_MODE                        = 0x01;
+    PHY_DIM                             = 0x02;
+    PHY_USE_EXTENDED_MODE               = 0x03;
+    PHY_COLOR_FUNCTION                  = 0x04;
+    PHY_BLINKING_NOTIFICATION_FREQUENCY = 0x05;
+    PHY_OCC_ENABLE                      = 0x06;
+    PHY_OCC_MCS_ID                      = 0x07;
+    PHY_PSDU_LENGTH                     = 0x08;
+
     MAC_ACK_WAIT_DURATION = 0x40;
     MAC_ASSOCIATED_OWPAN_COORD = 0x41;
     MAC_ASSOCIATED_PERMIT = 0x42;
@@ -169,6 +182,60 @@ enum macPibIdentifier_t {
     MAC_BEACON_PAYLOAD_LENGTH = 0x45;
     MAC_BEACON_ORDER = 0x46;
     MAC_BEACON_TX_TIME = 0x47;
+    MAC_BSN = 0x48;
+    MAC_COORD_EXTENDED_ADDRESS = 0x49;
+    MAC_COORD_SHORT_ADDRESS = 0x4a;
+    MAC_DSN = 0x4b;
+    MAC_GTS_PERMIT = 0x4c;
+    MAC_MAX_BE = 0x4d;
+    MAC_MAX_CSMA_BACKOFFS = 0x4e;
+    MAC_MAX_FRAME_TOTAL_WAIT_TIME = 0x4f;
+    MAC_MAX_FRAME_RETRIES = 0x50;
+    MAC_MIN_BE = 0x51;
+    MAC_MIN_LIFS_PERIOD = 0x52;
+    MAC_MIN_SIFS_PERIOD = 0x53;
+    MAC_OWPAN_ID = 0x54;
+    MAC_RESPONSE_WAIT_TIME = 0x55;
+    MAC_RX_ON_WHEN_IDLE = 0x56;
+    MAC_SECURITY_ENABLED = 0x57;
+    MAC_SHORT_ADDRESS = 0x58;
+    MAC_SUPERFRAME_ORDER = 0x59;
+    MAC_TIMESTAMP_SUPPORTED = 0x5a;
+    MAC_TRANSACTION_PERSISTENCE_TIME = 0x5b;
+    MAC_DIM = 0x5c;
+    MAC_NUM_ACKS = 0x5d;
+    MAC_LINK_TIME_OUT = 0x5e;
+    MAC_DIM_OVERRIDE_REQUEST = 0x5f;
+    MAC_DIM_PWM_OVERRIDE_REQUEST = 0x60;
+    MAC_DIM_DATA_FAILURE_INDICATION = 0x61;
+    MAC_DURING_ASSOC_COLOR = 0x62;
+    MAC_DURING_DISASSOC_COLOR = 0x63;
+    MAC_DURING_SCAN_COLOR = 0x64;
+    MAC_COLOR_RECEIVED = 0x65;
+    MAC_COLOR_NOT_RECEIVED = 0x66;
+    MAC_CQI_COLOR_LFER = 0x67;
+    MAC_CQI_COLOR_MFER = 0x68;
+    MAC_CQI_COLOR_HFER = 0x69;
+    MAC_CF_APP_COLOR = 0x6a;
+    MAC_COLOR_STABILIZATION = 0x6b;
+    MAC_COLOR_STABILIZATION_TIMER = 0x6c;
+    MAC_USE_DIMMED_OOK_MODE = 0x6d;
+    MAC_TIME_STAMP_OFFSET = 0x6e;
+    MAC_USE_BLINKING_NOTIFICATION = 0x6f;
+    MAC_BLINKING_NOTIFICATION_FREQUENCY = 0x70;
+    MAC_LED_ID_AMBIGUITY_RESOLUTION = 0x71;
+    MAC_FRAME_CONTROL = 0x72;
+    MAC_SEQUENCE_NUMBER = 0x73;
+    MAC_DESTINATION_OWPAN_IDENTIFIER = 0x74;
+    MAC_DESTINATION_ADDRESS = 0x75;
+    MAC_SOURCE_OWPAN_IDENTIFIER = 0x76;
+    MAC_SOURCE_ADDRESS = 0x77;
+    MAC_ACKNOWLEDGE_FIELD = 0x78;
+    MAC_FRAME_PAYLOAD = 0x79;
+    MAC_FCS = 0x7a;
+    MAC_MSDU_LENGTH = 0x7b;
+    MAC_OFFSET_VPWM_DATA_USAGE = 0x7c;
+    MAC_2DCODE_TX_DATA_TYPE = 0x7d;
 };
 
 struct OWPANDescritpor_t {
@@ -221,17 +288,6 @@ enum MCS_t {
     PHYII_96M       = 0x1d;
 };
 
-enum phyPIBAttribute_t{
-    PHY_CURRENT_CHANNEL                 = 0x00;
-    PHY_CCA_MODE                        = 0x01;
-    PHY_DIM                             = 0x02;
-    PHY_USE_EXTENDED_MODE               = 0x03;
-    PHY_COLOR_FUNCTION                  = 0x04;
-    PHY_BLINKING_NOTIFICATION_FREQUENCY = 0x05;
-    PHY_OCC_ENABLE                      = 0x06;
-    PHY_OCC_MCS_ID                      = 0x07;
-    PHY_PSDU_LENGTH                     = 0x08;
-};
 
 enum phyStatus_t {
     BUSY                    = 0x00;

@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mac_msgs/mcps.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mcps.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -250,22 +250,22 @@ void MCPSDataRequest::setSrcAddrMode(addressingMode_t srcAddrMode)
     this->srcAddrMode = srcAddrMode;
 }
 
-int MCPSDataRequest::getDstAddrMode() const
+addressingMode_t MCPSDataRequest::getDstAddrMode() const
 {
     return this->dstAddrMode;
 }
 
-void MCPSDataRequest::setDstAddrMode(int dstAddrMode)
+void MCPSDataRequest::setDstAddrMode(addressingMode_t dstAddrMode)
 {
     this->dstAddrMode = dstAddrMode;
 }
 
-int MCPSDataRequest::getDstOWPANId() const
+uint16_t MCPSDataRequest::getDstOWPANId() const
 {
     return this->dstOWPANId;
 }
 
-void MCPSDataRequest::setDstOWPANId(int dstOWPANId)
+void MCPSDataRequest::setDstOWPANId(uint16_t dstOWPANId)
 {
     this->dstOWPANId = dstOWPANId;
 }
@@ -280,12 +280,12 @@ void MCPSDataRequest::setDstAddr(uint64_t dstAddr)
     this->dstAddr = dstAddr;
 }
 
-int MCPSDataRequest::getMsduLength() const
+uint16_t MCPSDataRequest::getMsduLength() const
 {
     return this->msduLength;
 }
 
-void MCPSDataRequest::setMsduLength(int msduLength)
+void MCPSDataRequest::setMsduLength(uint16_t msduLength)
 {
     this->msduLength = msduLength;
 }
@@ -356,12 +356,12 @@ void MCPSDataRequest::eraseMsdu(size_t k)
     msdu_arraysize = newSize;
 }
 
-int MCPSDataRequest::getMsduHandle() const
+uint8_t MCPSDataRequest::getMsduHandle() const
 {
     return this->msduHandle;
 }
 
-void MCPSDataRequest::setMsduHandle(int msduHandle)
+void MCPSDataRequest::setMsduHandle(uint8_t msduHandle)
 {
     this->msduHandle = msduHandle;
 }
@@ -376,12 +376,12 @@ void MCPSDataRequest::setTxOptions(uint8_t txOptions)
     this->txOptions = txOptions;
 }
 
-int MCPSDataRequest::getSecurityLevel() const
+uint8_t MCPSDataRequest::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MCPSDataRequest::setSecurityLevel(int securityLevel)
+void MCPSDataRequest::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -595,14 +595,14 @@ const char *MCPSDataRequestDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "addressingMode_t",    // FIELD_srcAddrMode
-        "int",    // FIELD_dstAddrMode
-        "int",    // FIELD_dstOWPANId
+        "addressingMode_t",    // FIELD_dstAddrMode
+        "uint16_t",    // FIELD_dstOWPANId
         "uint64_t",    // FIELD_dstAddr
-        "int",    // FIELD_msduLength
+        "uint16_t",    // FIELD_msduLength
         "uint8_t",    // FIELD_msdu
-        "int",    // FIELD_msduHandle
+        "uint8_t",    // FIELD_msduHandle
         "uint8_t",    // FIELD_txOptions
-        "int",    // FIELD_securityLevel
+        "uint8_t",    // FIELD_securityLevel
         "uint8_t",    // FIELD_dataRate
         "bool",    // FIELD_burstMode
         "bool",    // FIELD_colorReceived
@@ -624,6 +624,10 @@ const char **MCPSDataRequestDescriptor::getFieldPropertyNames(int field) const
             static const char *names[] = { "enum",  nullptr };
             return names;
         }
+        case FIELD_dstAddrMode: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -638,6 +642,9 @@ const char *MCPSDataRequestDescriptor::getFieldProperty(int field, const char *p
     }
     switch (field) {
         case FIELD_srcAddrMode:
+            if (!strcmp(propertyName, "enum")) return "addressingMode_t";
+            return nullptr;
+        case FIELD_dstAddrMode:
             if (!strcmp(propertyName, "enum")) return "addressingMode_t";
             return nullptr;
         default: return nullptr;
@@ -701,14 +708,14 @@ std::string MCPSDataRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     MCPSDataRequest *pp = omnetpp::fromAnyPtr<MCPSDataRequest>(object); (void)pp;
     switch (field) {
         case FIELD_srcAddrMode: return enum2string(pp->getSrcAddrMode(), "addressingMode_t");
-        case FIELD_dstAddrMode: return long2string(pp->getDstAddrMode());
-        case FIELD_dstOWPANId: return long2string(pp->getDstOWPANId());
+        case FIELD_dstAddrMode: return enum2string(pp->getDstAddrMode(), "addressingMode_t");
+        case FIELD_dstOWPANId: return ulong2string(pp->getDstOWPANId());
         case FIELD_dstAddr: return uint642string(pp->getDstAddr());
-        case FIELD_msduLength: return long2string(pp->getMsduLength());
+        case FIELD_msduLength: return ulong2string(pp->getMsduLength());
         case FIELD_msdu: return ulong2string(pp->getMsdu(i));
-        case FIELD_msduHandle: return long2string(pp->getMsduHandle());
+        case FIELD_msduHandle: return ulong2string(pp->getMsduHandle());
         case FIELD_txOptions: return ulong2string(pp->getTxOptions());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         case FIELD_dataRate: return ulong2string(pp->getDataRate());
         case FIELD_burstMode: return bool2string(pp->getBurstMode());
         case FIELD_colorReceived: return bool2string(pp->getColorReceived());
@@ -730,14 +737,14 @@ void MCPSDataRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     MCPSDataRequest *pp = omnetpp::fromAnyPtr<MCPSDataRequest>(object); (void)pp;
     switch (field) {
         case FIELD_srcAddrMode: pp->setSrcAddrMode((addressingMode_t)string2enum(value, "addressingMode_t")); break;
-        case FIELD_dstAddrMode: pp->setDstAddrMode(string2long(value)); break;
-        case FIELD_dstOWPANId: pp->setDstOWPANId(string2long(value)); break;
+        case FIELD_dstAddrMode: pp->setDstAddrMode((addressingMode_t)string2enum(value, "addressingMode_t")); break;
+        case FIELD_dstOWPANId: pp->setDstOWPANId(string2ulong(value)); break;
         case FIELD_dstAddr: pp->setDstAddr(string2uint64(value)); break;
-        case FIELD_msduLength: pp->setMsduLength(string2long(value)); break;
+        case FIELD_msduLength: pp->setMsduLength(string2ulong(value)); break;
         case FIELD_msdu: pp->setMsdu(i,string2ulong(value)); break;
-        case FIELD_msduHandle: pp->setMsduHandle(string2long(value)); break;
+        case FIELD_msduHandle: pp->setMsduHandle(string2ulong(value)); break;
         case FIELD_txOptions: pp->setTxOptions(string2ulong(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         case FIELD_dataRate: pp->setDataRate(string2ulong(value)); break;
         case FIELD_burstMode: pp->setBurstMode(string2bool(value)); break;
         case FIELD_colorReceived: pp->setColorReceived(string2bool(value)); break;
@@ -757,14 +764,14 @@ omnetpp::cValue MCPSDataRequestDescriptor::getFieldValue(omnetpp::any_ptr object
     MCPSDataRequest *pp = omnetpp::fromAnyPtr<MCPSDataRequest>(object); (void)pp;
     switch (field) {
         case FIELD_srcAddrMode: return static_cast<int>(pp->getSrcAddrMode());
-        case FIELD_dstAddrMode: return pp->getDstAddrMode();
-        case FIELD_dstOWPANId: return pp->getDstOWPANId();
+        case FIELD_dstAddrMode: return static_cast<int>(pp->getDstAddrMode());
+        case FIELD_dstOWPANId: return (omnetpp::intval_t)(pp->getDstOWPANId());
         case FIELD_dstAddr: return (omnetpp::intval_t)(pp->getDstAddr());
-        case FIELD_msduLength: return pp->getMsduLength();
+        case FIELD_msduLength: return (omnetpp::intval_t)(pp->getMsduLength());
         case FIELD_msdu: return (omnetpp::intval_t)(pp->getMsdu(i));
-        case FIELD_msduHandle: return pp->getMsduHandle();
+        case FIELD_msduHandle: return (omnetpp::intval_t)(pp->getMsduHandle());
         case FIELD_txOptions: return (omnetpp::intval_t)(pp->getTxOptions());
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         case FIELD_dataRate: return (omnetpp::intval_t)(pp->getDataRate());
         case FIELD_burstMode: return pp->getBurstMode();
         case FIELD_colorReceived: return pp->getColorReceived();
@@ -786,14 +793,14 @@ void MCPSDataRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     MCPSDataRequest *pp = omnetpp::fromAnyPtr<MCPSDataRequest>(object); (void)pp;
     switch (field) {
         case FIELD_srcAddrMode: pp->setSrcAddrMode(static_cast<addressingMode_t>(value.intValue())); break;
-        case FIELD_dstAddrMode: pp->setDstAddrMode(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_dstOWPANId: pp->setDstOWPANId(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_dstAddrMode: pp->setDstAddrMode(static_cast<addressingMode_t>(value.intValue())); break;
+        case FIELD_dstOWPANId: pp->setDstOWPANId(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_dstAddr: pp->setDstAddr(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
-        case FIELD_msduLength: pp->setMsduLength(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_msduLength: pp->setMsduLength(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_msdu: pp->setMsdu(i,omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_msduHandle: pp->setMsduHandle(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_msduHandle: pp->setMsduHandle(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_txOptions: pp->setTxOptions(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_dataRate: pp->setDataRate(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_burstMode: pp->setBurstMode(value.boolValue()); break;
         case FIELD_colorReceived: pp->setColorReceived(value.boolValue()); break;
@@ -891,32 +898,32 @@ void MCPSDataConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->timestamp);
 }
 
-int MCPSDataConfirm::getMsduHandle() const
+uint8_t MCPSDataConfirm::getMsduHandle() const
 {
     return this->msduHandle;
 }
 
-void MCPSDataConfirm::setMsduHandle(int msduHandle)
+void MCPSDataConfirm::setMsduHandle(uint8_t msduHandle)
 {
     this->msduHandle = msduHandle;
 }
 
-uint8_t MCPSDataConfirm::getStatus() const
+macStatus_t MCPSDataConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MCPSDataConfirm::setStatus(uint8_t status)
+void MCPSDataConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
 
-int MCPSDataConfirm::getTimestamp() const
+uint32_t MCPSDataConfirm::getTimestamp() const
 {
     return this->timestamp;
 }
 
-void MCPSDataConfirm::setTimestamp(int timestamp)
+void MCPSDataConfirm::setTimestamp(uint32_t timestamp)
 {
     this->timestamp = timestamp;
 }
@@ -1049,9 +1056,9 @@ const char *MCPSDataConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_msduHandle
-        "uint8_t",    // FIELD_status
-        "int",    // FIELD_timestamp
+        "uint8_t",    // FIELD_msduHandle
+        "macStatus_t",    // FIELD_status
+        "uint32_t",    // FIELD_timestamp
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
 }
@@ -1065,6 +1072,10 @@ const char **MCPSDataConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -1078,6 +1089,9 @@ const char *MCPSDataConfirmDescriptor::getFieldProperty(int field, const char *p
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -1136,9 +1150,9 @@ std::string MCPSDataConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     }
     MCPSDataConfirm *pp = omnetpp::fromAnyPtr<MCPSDataConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_msduHandle: return long2string(pp->getMsduHandle());
-        case FIELD_status: return ulong2string(pp->getStatus());
-        case FIELD_timestamp: return long2string(pp->getTimestamp());
+        case FIELD_msduHandle: return ulong2string(pp->getMsduHandle());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
+        case FIELD_timestamp: return ulong2string(pp->getTimestamp());
         default: return "";
     }
 }
@@ -1155,9 +1169,9 @@ void MCPSDataConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     }
     MCPSDataConfirm *pp = omnetpp::fromAnyPtr<MCPSDataConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_msduHandle: pp->setMsduHandle(string2long(value)); break;
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
-        case FIELD_timestamp: pp->setTimestamp(string2long(value)); break;
+        case FIELD_msduHandle: pp->setMsduHandle(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
+        case FIELD_timestamp: pp->setTimestamp(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MCPSDataConfirm'", field);
     }
 }
@@ -1172,9 +1186,9 @@ omnetpp::cValue MCPSDataConfirmDescriptor::getFieldValue(omnetpp::any_ptr object
     }
     MCPSDataConfirm *pp = omnetpp::fromAnyPtr<MCPSDataConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_msduHandle: return pp->getMsduHandle();
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
-        case FIELD_timestamp: return pp->getTimestamp();
+        case FIELD_msduHandle: return (omnetpp::intval_t)(pp->getMsduHandle());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
+        case FIELD_timestamp: return (omnetpp::intval_t)(pp->getTimestamp());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MCPSDataConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -1191,9 +1205,9 @@ void MCPSDataConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     }
     MCPSDataConfirm *pp = omnetpp::fromAnyPtr<MCPSDataConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_msduHandle: pp->setMsduHandle(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_timestamp: pp->setTimestamp(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_msduHandle: pp->setMsduHandle(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
+        case FIELD_timestamp: pp->setTimestamp(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MCPSDataConfirm'", field);
     }
 }

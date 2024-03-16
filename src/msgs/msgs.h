@@ -8,11 +8,11 @@
 #ifndef MSGS_H_
 #define MSGS_H_
 
-#include "mac_msgs/types_m.h"
-#include "mac_msgs/mcps_m.h"
-#include "mac_msgs/mlme_m.h"
-#include "phy_msgs/pd_m.h"
-#include "phy_msgs/plme_m.h"
+#include "types_m.h"
+#include "mcps_m.h"
+#include "mlme_m.h"
+#include "pd_m.h"
+#include "plme_m.h"
 
 
 #endif /* MSGS_H_ */

@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/phy_msgs/plme.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/plme.msg.
 //
 
 #ifndef __PLME_M_H
@@ -26,8 +26,10 @@ class PLMESetTrxStateRequest;
 class PLMESetTrxStateConfirm;
 class PLMESwitchRequest;
 class PLMESwitchConfirm;
+#include "types_m.h" // import types
+
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:16</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:18</tt> by opp_msgtool.
  * <pre>
  * message PLMECCARequest
  * {
@@ -58,18 +60,18 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMECCARequest& obj) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMECCARequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:20</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:22</tt> by opp_msgtool.
  * <pre>
  * message PLMECCAConfirm
  * {
- *     uint8_t status;
+ *     phyStatus_t status;
  * }
  * </pre>
  */
 class PLMECCAConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    phyStatus_t status = static_cast<phyStatus_t>(-1);
 
   private:
     void copy(const PLMECCAConfirm& other);
@@ -86,26 +88,26 @@ class PLMECCAConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual phyStatus_t getStatus() const;
+    virtual void setStatus(phyStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMECCAConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMECCAConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:26</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:27</tt> by opp_msgtool.
  * <pre>
  * message PLMEGetRequest
  * {
- *     uint8_t PIBAttribute;
+ *     PIBAttribute_t PIBAttribute;
  * }
  * </pre>
  */
 class PLMEGetRequest : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t PIBAttribute = 0;
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
 
   private:
     void copy(const PLMEGetRequest& other);
@@ -122,31 +124,30 @@ class PLMEGetRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getPIBAttribute() const;
-    virtual void setPIBAttribute(uint8_t PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMEGetRequest& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMEGetRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:30</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:31</tt> by opp_msgtool.
  * <pre>
  * message PLMEGetConfirm
  * {
- *     uint8_t status;
+ *     phyStatus_t status;
  *     uint8_t PIBAttribute;
- *     int PIBAttributeValue[];
+ *     uint64_t PIBAttributeValue;
  * }
  * </pre>
  */
 class PLMEGetConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    phyStatus_t status = static_cast<phyStatus_t>(-1);
     uint8_t PIBAttribute = 0;
-    int *PIBAttributeValue = nullptr;
-    size_t PIBAttributeValue_arraysize = 0;
+    uint64_t PIBAttributeValue = 0;
 
   private:
     void copy(const PLMEGetConfirm& other);
@@ -163,41 +164,34 @@ class PLMEGetConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual phyStatus_t getStatus() const;
+    virtual void setStatus(phyStatus_t status);
 
     virtual uint8_t getPIBAttribute() const;
     virtual void setPIBAttribute(uint8_t PIBAttribute);
 
-    virtual void setPIBAttributeValueArraySize(size_t size);
-    virtual size_t getPIBAttributeValueArraySize() const;
-    virtual int getPIBAttributeValue(size_t k) const;
-    virtual void setPIBAttributeValue(size_t k, int PIBAttributeValue);
-    virtual void insertPIBAttributeValue(size_t k, int PIBAttributeValue);
-    [[deprecated]] void insertPIBAttributeValue(int PIBAttributeValue) {appendPIBAttributeValue(PIBAttributeValue);}
-    virtual void appendPIBAttributeValue(int PIBAttributeValue);
-    virtual void erasePIBAttributeValue(size_t k);
+    virtual uint64_t getPIBAttributeValue() const;
+    virtual void setPIBAttributeValue(uint64_t PIBAttributeValue);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMEGetConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMEGetConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:37</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:38</tt> by opp_msgtool.
  * <pre>
  * message PLMESetRequest
  * {
- *     uint8_t PIBAttribute;
- *     int PIBAttributeValue[];
+ *     PIBAttribute_t PIBAttribute;
+ *     uint64_t PIBAttributeValue;
  * }
  * </pre>
  */
 class PLMESetRequest : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t PIBAttribute = 0;
-    int *PIBAttributeValue = nullptr;
-    size_t PIBAttributeValue_arraysize = 0;
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
+    uint64_t PIBAttributeValue = 0;
 
   private:
     void copy(const PLMESetRequest& other);
@@ -214,37 +208,31 @@ class PLMESetRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getPIBAttribute() const;
-    virtual void setPIBAttribute(uint8_t PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 
-    virtual void setPIBAttributeValueArraySize(size_t size);
-    virtual size_t getPIBAttributeValueArraySize() const;
-    virtual int getPIBAttributeValue(size_t k) const;
-    virtual void setPIBAttributeValue(size_t k, int PIBAttributeValue);
-    virtual void insertPIBAttributeValue(size_t k, int PIBAttributeValue);
-    [[deprecated]] void insertPIBAttributeValue(int PIBAttributeValue) {appendPIBAttributeValue(PIBAttributeValue);}
-    virtual void appendPIBAttributeValue(int PIBAttributeValue);
-    virtual void erasePIBAttributeValue(size_t k);
+    virtual uint64_t getPIBAttributeValue() const;
+    virtual void setPIBAttributeValue(uint64_t PIBAttributeValue);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetRequest& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:42</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:43</tt> by opp_msgtool.
  * <pre>
  * message PLMESetConfirm
  * {
- *     uint8_t status;
- *     uint8_t PIBAttribute;
+ *     phyStatus_t status;
+ *     PIBAttribute_t PIBAttribute;
  * }
  * </pre>
  */
 class PLMESetConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
-    uint8_t PIBAttribute = 0;
+    phyStatus_t status = static_cast<phyStatus_t>(-1);
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
 
   private:
     void copy(const PLMESetConfirm& other);
@@ -261,29 +249,29 @@ class PLMESetConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual phyStatus_t getStatus() const;
+    virtual void setStatus(phyStatus_t status);
 
-    virtual uint8_t getPIBAttribute() const;
-    virtual void setPIBAttribute(uint8_t PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:49</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:50</tt> by opp_msgtool.
  * <pre>
  * message PLMESetTrxStateRequest
  * {
- *     uint8_t state;
+ *     phyStatus_t state;
  * }
  * </pre>
  */
 class PLMESetTrxStateRequest : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t state = 0;
+    phyStatus_t state = static_cast<phyStatus_t>(-1);
 
   private:
     void copy(const PLMESetTrxStateRequest& other);
@@ -300,26 +288,26 @@ class PLMESetTrxStateRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getState() const;
-    virtual void setState(uint8_t state);
+    virtual phyStatus_t getState() const;
+    virtual void setState(phyStatus_t state);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetTrxStateRequest& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetTrxStateRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:53</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:54</tt> by opp_msgtool.
  * <pre>
  * message PLMESetTrxStateConfirm
  * {
- *     uint8_t status;
+ *     phyStatus_t status;
  * }
  * </pre>
  */
 class PLMESetTrxStateConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    phyStatus_t status = static_cast<phyStatus_t>(-1);
 
   private:
     void copy(const PLMESetTrxStateConfirm& other);
@@ -336,15 +324,15 @@ class PLMESetTrxStateConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual phyStatus_t getStatus() const;
+    virtual void setStatus(phyStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetTrxStateConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetTrxStateConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:58</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:59</tt> by opp_msgtool.
  * <pre>
  * message PLMESwitchRequest
  * {
@@ -385,18 +373,18 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESwitchRequest& ob
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESwitchRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/plme.msg:63</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:64</tt> by opp_msgtool.
  * <pre>
  * message PLMESwitchConfirm
  * {
- *     uint8_t status;
+ *     phyStatus_t status;
  * }
  * </pre>
  */
 class PLMESwitchConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    phyStatus_t status = static_cast<phyStatus_t>(-1);
 
   private:
     void copy(const PLMESwitchConfirm& other);
@@ -413,8 +401,8 @@ class PLMESwitchConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual phyStatus_t getStatus() const;
+    virtual void setStatus(phyStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESwitchConfirm& obj) {obj.parsimPack(b);}

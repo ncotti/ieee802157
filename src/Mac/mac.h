@@ -12,9 +12,9 @@
 #include "../bit_macros.h"
 #include <omnetpp.h>
 
+#include "../msgs/msgs.h"
 #include "../constants.h"
 
-#include "../msgs/msgs.h"
 
 using namespace omnetpp;
 
@@ -24,11 +24,11 @@ protected:
     virtual void handleMessage(cMessage *msg) override;
 
     virtual void processMsgFromHigherLayer(cMessage *msg);
-    //virtual void processMsgFromLowerLayer(cMessage *msg);
+    virtual void processMsgFromLowerLayer(cMessage *msg);
 
 private:
 
-
+    void setMacMaxFrameTotalWaitTime(void);
 
 public:
 
@@ -41,6 +41,7 @@ public:
     // Internal variables used by several fsm
     capabilityInformation_t varCapabilities;
     uint32_t varOpticalClockDuration;
+    uint8_t phyType;
 
     // Used by the FSM Superframe
     uint16_t varBeaconInterval;
@@ -52,7 +53,6 @@ public:
     uint8_t macBeaconOrder                  = 15;
 
     cMessage* notificationBeaconEnabled = nullptr;
-
 
 
     // Used by the FSM RandomAccess
@@ -73,7 +73,24 @@ public:
     cMessage* notificationTxSuccess = nullptr;
     cMessage* notificationTxFailure = nullptr;
 
+    // Used to catch confirm events from PHY
+    bool notificationConfirmReceived = false;
+    phyStatus_t confirmPhyStatus;
 
+
+    // Used by the reset FSM
+    bool setDefaultPIB;
+    bool notificationResetRequest = false;
+
+    // Used by the GET FSM
+    bool notificationGetRequest = false;
+    PIBAttribute_t getPIBAttribute;
+    uint64_t getPHYPIBAttributeValue;
+
+    // Used by the SET FMS
+    bool notificationSetRequest = false;
+    PIBAttribute_t setPIBAttribute;
+    uint64_t setPIBAttributeValue;
 
     // All MAC PIB attributes
     int macAckWaitDuration;
@@ -120,7 +137,7 @@ public:
     uint8_t macCQIColorMFER                 = 0;
     uint8_t macCQIColorHFER                 = 0;
     uint8_t macCFAppColor                   = 0;
-    colorStabilizationScheme_t macColorStabilization;
+    colorStabilizationScheme_t macColorStabilization = (colorStabilizationScheme_t) 0;
     uint32_t macColorStabilizationTimer     = 0x00400000;
     bool macUseDimmedOOKmode                = false;
     uint8_t macTimeStampOffset              = 0;
@@ -133,7 +150,7 @@ public:
     uint64_t macDestinationAddress          = 0;
     uint16_t macSourceOWPANIdentifier       = 0;
     uint64_t macSourceAddress               = 0;
-    uint8_t* macAcknowledgeField            = NULL;
+    bool macAcknowledgeField                = false;
     uint8_t* macFramePayload                = NULL;
     uint16_t macFCS                         = 0;
     uint16_t macMsduLength                  = 0;
@@ -141,6 +158,8 @@ public:
     uint8_t mac2DCODETxDataType             = 0;
 
     void waitForConfirm();
+    void resetPIB(void);
+
     uint16_t formatMHR(uint8_t* frame, uint16_t i, uint16_t frameControl, uint8_t sequenceNumber,
             uint16_t destOWPANId, uint64_t destAddress, uint16_t srcOWPANId, uint64_t srcAddress);
 
@@ -157,52 +176,55 @@ public:
     void association(bool activeScan);
 
     // --------------- Start primitives ------------------- //
+    void mcps_data_request(cMessage* msg);
+    void mlme_associate_request(cMessage* msg);
+    void mlme_disassociate_request(cMessage* msg);
+    void mlme_get_request(cMessage* msg);
+    void mlme_gts_request(cMessage* msg);
+    void mlme_reset_request(cMessage* msg);
+    void mlme_rx_enable_request(cMessage* msg);
+    void mlme_scan_request(cMessage* msg);
+    void mlme_set_request(cMessage* msg);
+    void mlme_start_request(cMessage* msg);
+    void mlme_sync_request(cMessage* msg);
+    void mlme_poll_request(cMessage* msg);
 
-    void mcps_data_request(MCPSDataRequest* msg);
-    void mcps_data_confirm(MCPSDataConfirm* msg);
+    void mcps_data_confirm(uint8_t msduHandle, macStatus_t status, uint32_t timestamp);
+    void mlme_associate_confirm(uint16_t assocShortAddress, macStatus_t status, colorStabilizationScheme_t capabilityNegotationResponse, uint8_t securityLevel);
+    void mlme_disassociate_confirm(macStatus_t status, addressingMode_t deviceAddrMode, uint16_t deviceOWPANId, uint64_t deviceAddress);
+    void mlme_get_confirm(macStatus_t status, PIBAttribute_t PIBAttribute, uint8_t PIBAttributeIndex, uint64_t PIBAttributeValue);
+    void mlme_gts_confirm(uint8_t GTSCharacteristics, macStatus_t status);
+    void mlme_reset_confirm(macStatus_t status);
+    void mlme_rx_enable_confirm(macStatus_t status);
+    void mlme_scan_confirm(macStatus_t status, scanType_t scanType, uint8_t unscannedChannels, uint16_t resultListSize, uint8_t* OWPANDescriptorList);
+    void mlme_set_confirm(macStatus_t status, PIBAttribute_t PIBAttribute, uint8_t PIBAttributeIndex);
+    void mlme_start_confirm(macStatus_t status);
+    void mlme_poll_confirm(macStatus_t status);
+
     void mcps_data_indication(MCPSDataIndication* msg);
-
-    void mlme_associate_request(MLMEAssociateRequest* msg);
     void mlme_associate_indication(MLMEAssociateIndication* msg);
-    void mlme_associate_response(MLMEAssociateResponse* msg);
-    void mlme_associate_confirm(MLMEAssociateConfirm* msg);
-
-    void mlme_disassociate_request(MLMEDisassociateRequest* msg);
     void mlme_disassociate_indication(MLMEDisassociateIndication* msg);
-    void mlme_disassociate_confirm(MLMEDisassociateConfirm* msg);
-
     void mlme_beacon_notify_indication(MLMEBeaconNotifyIndication* msg);
-
-    void mlme_get_request(MLMEGetRequest* msg);
-    void mlme_get_confirm(MLMEGetConfirm* msg);
-
-    void mlme_gts_request(MLMEGTSRequest* msg);
-    void mlme_gts_confirm(MLMEGTSConfirm* msg);
-
-    void mlme_reset_request(MLMEResetRequest* msg);
-    void mlme_reset_confirm(MLMEResetConfirm* msg);
-
-    void mlme_rx_enable_request(MLMERxEnableRequest* msg);
-    void mlme_rx_enable_confirm(MLMERxEnableConfirm* msg);
-
-    void mlme_scan_request(MLMEScanRequest* msg);
-    void mlme_scan_confirm(MLMEScanConfirm* msg);
-
     void mlme_comm_status_indication(MLMECommStatusIndication* msg);
-
-    void mlme_set_request(MLMESetRequest* msg);
-    void mlme_set_confirm(MLMESetConfirm* msg);
-
-    void mlme_start_request(MLMEStartRequest* msg);
-    void mlme_start_confirm(MLMEStartConfirm* msg);
-
-    void mlme_sync_request(MLMESyncRequest* msg);
     void mlme_sync_loss_indication(MLMESyncLossIndication* msg);
 
-    void mlme_poll_request(MLMEPollRequest* msg);
-    void mlme_poll_confirm(MLMEPollConfirm* msg);
+    void mlme_associate_response(MLMEAssociateResponse* msg);
 
-    // --------------- End primitives ------------------- //
+    // --------------- Start phy primitives ------------------- //
+    void plme_cca_confirm(cMessage* msg);
+    void plme_get_confirm(cMessage* msg);
+    void plme_set_confirm(cMessage* msg);
+    void plme_set_trx_state_confirm(cMessage* msg);
+    void plme_switch_confirm(cMessage* msg);
+    void pd_data_confirm(cMessage* msg);
+
+    void plme_cca_request(void);
+    void plme_get_request(PIBAttribute_t PIBAttribute);
+    void plme_set_request(PIBAttribute_t PIBAttribute, uint64_t PIBAttributeValue);
+    void plme_set_trx_state_request(phyStatus_t state);
+    void plme_switch_request(bool* swBitMap, bool dir);
+    void pd_data_request(uint64_t psduLength, uint8_t* psdu, uint8_t bandplanID);
+    // --------------- End phy primitives ------------------- //
 };
 
 

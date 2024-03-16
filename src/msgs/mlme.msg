@@ -13,6 +13,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 
+import types;
+
 message MLMEAssociateRequest {
     int logicalChannel;
     int coordAddrMode;
@@ -24,10 +26,10 @@ message MLMEAssociateRequest {
 };
 
 message MLMEAssociateConfirm {
-    int assoShortAddress;
-    uint8_t status;
-    int capabilityNegotationResponse;
-    int securityLevel;
+    uint16_t assocShortAddress;
+    macStatus_t status;
+    colorStabilizationScheme_t capabilityNegotiationResponse;
+    uint8_t securityLevel;
 };
 
 message MLMEAssociateResponse {
@@ -80,9 +82,9 @@ message MLMEDisassociateRequest {
 };
 
 message MLMEDisassociateConfirm {
-    uint8_t status;
-    int deviceAddrMode;
-    int deviceOWPANId;
+    macStatus_t status;
+    addressingMode_t deviceAddrMode;
+    uint16_t deviceOWPANId;
     uint64_t deviceAddress;
 };
 
@@ -95,15 +97,15 @@ message MLMEDisassociateIndication {
 
 
 message MLMEGetRequest {
-    int PIBAttribute;
-    int PIBAttributeIndex;
+    PIBAttribute_t PIBAttribute;
+    uint8_t PIBAttributeIndex;
 };
 
 message MLMEGetConfirm {
-    uint8_t status;
-    int PIBAttribute;
-    int PIBAttributeIndex;
-    int PIBAttributeValue;
+    macStatus_t status;
+    PIBAttribute_t PIBAttribute;
+    uint8_t PIBAttributeIndex;
+    uint64_t PIBAttributeValue;
 };
 
 
@@ -115,7 +117,7 @@ message MLMEGTSRequest {
 
 message MLMEGTSConfirm {
     uint8_t GTSCharacteristics;
-    uint8_t status;
+    macStatus_t status;
 };
 
 message MLMEGTSIndication {
@@ -134,7 +136,7 @@ message MLMEPollRequest {
 };
 
 message MLMEPollConfirm {
-    uint8_t status;
+    macStatus_t status;
 };
 
 
@@ -144,25 +146,25 @@ message MLMEResetRequest {
 };
 
 message MLMEResetConfirm {
-    uint8_t status;
+    macStatus_t status;
 };
 
 
 
 message MLMERxEnableRequest {
     bool deferPermit;
-    int rxOnTime;
-    int rxOnDuration;
+    uint32_t rxOnTime;
+    uint32_t rxOnDuration;
 };
 
 message MLMERxEnableConfirm {
-    uint8_t status;
+    macStatus_t status;
 };
 
 
 
 message MLMEScanRequest {
-    int scanType;
+    scanType_t scanType;
     uint8_t scanChannels;
     int scanDuration;
     int securityLevel;
@@ -170,25 +172,25 @@ message MLMEScanRequest {
 };
 
 message MLMEScanConfirm {
-    uint8_t status;
+    macStatus_t status;
     int scanType;
     uint8_t unscannedChannels;
-    int resultListSize;
-    uint8_t OWPANDescriptorList;
+    uint16_t resultListSize;
+    uint8_t OWPANDescriptorList[];
 };
 
 
 
 message MLMESetRequest {
-    int PIBAttribute;
-    int PIBAttributeIndex;
+    PIBAttribute_t PIBAttribute;
+    uint8_t PIBAttributeIndex;
     uint64_t PIBAttributeValue;
 };
 
 message MLMESetConfirm {
-    uint8_t status;
-    int PIBAttribute;
-    int PIBAttributeIndex;
+    macStatus_t status;
+    PIBAttribute_t PIBAttribute;
+    uint8_t PIBAttributeIndex;
 };
 
 
@@ -206,7 +208,7 @@ message MLMEStartRequest {
 };
 
 message MLMEStartConfirm {
-    uint8_t status;
+    macStatus_t status;
 };
 
 

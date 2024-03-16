@@ -13,45 +13,46 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
+import types;
+
 message PLMECCARequest {
     // No parameters
 };
 
 message PLMECCAConfirm {
-    uint8_t status;
+    phyStatus_t status;
 };
-
 
 
 message PLMEGetRequest {
-    uint8_t PIBAttribute;
+    PIBAttribute_t PIBAttribute;
 };
 
 message PLMEGetConfirm {
-    uint8_t status;
+    phyStatus_t status;
     uint8_t PIBAttribute;
-    int PIBAttributeValue[];
+    uint64_t PIBAttributeValue;
 };
 
 
 message PLMESetRequest {
-    uint8_t PIBAttribute;
-    int PIBAttributeValue[];
+    PIBAttribute_t PIBAttribute;
+    uint64_t PIBAttributeValue;
 };
 
 message PLMESetConfirm {
-    uint8_t status;
-    uint8_t PIBAttribute;
+    phyStatus_t status;
+    PIBAttribute_t PIBAttribute;
 };
 
 
 
 message PLMESetTrxStateRequest {
-    uint8_t state;
+    phyStatus_t state;
 };
 
 message PLMESetTrxStateConfirm {
-    uint8_t status;
+    phyStatus_t status;
 };
 
 
@@ -61,5 +62,5 @@ message PLMESwitchRequest {
 };
 
 message PLMESwitchConfirm {
-    uint8_t status;
+    phyStatus_t status;
 };

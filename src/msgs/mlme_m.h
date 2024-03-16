@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mac_msgs//mlme.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mlme.msg.
 //
 
 #ifndef __MLME_M_H
@@ -44,8 +44,10 @@ class MLMEStartRequest;
 class MLMEStartConfirm;
 class MLMESyncRequest;
 class MLMESyncLossIndication;
+#include "types_m.h" // import types
+
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:16</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:18</tt> by opp_msgtool.
  * <pre>
  * message MLMEAssociateRequest
  * {
@@ -111,24 +113,24 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEAssociateRequest&
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEAssociateRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:26</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:28</tt> by opp_msgtool.
  * <pre>
  * message MLMEAssociateConfirm
  * {
- *     int assoShortAddress;
- *     uint8_t status;
- *     int capabilityNegotationResponse;
- *     int securityLevel;
+ *     uint16_t assocShortAddress;
+ *     macStatus_t status;
+ *     colorStabilizationScheme_t capabilityNegotiationResponse;
+ *     uint8_t securityLevel;
  * }
  * </pre>
  */
 class MLMEAssociateConfirm : public ::omnetpp::cMessage
 {
   protected:
-    int assoShortAddress = 0;
-    uint8_t status = 0;
-    int capabilityNegotationResponse = 0;
-    int securityLevel = 0;
+    uint16_t assocShortAddress = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
+    colorStabilizationScheme_t capabilityNegotiationResponse = static_cast<colorStabilizationScheme_t>(-1);
+    uint8_t securityLevel = 0;
 
   private:
     void copy(const MLMEAssociateConfirm& other);
@@ -145,24 +147,24 @@ class MLMEAssociateConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getAssoShortAddress() const;
-    virtual void setAssoShortAddress(int assoShortAddress);
+    virtual uint16_t getAssocShortAddress() const;
+    virtual void setAssocShortAddress(uint16_t assocShortAddress);
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 
-    virtual int getCapabilityNegotationResponse() const;
-    virtual void setCapabilityNegotationResponse(int capabilityNegotationResponse);
+    virtual colorStabilizationScheme_t getCapabilityNegotiationResponse() const;
+    virtual void setCapabilityNegotiationResponse(colorStabilizationScheme_t capabilityNegotiationResponse);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEAssociateConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEAssociateConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:33</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:35</tt> by opp_msgtool.
  * <pre>
  * message MLMEAssociateResponse
  * {
@@ -218,7 +220,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEAssociateResponse
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEAssociateResponse& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:41</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:43</tt> by opp_msgtool.
  * <pre>
  * message MLMEAssociateIndication
  * {
@@ -264,7 +266,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEAssociateIndicati
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEAssociateIndication& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:49</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:51</tt> by opp_msgtool.
  * <pre>
  * message MLMEBeaconNotifyIndication
  * {
@@ -339,7 +341,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEBeaconNotifyIndic
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEBeaconNotifyIndication& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:60</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:62</tt> by opp_msgtool.
  * <pre>
  * message MLMECommStatusIndication
  * {
@@ -405,7 +407,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMECommStatusIndicat
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMECommStatusIndication& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:72</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:74</tt> by opp_msgtool.
  * <pre>
  * message MLMEDisassociateRequest
  * {
@@ -471,13 +473,13 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEDisassociateReque
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEDisassociateRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:82</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:84</tt> by opp_msgtool.
  * <pre>
  * message MLMEDisassociateConfirm
  * {
- *     uint8_t status;
- *     int deviceAddrMode;
- *     int deviceOWPANId;
+ *     macStatus_t status;
+ *     addressingMode_t deviceAddrMode;
+ *     uint16_t deviceOWPANId;
  *     uint64_t deviceAddress;
  * }
  * </pre>
@@ -485,9 +487,9 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEDisassociateRequest& 
 class MLMEDisassociateConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
-    int deviceAddrMode = 0;
-    int deviceOWPANId = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
+    addressingMode_t deviceAddrMode = static_cast<addressingMode_t>(-1);
+    uint16_t deviceOWPANId = 0;
     uint64_t deviceAddress = 0;
 
   private:
@@ -505,14 +507,14 @@ class MLMEDisassociateConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 
-    virtual int getDeviceAddrMode() const;
-    virtual void setDeviceAddrMode(int deviceAddrMode);
+    virtual addressingMode_t getDeviceAddrMode() const;
+    virtual void setDeviceAddrMode(addressingMode_t deviceAddrMode);
 
-    virtual int getDeviceOWPANId() const;
-    virtual void setDeviceOWPANId(int deviceOWPANId);
+    virtual uint16_t getDeviceOWPANId() const;
+    virtual void setDeviceOWPANId(uint16_t deviceOWPANId);
 
     virtual uint64_t getDeviceAddress() const;
     virtual void setDeviceAddress(uint64_t deviceAddress);
@@ -522,7 +524,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEDisassociateConfi
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEDisassociateConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:89</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:91</tt> by opp_msgtool.
  * <pre>
  * message MLMEDisassociateIndication
  * {
@@ -568,20 +570,20 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEDisassociateIndic
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEDisassociateIndication& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:97</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:99</tt> by opp_msgtool.
  * <pre>
  * message MLMEGetRequest
  * {
- *     int PIBAttribute;
- *     int PIBAttributeIndex;
+ *     PIBAttribute_t PIBAttribute;
+ *     uint8_t PIBAttributeIndex;
  * }
  * </pre>
  */
 class MLMEGetRequest : public ::omnetpp::cMessage
 {
   protected:
-    int PIBAttribute = 0;
-    int PIBAttributeIndex = 0;
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
+    uint8_t PIBAttributeIndex = 0;
 
   private:
     void copy(const MLMEGetRequest& other);
@@ -598,35 +600,35 @@ class MLMEGetRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getPIBAttribute() const;
-    virtual void setPIBAttribute(int PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 
-    virtual int getPIBAttributeIndex() const;
-    virtual void setPIBAttributeIndex(int PIBAttributeIndex);
+    virtual uint8_t getPIBAttributeIndex() const;
+    virtual void setPIBAttributeIndex(uint8_t PIBAttributeIndex);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEGetRequest& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGetRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:102</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:104</tt> by opp_msgtool.
  * <pre>
  * message MLMEGetConfirm
  * {
- *     uint8_t status;
- *     int PIBAttribute;
- *     int PIBAttributeIndex;
- *     int PIBAttributeValue;
+ *     macStatus_t status;
+ *     PIBAttribute_t PIBAttribute;
+ *     uint8_t PIBAttributeIndex;
+ *     uint64_t PIBAttributeValue;
  * }
  * </pre>
  */
 class MLMEGetConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
-    int PIBAttribute = 0;
-    int PIBAttributeIndex = 0;
-    int PIBAttributeValue = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
+    uint8_t PIBAttributeIndex = 0;
+    uint64_t PIBAttributeValue = 0;
 
   private:
     void copy(const MLMEGetConfirm& other);
@@ -643,24 +645,24 @@ class MLMEGetConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 
-    virtual int getPIBAttribute() const;
-    virtual void setPIBAttribute(int PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 
-    virtual int getPIBAttributeIndex() const;
-    virtual void setPIBAttributeIndex(int PIBAttributeIndex);
+    virtual uint8_t getPIBAttributeIndex() const;
+    virtual void setPIBAttributeIndex(uint8_t PIBAttributeIndex);
 
-    virtual int getPIBAttributeValue() const;
-    virtual void setPIBAttributeValue(int PIBAttributeValue);
+    virtual uint64_t getPIBAttributeValue() const;
+    virtual void setPIBAttributeValue(uint64_t PIBAttributeValue);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEGetConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGetConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:111</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:113</tt> by opp_msgtool.
  * <pre>
  * message MLMEGTSRequest
  * {
@@ -701,12 +703,12 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEGTSRequest& obj) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGTSRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:116</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:118</tt> by opp_msgtool.
  * <pre>
  * message MLMEGTSConfirm
  * {
  *     uint8_t GTSCharacteristics;
- *     uint8_t status;
+ *     macStatus_t status;
  * }
  * </pre>
  */
@@ -714,7 +716,7 @@ class MLMEGTSConfirm : public ::omnetpp::cMessage
 {
   protected:
     uint8_t GTSCharacteristics = 0;
-    uint8_t status = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
 
   private:
     void copy(const MLMEGTSConfirm& other);
@@ -734,15 +736,15 @@ class MLMEGTSConfirm : public ::omnetpp::cMessage
     virtual uint8_t getGTSCharacteristics() const;
     virtual void setGTSCharacteristics(uint8_t GTSCharacteristics);
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEGTSConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGTSConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:121</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:123</tt> by opp_msgtool.
  * <pre>
  * message MLMEGTSIndication
  * {
@@ -788,7 +790,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEGTSIndication& ob
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGTSIndication& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:129</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:131</tt> by opp_msgtool.
  * <pre>
  * message MLMEPollRequest
  * {
@@ -839,18 +841,18 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEPollRequest& obj)
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEPollRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:136</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:138</tt> by opp_msgtool.
  * <pre>
  * message MLMEPollConfirm
  * {
- *     uint8_t status;
+ *     macStatus_t status;
  * }
  * </pre>
  */
 class MLMEPollConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
 
   private:
     void copy(const MLMEPollConfirm& other);
@@ -867,15 +869,15 @@ class MLMEPollConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEPollConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEPollConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:142</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:144</tt> by opp_msgtool.
  * <pre>
  * message MLMEResetRequest
  * {
@@ -911,18 +913,18 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEResetRequest& obj
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEResetRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:146</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:148</tt> by opp_msgtool.
  * <pre>
  * message MLMEResetConfirm
  * {
- *     uint8_t status;
+ *     macStatus_t status;
  * }
  * </pre>
  */
 class MLMEResetConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
 
   private:
     void copy(const MLMEResetConfirm& other);
@@ -939,21 +941,21 @@ class MLMEResetConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEResetConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEResetConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:152</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:154</tt> by opp_msgtool.
  * <pre>
  * message MLMERxEnableRequest
  * {
  *     bool deferPermit;
- *     int rxOnTime;
- *     int rxOnDuration;
+ *     uint32_t rxOnTime;
+ *     uint32_t rxOnDuration;
  * }
  * </pre>
  */
@@ -961,8 +963,8 @@ class MLMERxEnableRequest : public ::omnetpp::cMessage
 {
   protected:
     bool deferPermit = false;
-    int rxOnTime = 0;
-    int rxOnDuration = 0;
+    uint32_t rxOnTime = 0;
+    uint32_t rxOnDuration = 0;
 
   private:
     void copy(const MLMERxEnableRequest& other);
@@ -982,29 +984,29 @@ class MLMERxEnableRequest : public ::omnetpp::cMessage
     virtual bool getDeferPermit() const;
     virtual void setDeferPermit(bool deferPermit);
 
-    virtual int getRxOnTime() const;
-    virtual void setRxOnTime(int rxOnTime);
+    virtual uint32_t getRxOnTime() const;
+    virtual void setRxOnTime(uint32_t rxOnTime);
 
-    virtual int getRxOnDuration() const;
-    virtual void setRxOnDuration(int rxOnDuration);
+    virtual uint32_t getRxOnDuration() const;
+    virtual void setRxOnDuration(uint32_t rxOnDuration);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMERxEnableRequest& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMERxEnableRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:158</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:160</tt> by opp_msgtool.
  * <pre>
  * message MLMERxEnableConfirm
  * {
- *     uint8_t status;
+ *     macStatus_t status;
  * }
  * </pre>
  */
 class MLMERxEnableConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
 
   private:
     void copy(const MLMERxEnableConfirm& other);
@@ -1021,19 +1023,19 @@ class MLMERxEnableConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMERxEnableConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMERxEnableConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:164</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:166</tt> by opp_msgtool.
  * <pre>
  * message MLMEScanRequest
  * {
- *     int scanType;
+ *     scanType_t scanType;
  *     uint8_t scanChannels;
  *     int scanDuration;
  *     int securityLevel;
@@ -1044,7 +1046,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMERxEnableConfirm& obj)
 class MLMEScanRequest : public ::omnetpp::cMessage
 {
   protected:
-    int scanType = 0;
+    scanType_t scanType = static_cast<scanType_t>(-1);
     uint8_t scanChannels = 0;
     int scanDuration = 0;
     int securityLevel = 0;
@@ -1065,8 +1067,8 @@ class MLMEScanRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getScanType() const;
-    virtual void setScanType(int scanType);
+    virtual scanType_t getScanType() const;
+    virtual void setScanType(scanType_t scanType);
 
     virtual uint8_t getScanChannels() const;
     virtual void setScanChannels(uint8_t scanChannels);
@@ -1085,26 +1087,27 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEScanRequest& obj)
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEScanRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:172</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:174</tt> by opp_msgtool.
  * <pre>
  * message MLMEScanConfirm
  * {
- *     uint8_t status;
+ *     macStatus_t status;
  *     int scanType;
  *     uint8_t unscannedChannels;
- *     int resultListSize;
- *     uint8_t OWPANDescriptorList;
+ *     uint16_t resultListSize;
+ *     uint8_t OWPANDescriptorList[];
  * }
  * </pre>
  */
 class MLMEScanConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
     int scanType = 0;
     uint8_t unscannedChannels = 0;
-    int resultListSize = 0;
-    uint8_t OWPANDescriptorList = 0;
+    uint16_t resultListSize = 0;
+    uint8_t *OWPANDescriptorList = nullptr;
+    size_t OWPANDescriptorList_arraysize = 0;
 
   private:
     void copy(const MLMEScanConfirm& other);
@@ -1121,8 +1124,8 @@ class MLMEScanConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 
     virtual int getScanType() const;
     virtual void setScanType(int scanType);
@@ -1130,23 +1133,29 @@ class MLMEScanConfirm : public ::omnetpp::cMessage
     virtual uint8_t getUnscannedChannels() const;
     virtual void setUnscannedChannels(uint8_t unscannedChannels);
 
-    virtual int getResultListSize() const;
-    virtual void setResultListSize(int resultListSize);
+    virtual uint16_t getResultListSize() const;
+    virtual void setResultListSize(uint16_t resultListSize);
 
-    virtual uint8_t getOWPANDescriptorList() const;
-    virtual void setOWPANDescriptorList(uint8_t OWPANDescriptorList);
+    virtual void setOWPANDescriptorListArraySize(size_t size);
+    virtual size_t getOWPANDescriptorListArraySize() const;
+    virtual uint8_t getOWPANDescriptorList(size_t k) const;
+    virtual void setOWPANDescriptorList(size_t k, uint8_t OWPANDescriptorList);
+    virtual void insertOWPANDescriptorList(size_t k, uint8_t OWPANDescriptorList);
+    [[deprecated]] void insertOWPANDescriptorList(uint8_t OWPANDescriptorList) {appendOWPANDescriptorList(OWPANDescriptorList);}
+    virtual void appendOWPANDescriptorList(uint8_t OWPANDescriptorList);
+    virtual void eraseOWPANDescriptorList(size_t k);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEScanConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEScanConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:182</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:184</tt> by opp_msgtool.
  * <pre>
  * message MLMESetRequest
  * {
- *     int PIBAttribute;
- *     int PIBAttributeIndex;
+ *     PIBAttribute_t PIBAttribute;
+ *     uint8_t PIBAttributeIndex;
  *     uint64_t PIBAttributeValue;
  * }
  * </pre>
@@ -1154,8 +1163,8 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEScanConfirm& obj) {ob
 class MLMESetRequest : public ::omnetpp::cMessage
 {
   protected:
-    int PIBAttribute = 0;
-    int PIBAttributeIndex = 0;
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
+    uint8_t PIBAttributeIndex = 0;
     uint64_t PIBAttributeValue = 0;
 
   private:
@@ -1173,11 +1182,11 @@ class MLMESetRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getPIBAttribute() const;
-    virtual void setPIBAttribute(int PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 
-    virtual int getPIBAttributeIndex() const;
-    virtual void setPIBAttributeIndex(int PIBAttributeIndex);
+    virtual uint8_t getPIBAttributeIndex() const;
+    virtual void setPIBAttributeIndex(uint8_t PIBAttributeIndex);
 
     virtual uint64_t getPIBAttributeValue() const;
     virtual void setPIBAttributeValue(uint64_t PIBAttributeValue);
@@ -1187,22 +1196,22 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMESetRequest& obj) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMESetRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:188</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:190</tt> by opp_msgtool.
  * <pre>
  * message MLMESetConfirm
  * {
- *     uint8_t status;
- *     int PIBAttribute;
- *     int PIBAttributeIndex;
+ *     macStatus_t status;
+ *     PIBAttribute_t PIBAttribute;
+ *     uint8_t PIBAttributeIndex;
  * }
  * </pre>
  */
 class MLMESetConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
-    int PIBAttribute = 0;
-    int PIBAttributeIndex = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
+    uint8_t PIBAttributeIndex = 0;
 
   private:
     void copy(const MLMESetConfirm& other);
@@ -1219,21 +1228,21 @@ class MLMESetConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 
-    virtual int getPIBAttribute() const;
-    virtual void setPIBAttribute(int PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 
-    virtual int getPIBAttributeIndex() const;
-    virtual void setPIBAttributeIndex(int PIBAttributeIndex);
+    virtual uint8_t getPIBAttributeIndex() const;
+    virtual void setPIBAttributeIndex(uint8_t PIBAttributeIndex);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMESetConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMESetConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:196</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:198</tt> by opp_msgtool.
  * <pre>
  * message MLMEStartRequest
  * {
@@ -1309,18 +1318,18 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEStartRequest& obj
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEStartRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:208</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:210</tt> by opp_msgtool.
  * <pre>
  * message MLMEStartConfirm
  * {
- *     uint8_t status;
+ *     macStatus_t status;
  * }
  * </pre>
  */
 class MLMEStartConfirm : public ::omnetpp::cMessage
 {
   protected:
-    uint8_t status = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
 
   private:
     void copy(const MLMEStartConfirm& other);
@@ -1337,15 +1346,15 @@ class MLMEStartConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEStartConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEStartConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:214</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:216</tt> by opp_msgtool.
  * <pre>
  * message MLMESyncRequest
  * {
@@ -1386,7 +1395,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMESyncRequest& obj)
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMESyncRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs//mlme.msg:221</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mlme.msg:223</tt> by opp_msgtool.
  * <pre>
  * message MLMESyncLossIndication
  * {

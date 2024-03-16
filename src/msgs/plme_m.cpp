@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/phy_msgs/plme.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/plme.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -511,12 +511,12 @@ void PLMECCAConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t PLMECCAConfirm::getStatus() const
+phyStatus_t PLMECCAConfirm::getStatus() const
 {
     return this->status;
 }
 
-void PLMECCAConfirm::setStatus(uint8_t status)
+void PLMECCAConfirm::setStatus(phyStatus_t status)
 {
     this->status = status;
 }
@@ -641,7 +641,7 @@ const char *PLMECCAConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "phyStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -655,6 +655,10 @@ const char **PLMECCAConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -668,6 +672,9 @@ const char *PLMECCAConfirmDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -726,7 +733,7 @@ std::string PLMECCAConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     PLMECCAConfirm *pp = omnetpp::fromAnyPtr<PLMECCAConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "phyStatus_t");
         default: return "";
     }
 }
@@ -743,7 +750,7 @@ void PLMECCAConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     PLMECCAConfirm *pp = omnetpp::fromAnyPtr<PLMECCAConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((phyStatus_t)string2enum(value, "phyStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMECCAConfirm'", field);
     }
 }
@@ -758,7 +765,7 @@ omnetpp::cValue PLMECCAConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     PLMECCAConfirm *pp = omnetpp::fromAnyPtr<PLMECCAConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMECCAConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -775,7 +782,7 @@ void PLMECCAConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     PLMECCAConfirm *pp = omnetpp::fromAnyPtr<PLMECCAConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<phyStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMECCAConfirm'", field);
     }
 }
@@ -863,12 +870,12 @@ void PLMEGetRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->PIBAttribute);
 }
 
-uint8_t PLMEGetRequest::getPIBAttribute() const
+PIBAttribute_t PLMEGetRequest::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void PLMEGetRequest::setPIBAttribute(uint8_t PIBAttribute)
+void PLMEGetRequest::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
@@ -993,7 +1000,7 @@ const char *PLMEGetRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_PIBAttribute
+        "PIBAttribute_t",    // FIELD_PIBAttribute
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -1007,6 +1014,10 @@ const char **PLMEGetRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -1020,6 +1031,9 @@ const char *PLMEGetRequestDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -1078,7 +1092,7 @@ std::string PLMEGetRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     PLMEGetRequest *pp = omnetpp::fromAnyPtr<PLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return ulong2string(pp->getPIBAttribute());
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
         default: return "";
     }
 }
@@ -1095,7 +1109,7 @@ void PLMEGetRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     PLMEGetRequest *pp = omnetpp::fromAnyPtr<PLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2ulong(value)); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMEGetRequest'", field);
     }
 }
@@ -1110,7 +1124,7 @@ omnetpp::cValue PLMEGetRequestDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     PLMEGetRequest *pp = omnetpp::fromAnyPtr<PLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return (omnetpp::intval_t)(pp->getPIBAttribute());
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMEGetRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -1127,7 +1141,7 @@ void PLMEGetRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     PLMEGetRequest *pp = omnetpp::fromAnyPtr<PLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMEGetRequest'", field);
     }
 }
@@ -1188,7 +1202,6 @@ PLMEGetConfirm::PLMEGetConfirm(const PLMEGetConfirm& other) : ::omnetpp::cMessag
 
 PLMEGetConfirm::~PLMEGetConfirm()
 {
-    delete [] this->PIBAttributeValue;
 }
 
 PLMEGetConfirm& PLMEGetConfirm::operator=(const PLMEGetConfirm& other)
@@ -1203,12 +1216,7 @@ void PLMEGetConfirm::copy(const PLMEGetConfirm& other)
 {
     this->status = other.status;
     this->PIBAttribute = other.PIBAttribute;
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = (other.PIBAttributeValue_arraysize==0) ? nullptr : new int[other.PIBAttributeValue_arraysize];
-    PIBAttributeValue_arraysize = other.PIBAttributeValue_arraysize;
-    for (size_t i = 0; i < PIBAttributeValue_arraysize; i++) {
-        this->PIBAttributeValue[i] = other.PIBAttributeValue[i];
-    }
+    this->PIBAttributeValue = other.PIBAttributeValue;
 }
 
 void PLMEGetConfirm::parsimPack(omnetpp::cCommBuffer *b) const
@@ -1216,8 +1224,7 @@ void PLMEGetConfirm::parsimPack(omnetpp::cCommBuffer *b) const
     ::omnetpp::cMessage::parsimPack(b);
     doParsimPacking(b,this->status);
     doParsimPacking(b,this->PIBAttribute);
-    b->pack(PIBAttributeValue_arraysize);
-    doParsimArrayPacking(b,this->PIBAttributeValue,PIBAttributeValue_arraysize);
+    doParsimPacking(b,this->PIBAttributeValue);
 }
 
 void PLMEGetConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -1225,22 +1232,15 @@ void PLMEGetConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     ::omnetpp::cMessage::parsimUnpack(b);
     doParsimUnpacking(b,this->status);
     doParsimUnpacking(b,this->PIBAttribute);
-    delete [] this->PIBAttributeValue;
-    b->unpack(PIBAttributeValue_arraysize);
-    if (PIBAttributeValue_arraysize == 0) {
-        this->PIBAttributeValue = nullptr;
-    } else {
-        this->PIBAttributeValue = new int[PIBAttributeValue_arraysize];
-        doParsimArrayUnpacking(b,this->PIBAttributeValue,PIBAttributeValue_arraysize);
-    }
+    doParsimUnpacking(b,this->PIBAttributeValue);
 }
 
-uint8_t PLMEGetConfirm::getStatus() const
+phyStatus_t PLMEGetConfirm::getStatus() const
 {
     return this->status;
 }
 
-void PLMEGetConfirm::setStatus(uint8_t status)
+void PLMEGetConfirm::setStatus(phyStatus_t status)
 {
     this->status = status;
 }
@@ -1255,70 +1255,14 @@ void PLMEGetConfirm::setPIBAttribute(uint8_t PIBAttribute)
     this->PIBAttribute = PIBAttribute;
 }
 
-size_t PLMEGetConfirm::getPIBAttributeValueArraySize() const
+uint64_t PLMEGetConfirm::getPIBAttributeValue() const
 {
-    return PIBAttributeValue_arraysize;
+    return this->PIBAttributeValue;
 }
 
-int PLMEGetConfirm::getPIBAttributeValue(size_t k) const
+void PLMEGetConfirm::setPIBAttributeValue(uint64_t PIBAttributeValue)
 {
-    if (k >= PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    return this->PIBAttributeValue[k];
-}
-
-void PLMEGetConfirm::setPIBAttributeValueArraySize(size_t newSize)
-{
-    int *PIBAttributeValue2 = (newSize==0) ? nullptr : new int[newSize];
-    size_t minSize = PIBAttributeValue_arraysize < newSize ? PIBAttributeValue_arraysize : newSize;
-    for (size_t i = 0; i < minSize; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i];
-    for (size_t i = minSize; i < newSize; i++)
-        PIBAttributeValue2[i] = 0;
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = PIBAttributeValue2;
-    PIBAttributeValue_arraysize = newSize;
-}
-
-void PLMEGetConfirm::setPIBAttributeValue(size_t k, int PIBAttributeValue)
-{
-    if (k >= PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    this->PIBAttributeValue[k] = PIBAttributeValue;
-}
-
-void PLMEGetConfirm::insertPIBAttributeValue(size_t k, int PIBAttributeValue)
-{
-    if (k > PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    size_t newSize = PIBAttributeValue_arraysize + 1;
-    int *PIBAttributeValue2 = new int[newSize];
-    size_t i;
-    for (i = 0; i < k; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i];
-    PIBAttributeValue2[k] = PIBAttributeValue;
-    for (i = k + 1; i < newSize; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i-1];
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = PIBAttributeValue2;
-    PIBAttributeValue_arraysize = newSize;
-}
-
-void PLMEGetConfirm::appendPIBAttributeValue(int PIBAttributeValue)
-{
-    insertPIBAttributeValue(PIBAttributeValue_arraysize, PIBAttributeValue);
-}
-
-void PLMEGetConfirm::erasePIBAttributeValue(size_t k)
-{
-    if (k >= PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    size_t newSize = PIBAttributeValue_arraysize - 1;
-    int *PIBAttributeValue2 = (newSize == 0) ? nullptr : new int[newSize];
-    size_t i;
-    for (i = 0; i < k; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i];
-    for (i = k; i < newSize; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i+1];
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = PIBAttributeValue2;
-    PIBAttributeValue_arraysize = newSize;
+    this->PIBAttributeValue = PIBAttributeValue;
 }
 
 class PLMEGetConfirmDescriptor : public omnetpp::cClassDescriptor
@@ -1409,7 +1353,7 @@ unsigned int PLMEGetConfirmDescriptor::getFieldTypeFlags(int field) const
     static unsigned int fieldTypeFlags[] = {
         FD_ISEDITABLE,    // FIELD_status
         FD_ISEDITABLE,    // FIELD_PIBAttribute
-        FD_ISARRAY | FD_ISEDITABLE | FD_ISRESIZABLE,    // FIELD_PIBAttributeValue
+        FD_ISEDITABLE,    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 3) ? fieldTypeFlags[field] : 0;
 }
@@ -1449,9 +1393,9 @@ const char *PLMEGetConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "phyStatus_t",    // FIELD_status
         "uint8_t",    // FIELD_PIBAttribute
-        "int",    // FIELD_PIBAttributeValue
+        "uint64_t",    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
 }
@@ -1465,6 +1409,10 @@ const char **PLMEGetConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -1478,6 +1426,9 @@ const char *PLMEGetConfirmDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -1492,7 +1443,6 @@ int PLMEGetConfirmDescriptor::getFieldArraySize(omnetpp::any_ptr object, int fie
     }
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttributeValue: return pp->getPIBAttributeValueArraySize();
         default: return 0;
     }
 }
@@ -1509,7 +1459,6 @@ void PLMEGetConfirmDescriptor::setFieldArraySize(omnetpp::any_ptr object, int fi
     }
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValueArraySize(size); break;
         default: throw omnetpp::cRuntimeError("Cannot set array size of field %d of class 'PLMEGetConfirm'", field);
     }
 }
@@ -1538,9 +1487,9 @@ std::string PLMEGetConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "phyStatus_t");
         case FIELD_PIBAttribute: return ulong2string(pp->getPIBAttribute());
-        case FIELD_PIBAttributeValue: return long2string(pp->getPIBAttributeValue(i));
+        case FIELD_PIBAttributeValue: return uint642string(pp->getPIBAttributeValue());
         default: return "";
     }
 }
@@ -1557,9 +1506,9 @@ void PLMEGetConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((phyStatus_t)string2enum(value, "phyStatus_t")); break;
         case FIELD_PIBAttribute: pp->setPIBAttribute(string2ulong(value)); break;
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(i,string2long(value)); break;
+        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(string2uint64(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMEGetConfirm'", field);
     }
 }
@@ -1574,9 +1523,9 @@ omnetpp::cValue PLMEGetConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         case FIELD_PIBAttribute: return (omnetpp::intval_t)(pp->getPIBAttribute());
-        case FIELD_PIBAttributeValue: return pp->getPIBAttributeValue(i);
+        case FIELD_PIBAttributeValue: return (omnetpp::intval_t)(pp->getPIBAttributeValue());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMEGetConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -1593,9 +1542,9 @@ void PLMEGetConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<phyStatus_t>(value.intValue())); break;
         case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(i,omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMEGetConfirm'", field);
     }
 }
@@ -1656,7 +1605,6 @@ PLMESetRequest::PLMESetRequest(const PLMESetRequest& other) : ::omnetpp::cMessag
 
 PLMESetRequest::~PLMESetRequest()
 {
-    delete [] this->PIBAttributeValue;
 }
 
 PLMESetRequest& PLMESetRequest::operator=(const PLMESetRequest& other)
@@ -1670,110 +1618,41 @@ PLMESetRequest& PLMESetRequest::operator=(const PLMESetRequest& other)
 void PLMESetRequest::copy(const PLMESetRequest& other)
 {
     this->PIBAttribute = other.PIBAttribute;
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = (other.PIBAttributeValue_arraysize==0) ? nullptr : new int[other.PIBAttributeValue_arraysize];
-    PIBAttributeValue_arraysize = other.PIBAttributeValue_arraysize;
-    for (size_t i = 0; i < PIBAttributeValue_arraysize; i++) {
-        this->PIBAttributeValue[i] = other.PIBAttributeValue[i];
-    }
+    this->PIBAttributeValue = other.PIBAttributeValue;
 }
 
 void PLMESetRequest::parsimPack(omnetpp::cCommBuffer *b) const
 {
     ::omnetpp::cMessage::parsimPack(b);
     doParsimPacking(b,this->PIBAttribute);
-    b->pack(PIBAttributeValue_arraysize);
-    doParsimArrayPacking(b,this->PIBAttributeValue,PIBAttributeValue_arraysize);
+    doParsimPacking(b,this->PIBAttributeValue);
 }
 
 void PLMESetRequest::parsimUnpack(omnetpp::cCommBuffer *b)
 {
     ::omnetpp::cMessage::parsimUnpack(b);
     doParsimUnpacking(b,this->PIBAttribute);
-    delete [] this->PIBAttributeValue;
-    b->unpack(PIBAttributeValue_arraysize);
-    if (PIBAttributeValue_arraysize == 0) {
-        this->PIBAttributeValue = nullptr;
-    } else {
-        this->PIBAttributeValue = new int[PIBAttributeValue_arraysize];
-        doParsimArrayUnpacking(b,this->PIBAttributeValue,PIBAttributeValue_arraysize);
-    }
+    doParsimUnpacking(b,this->PIBAttributeValue);
 }
 
-uint8_t PLMESetRequest::getPIBAttribute() const
+PIBAttribute_t PLMESetRequest::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void PLMESetRequest::setPIBAttribute(uint8_t PIBAttribute)
+void PLMESetRequest::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
 
-size_t PLMESetRequest::getPIBAttributeValueArraySize() const
+uint64_t PLMESetRequest::getPIBAttributeValue() const
 {
-    return PIBAttributeValue_arraysize;
+    return this->PIBAttributeValue;
 }
 
-int PLMESetRequest::getPIBAttributeValue(size_t k) const
+void PLMESetRequest::setPIBAttributeValue(uint64_t PIBAttributeValue)
 {
-    if (k >= PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    return this->PIBAttributeValue[k];
-}
-
-void PLMESetRequest::setPIBAttributeValueArraySize(size_t newSize)
-{
-    int *PIBAttributeValue2 = (newSize==0) ? nullptr : new int[newSize];
-    size_t minSize = PIBAttributeValue_arraysize < newSize ? PIBAttributeValue_arraysize : newSize;
-    for (size_t i = 0; i < minSize; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i];
-    for (size_t i = minSize; i < newSize; i++)
-        PIBAttributeValue2[i] = 0;
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = PIBAttributeValue2;
-    PIBAttributeValue_arraysize = newSize;
-}
-
-void PLMESetRequest::setPIBAttributeValue(size_t k, int PIBAttributeValue)
-{
-    if (k >= PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    this->PIBAttributeValue[k] = PIBAttributeValue;
-}
-
-void PLMESetRequest::insertPIBAttributeValue(size_t k, int PIBAttributeValue)
-{
-    if (k > PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    size_t newSize = PIBAttributeValue_arraysize + 1;
-    int *PIBAttributeValue2 = new int[newSize];
-    size_t i;
-    for (i = 0; i < k; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i];
-    PIBAttributeValue2[k] = PIBAttributeValue;
-    for (i = k + 1; i < newSize; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i-1];
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = PIBAttributeValue2;
-    PIBAttributeValue_arraysize = newSize;
-}
-
-void PLMESetRequest::appendPIBAttributeValue(int PIBAttributeValue)
-{
-    insertPIBAttributeValue(PIBAttributeValue_arraysize, PIBAttributeValue);
-}
-
-void PLMESetRequest::erasePIBAttributeValue(size_t k)
-{
-    if (k >= PIBAttributeValue_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)PIBAttributeValue_arraysize, (unsigned long)k);
-    size_t newSize = PIBAttributeValue_arraysize - 1;
-    int *PIBAttributeValue2 = (newSize == 0) ? nullptr : new int[newSize];
-    size_t i;
-    for (i = 0; i < k; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i];
-    for (i = k; i < newSize; i++)
-        PIBAttributeValue2[i] = this->PIBAttributeValue[i+1];
-    delete [] this->PIBAttributeValue;
-    this->PIBAttributeValue = PIBAttributeValue2;
-    PIBAttributeValue_arraysize = newSize;
+    this->PIBAttributeValue = PIBAttributeValue;
 }
 
 class PLMESetRequestDescriptor : public omnetpp::cClassDescriptor
@@ -1862,7 +1741,7 @@ unsigned int PLMESetRequestDescriptor::getFieldTypeFlags(int field) const
     }
     static unsigned int fieldTypeFlags[] = {
         FD_ISEDITABLE,    // FIELD_PIBAttribute
-        FD_ISARRAY | FD_ISEDITABLE | FD_ISRESIZABLE,    // FIELD_PIBAttributeValue
+        FD_ISEDITABLE,    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 2) ? fieldTypeFlags[field] : 0;
 }
@@ -1900,8 +1779,8 @@ const char *PLMESetRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_PIBAttribute
-        "int",    // FIELD_PIBAttributeValue
+        "PIBAttribute_t",    // FIELD_PIBAttribute
+        "uint64_t",    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 2) ? fieldTypeStrings[field] : nullptr;
 }
@@ -1915,6 +1794,10 @@ const char **PLMESetRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -1928,6 +1811,9 @@ const char *PLMESetRequestDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -1942,7 +1828,6 @@ int PLMESetRequestDescriptor::getFieldArraySize(omnetpp::any_ptr object, int fie
     }
     PLMESetRequest *pp = omnetpp::fromAnyPtr<PLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttributeValue: return pp->getPIBAttributeValueArraySize();
         default: return 0;
     }
 }
@@ -1959,7 +1844,6 @@ void PLMESetRequestDescriptor::setFieldArraySize(omnetpp::any_ptr object, int fi
     }
     PLMESetRequest *pp = omnetpp::fromAnyPtr<PLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValueArraySize(size); break;
         default: throw omnetpp::cRuntimeError("Cannot set array size of field %d of class 'PLMESetRequest'", field);
     }
 }
@@ -1988,8 +1872,8 @@ std::string PLMESetRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     PLMESetRequest *pp = omnetpp::fromAnyPtr<PLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return ulong2string(pp->getPIBAttribute());
-        case FIELD_PIBAttributeValue: return long2string(pp->getPIBAttributeValue(i));
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
+        case FIELD_PIBAttributeValue: return uint642string(pp->getPIBAttributeValue());
         default: return "";
     }
 }
@@ -2006,8 +1890,8 @@ void PLMESetRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     PLMESetRequest *pp = omnetpp::fromAnyPtr<PLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2ulong(value)); break;
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(i,string2long(value)); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
+        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(string2uint64(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetRequest'", field);
     }
 }
@@ -2022,8 +1906,8 @@ omnetpp::cValue PLMESetRequestDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     PLMESetRequest *pp = omnetpp::fromAnyPtr<PLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return (omnetpp::intval_t)(pp->getPIBAttribute());
-        case FIELD_PIBAttributeValue: return pp->getPIBAttributeValue(i);
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
+        case FIELD_PIBAttributeValue: return (omnetpp::intval_t)(pp->getPIBAttributeValue());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMESetRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -2040,8 +1924,8 @@ void PLMESetRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     PLMESetRequest *pp = omnetpp::fromAnyPtr<PLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(i,omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
+        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetRequest'", field);
     }
 }
@@ -2132,22 +2016,22 @@ void PLMESetConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->PIBAttribute);
 }
 
-uint8_t PLMESetConfirm::getStatus() const
+phyStatus_t PLMESetConfirm::getStatus() const
 {
     return this->status;
 }
 
-void PLMESetConfirm::setStatus(uint8_t status)
+void PLMESetConfirm::setStatus(phyStatus_t status)
 {
     this->status = status;
 }
 
-uint8_t PLMESetConfirm::getPIBAttribute() const
+PIBAttribute_t PLMESetConfirm::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void PLMESetConfirm::setPIBAttribute(uint8_t PIBAttribute)
+void PLMESetConfirm::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
@@ -2276,8 +2160,8 @@ const char *PLMESetConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
-        "uint8_t",    // FIELD_PIBAttribute
+        "phyStatus_t",    // FIELD_status
+        "PIBAttribute_t",    // FIELD_PIBAttribute
     };
     return (field >= 0 && field < 2) ? fieldTypeStrings[field] : nullptr;
 }
@@ -2291,6 +2175,14 @@ const char **PLMESetConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -2304,6 +2196,12 @@ const char *PLMESetConfirmDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -2362,8 +2260,8 @@ std::string PLMESetConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     PLMESetConfirm *pp = omnetpp::fromAnyPtr<PLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
-        case FIELD_PIBAttribute: return ulong2string(pp->getPIBAttribute());
+        case FIELD_status: return enum2string(pp->getStatus(), "phyStatus_t");
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
         default: return "";
     }
 }
@@ -2380,8 +2278,8 @@ void PLMESetConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     PLMESetConfirm *pp = omnetpp::fromAnyPtr<PLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((phyStatus_t)string2enum(value, "phyStatus_t")); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetConfirm'", field);
     }
 }
@@ -2396,8 +2294,8 @@ omnetpp::cValue PLMESetConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     PLMESetConfirm *pp = omnetpp::fromAnyPtr<PLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
-        case FIELD_PIBAttribute: return (omnetpp::intval_t)(pp->getPIBAttribute());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMESetConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -2414,8 +2312,8 @@ void PLMESetConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     PLMESetConfirm *pp = omnetpp::fromAnyPtr<PLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<phyStatus_t>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetConfirm'", field);
     }
 }
@@ -2503,12 +2401,12 @@ void PLMESetTrxStateRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->state);
 }
 
-uint8_t PLMESetTrxStateRequest::getState() const
+phyStatus_t PLMESetTrxStateRequest::getState() const
 {
     return this->state;
 }
 
-void PLMESetTrxStateRequest::setState(uint8_t state)
+void PLMESetTrxStateRequest::setState(phyStatus_t state)
 {
     this->state = state;
 }
@@ -2633,7 +2531,7 @@ const char *PLMESetTrxStateRequestDescriptor::getFieldTypeString(int field) cons
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_state
+        "phyStatus_t",    // FIELD_state
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -2647,6 +2545,10 @@ const char **PLMESetTrxStateRequestDescriptor::getFieldPropertyNames(int field) 
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_state: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -2660,6 +2562,9 @@ const char *PLMESetTrxStateRequestDescriptor::getFieldProperty(int field, const 
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_state:
+            if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -2718,7 +2623,7 @@ std::string PLMESetTrxStateRequestDescriptor::getFieldValueAsString(omnetpp::any
     }
     PLMESetTrxStateRequest *pp = omnetpp::fromAnyPtr<PLMESetTrxStateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_state: return ulong2string(pp->getState());
+        case FIELD_state: return enum2string(pp->getState(), "phyStatus_t");
         default: return "";
     }
 }
@@ -2735,7 +2640,7 @@ void PLMESetTrxStateRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr ob
     }
     PLMESetTrxStateRequest *pp = omnetpp::fromAnyPtr<PLMESetTrxStateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_state: pp->setState(string2ulong(value)); break;
+        case FIELD_state: pp->setState((phyStatus_t)string2enum(value, "phyStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetTrxStateRequest'", field);
     }
 }
@@ -2750,7 +2655,7 @@ omnetpp::cValue PLMESetTrxStateRequestDescriptor::getFieldValue(omnetpp::any_ptr
     }
     PLMESetTrxStateRequest *pp = omnetpp::fromAnyPtr<PLMESetTrxStateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_state: return (omnetpp::intval_t)(pp->getState());
+        case FIELD_state: return static_cast<int>(pp->getState());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMESetTrxStateRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -2767,7 +2672,7 @@ void PLMESetTrxStateRequestDescriptor::setFieldValue(omnetpp::any_ptr object, in
     }
     PLMESetTrxStateRequest *pp = omnetpp::fromAnyPtr<PLMESetTrxStateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_state: pp->setState(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_state: pp->setState(static_cast<phyStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetTrxStateRequest'", field);
     }
 }
@@ -2855,12 +2760,12 @@ void PLMESetTrxStateConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t PLMESetTrxStateConfirm::getStatus() const
+phyStatus_t PLMESetTrxStateConfirm::getStatus() const
 {
     return this->status;
 }
 
-void PLMESetTrxStateConfirm::setStatus(uint8_t status)
+void PLMESetTrxStateConfirm::setStatus(phyStatus_t status)
 {
     this->status = status;
 }
@@ -2985,7 +2890,7 @@ const char *PLMESetTrxStateConfirmDescriptor::getFieldTypeString(int field) cons
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "phyStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -2999,6 +2904,10 @@ const char **PLMESetTrxStateConfirmDescriptor::getFieldPropertyNames(int field) 
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -3012,6 +2921,9 @@ const char *PLMESetTrxStateConfirmDescriptor::getFieldProperty(int field, const 
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -3070,7 +2982,7 @@ std::string PLMESetTrxStateConfirmDescriptor::getFieldValueAsString(omnetpp::any
     }
     PLMESetTrxStateConfirm *pp = omnetpp::fromAnyPtr<PLMESetTrxStateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "phyStatus_t");
         default: return "";
     }
 }
@@ -3087,7 +2999,7 @@ void PLMESetTrxStateConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr ob
     }
     PLMESetTrxStateConfirm *pp = omnetpp::fromAnyPtr<PLMESetTrxStateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((phyStatus_t)string2enum(value, "phyStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetTrxStateConfirm'", field);
     }
 }
@@ -3102,7 +3014,7 @@ omnetpp::cValue PLMESetTrxStateConfirmDescriptor::getFieldValue(omnetpp::any_ptr
     }
     PLMESetTrxStateConfirm *pp = omnetpp::fromAnyPtr<PLMESetTrxStateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMESetTrxStateConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -3119,7 +3031,7 @@ void PLMESetTrxStateConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, in
     }
     PLMESetTrxStateConfirm *pp = omnetpp::fromAnyPtr<PLMESetTrxStateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<phyStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESetTrxStateConfirm'", field);
     }
 }
@@ -3581,12 +3493,12 @@ void PLMESwitchConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t PLMESwitchConfirm::getStatus() const
+phyStatus_t PLMESwitchConfirm::getStatus() const
 {
     return this->status;
 }
 
-void PLMESwitchConfirm::setStatus(uint8_t status)
+void PLMESwitchConfirm::setStatus(phyStatus_t status)
 {
     this->status = status;
 }
@@ -3711,7 +3623,7 @@ const char *PLMESwitchConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "phyStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -3725,6 +3637,10 @@ const char **PLMESwitchConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -3738,6 +3654,9 @@ const char *PLMESwitchConfirmDescriptor::getFieldProperty(int field, const char 
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -3796,7 +3715,7 @@ std::string PLMESwitchConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr 
     }
     PLMESwitchConfirm *pp = omnetpp::fromAnyPtr<PLMESwitchConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "phyStatus_t");
         default: return "";
     }
 }
@@ -3813,7 +3732,7 @@ void PLMESwitchConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object,
     }
     PLMESwitchConfirm *pp = omnetpp::fromAnyPtr<PLMESwitchConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((phyStatus_t)string2enum(value, "phyStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESwitchConfirm'", field);
     }
 }
@@ -3828,7 +3747,7 @@ omnetpp::cValue PLMESwitchConfirmDescriptor::getFieldValue(omnetpp::any_ptr obje
     }
     PLMESwitchConfirm *pp = omnetpp::fromAnyPtr<PLMESwitchConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMESwitchConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -3845,7 +3764,7 @@ void PLMESwitchConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int fie
     }
     PLMESwitchConfirm *pp = omnetpp::fromAnyPtr<PLMESwitchConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<phyStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMESwitchConfirm'", field);
     }
 }

@@ -17,14 +17,14 @@ import types;
 
 message MCPSDataRequest {
   	addressingMode_t srcAddrMode;
-  	int dstAddrMode;
-  	int dstOWPANId;
+  	addressingMode_t dstAddrMode;
+  	uint16_t dstOWPANId;
   	uint64_t dstAddr;
-  	int msduLength;
+  	uint16_t msduLength;
   	uint8_t msdu[];
-  	int msduHandle;
+  	uint8_t msduHandle;
   	uint8_t txOptions;
-  	int securityLevel;
+  	uint8_t securityLevel;
   	uint8_t dataRate;
   	bool burstMode;
   	bool colorReceived;
@@ -32,9 +32,9 @@ message MCPSDataRequest {
 };
 
 message MCPSDataConfirm {
-    int msduHandle;
-    uint8_t status;
-    int timestamp;
+    uint8_t msduHandle;
+    macStatus_t status;
+    uint32_t timestamp;
 };
 
 message MCPSDataIndication {

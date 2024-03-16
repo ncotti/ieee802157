@@ -38,28 +38,32 @@ OBJS = \
     $O/Mac/mac_command_frame.o \
     $O/Mac/mac_primitives.o \
     $O/Mac/mac_procedures.o \
+    $O/Mac/fsm_get/fsm_get_states.o \
+    $O/Mac/fsm_get/fsm_get_transitions.o \
     $O/Mac/fsm_random_access/fsm_random_access_states.o \
     $O/Mac/fsm_random_access/fsm_random_access_transitions.o \
+    $O/Mac/fsm_reset/fsm_reset_states.o \
+    $O/Mac/fsm_reset/fsm_reset_transitions.o \
     $O/Mac/fsm_superframe/fsm_superframe_states.o \
     $O/Mac/fsm_superframe/fsm_superframe_transitions.o \
     $O/Net/Net.o \
     $O/Phy/phy.o \
     $O/Phy/phy_primitives.o \
-    $O/msgs/mac_msgs/mcps_m.o \
-    $O/msgs/mac_msgs/mlme_m.o \
-    $O/msgs/mac_msgs/types_m.o \
-    $O/msgs/phy_msgs/pd_m.o \
-    $O/msgs/phy_msgs/phy_msg_m.o \
-    $O/msgs/phy_msgs/plme_m.o
+    $O/msgs/mcps_m.o \
+    $O/msgs/mlme_m.o \
+    $O/msgs/pd_m.o \
+    $O/msgs/phy_msg_m.o \
+    $O/msgs/plme_m.o \
+    $O/msgs/types_m.o
 
 # Message files
 MSGFILES = \
-    msgs/mac_msgs/mcps.msg \
-    msgs/mac_msgs/mlme.msg \
-    msgs/mac_msgs/types.msg \
-    msgs/phy_msgs/pd.msg \
-    msgs/phy_msgs/phy_msg.msg \
-    msgs/phy_msgs/plme.msg
+    msgs/mcps.msg \
+    msgs/mlme.msg \
+    msgs/pd.msg \
+    msgs/phy_msg.msg \
+    msgs/plme.msg \
+    msgs/types.msg
 
 # SM files
 SMFILES =

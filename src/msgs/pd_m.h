@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/phy_msgs/pd.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/pd.msg.
 //
 
 #ifndef __PD_M_H
@@ -20,7 +20,7 @@ class PDDataRequest;
 class PDDataConfirm;
 class PDDataIndication;
 /**
- * Class generated from <tt>msgs/phy_msgs/pd.msg:16</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/pd.msg:16</tt> by opp_msgtool.
  * <pre>
  * message PDDataRequest
  * {
@@ -73,7 +73,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PDDataRequest& obj) {
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PDDataRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/pd.msg:22</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/pd.msg:22</tt> by opp_msgtool.
  * <pre>
  * message PDDataConfirm
  * {
@@ -109,7 +109,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PDDataConfirm& obj) {
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PDDataConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/phy_msgs/pd.msg:26</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/pd.msg:26</tt> by opp_msgtool.
  * <pre>
  * message PDDataIndication
  * {

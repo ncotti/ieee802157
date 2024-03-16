@@ -39,51 +39,42 @@ void Phy::plme_get_request(PLMEGetRequest* msg) {
     xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
 
     switch (msg->getPIBAttribute()) {
-        case phyPIBAttribute_t::PHY_CURRENT_CHANNEL: {
-            xMsg->appendPIBAttributeValue(this->phyCurrentChannel);
+        case PIBAttribute_t::PHY_CURRENT_CHANNEL: {
+            xMsg->setPIBAttributeValue(this->phyCurrentChannel);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_CCA_MODE: {
-            xMsg->appendPIBAttributeValue(this->phyCCAMode);
+        case PIBAttribute_t::PHY_CCA_MODE: {
+            xMsg->setPIBAttributeValue(this->phyCCAMode);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_DIM: {
-            xMsg->appendPIBAttributeValue(this->phyDim);
+        case PIBAttribute_t::PHY_DIM: {
+            xMsg->setPIBAttributeValue(this->phyDim);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_USE_EXTENDED_MODE: {
-            xMsg->appendPIBAttributeValue(this->phyUseExtendedMode);
+        case PIBAttribute_t::PHY_USE_EXTENDED_MODE: {
+            xMsg->setPIBAttributeValue(this->phyUseExtendedMode);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_COLOR_FUNCTION: {
-            xMsg->appendPIBAttributeValue(this->phyColorFunction);
+        case PIBAttribute_t::PHY_COLOR_FUNCTION: {
+            xMsg->setPIBAttributeValue(this->phyColorFunction);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_BLINKING_NOTIFICATION_FREQUENCY: {
-            xMsg->appendPIBAttributeValue(this->phyBlinkingNotificationFrequency);
+        case PIBAttribute_t::PHY_BLINKING_NOTIFICATION_FREQUENCY: {
+            xMsg->setPIBAttributeValue(this->phyBlinkingNotificationFrequency);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_OCC_ENABLE: {
-            xMsg->appendPIBAttributeValue(this->phyOccEnable);
+        case PIBAttribute_t::PHY_OCC_ENABLE: {
+            xMsg->setPIBAttributeValue(this->phyOccEnable);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_OCC_MCS_ID: {
-            xMsg->appendPIBAttributeValue(this->phyOccMcsID);
+        case PIBAttribute_t::PHY_OCC_MCS_ID: {
+            xMsg->setPIBAttributeValue(this->phyOccMcsID);
             break;
         }
-
-        case phyPIBAttribute_t::PHY_PSDU_LENGTH: {
-            xMsg->appendPIBAttributeValue(this->phyPSDULength);
+        case PIBAttribute_t::PHY_PSDU_LENGTH: {
+            xMsg->setPIBAttributeValue(this->phyPSDULength);
             break;
         }
-
         default: {
             xMsg->setStatus(phyStatus_t::UNSUPPORTED_ATTRIBUTE);
             break;
@@ -102,96 +93,96 @@ void Phy::plme_get_confirm(PLMEGetConfirm* msg) {
 void Phy::plme_set_request(PLMESetRequest* msg) {
     PLMESetConfirm *xMsg = new PLMESetConfirm();
 
-        xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
-        xMsg->setPIBAttribute(msg->getPIBAttribute());
+    xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
+    xMsg->setPIBAttribute(msg->getPIBAttribute());
 
-        switch (msg->getPIBAttribute()) {
-            case phyPIBAttribute_t::PHY_CURRENT_CHANNEL: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 7) {
-                    this->phyCurrentChannel = (opticalChannel_t) msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
+    switch (msg->getPIBAttribute()) {
+        case PIBAttribute_t::PHY_CURRENT_CHANNEL: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 7) {
+                this->phyCurrentChannel = (opticalChannel_t) msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
             }
+            break;
+        }
 
-            case phyPIBAttribute_t::PHY_CCA_MODE: {
-                this->phyCCAMode = (uint8_t) msg->getPIBAttributeValue(0);
-                break;
+        case PIBAttribute_t::PHY_CCA_MODE: {
+            this->phyCCAMode = (uint8_t) msg->getPIBAttributeValue();
+            break;
+        }
+
+        case PIBAttribute_t::PHY_DIM: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 1000) {
+                this->phyDim = msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
             }
+            break;
+        }
 
-            case phyPIBAttribute_t::PHY_DIM: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 1000) {
-                    this->phyDim = msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
+        case PIBAttribute_t::PHY_USE_EXTENDED_MODE: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 1) {
+                this->phyUseExtendedMode = msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
             }
+            break;
+        }
 
-            case phyPIBAttribute_t::PHY_USE_EXTENDED_MODE: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 1) {
-                    this->phyUseExtendedMode = msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
-            }
-
-            case phyPIBAttribute_t::PHY_COLOR_FUNCTION: {
-                // TODO matrix
+        case PIBAttribute_t::PHY_COLOR_FUNCTION: {
+            // TODO matrix
 //                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 7) {
 //                    this->phyCurrentChannel = msg->getPIBAttributeValue(0);
 //                } else {
 //                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
 //                }
-                break;
-            }
-
-            case phyPIBAttribute_t::PHY_BLINKING_NOTIFICATION_FREQUENCY: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 10) {
-                    this->phyBlinkingNotificationFrequency = msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
-            }
-
-            case phyPIBAttribute_t::PHY_OCC_ENABLE: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 1) {
-                    this->phyOccEnable = msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
-            }
-
-            case phyPIBAttribute_t::PHY_OCC_MCS_ID: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 15) {
-                    this->phyOccMcsID = msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
-            }
-
-            case phyPIBAttribute_t::PHY_PSDU_LENGTH: {
-                if (msg->getPIBAttributeValue(0) >= 0 && msg->getPIBAttributeValue(0) <= 0xffff) {
-                    this->phyPSDULength = msg->getPIBAttributeValue(0);
-                } else {
-                    xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
-                }
-                break;
-            }
-
-            default: {
-                xMsg->setStatus(phyStatus_t::UNSUPPORTED_ATTRIBUTE);
-               break;
-            }
+            break;
         }
 
-        this->plme_set_confirm(xMsg);
-        delete xMsg;
+        case PIBAttribute_t::PHY_BLINKING_NOTIFICATION_FREQUENCY: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 10) {
+                this->phyBlinkingNotificationFrequency = msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+            }
+            break;
+        }
+
+        case PIBAttribute_t::PHY_OCC_ENABLE: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 1) {
+                this->phyOccEnable = msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+            }
+            break;
+        }
+
+        case PIBAttribute_t::PHY_OCC_MCS_ID: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 15) {
+                this->phyOccMcsID = msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+            }
+            break;
+        }
+
+        case PIBAttribute_t::PHY_PSDU_LENGTH: {
+            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 0xffff) {
+                this->phyPSDULength = msg->getPIBAttributeValue();
+            } else {
+                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+            }
+            break;
+        }
+
+        default: {
+            xMsg->setStatus(phyStatus_t::UNSUPPORTED_ATTRIBUTE);
+           break;
+        }
+    }
+
+    this->plme_set_confirm(xMsg);
+    delete xMsg;
 }
 
 void Phy::plme_set_confirm(PLMESetConfirm* msg) {

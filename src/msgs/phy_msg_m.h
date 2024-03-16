@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/phy_msgs/phy_msg.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/phy_msg.msg.
 //
 
 #ifndef __PHY_MSG_M_H
@@ -18,7 +18,7 @@
 
 class PhyMsg;
 /**
- * Class generated from <tt>msgs/phy_msgs/phy_msg.msg:19</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/phy_msg.msg:19</tt> by opp_msgtool.
  * <pre>
  * //
  * // TODO generated message class

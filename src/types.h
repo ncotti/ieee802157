@@ -8,11 +8,11 @@
 #ifndef TYPES_H_
 #define TYPES_H_
 
-#include <omnetpp.h>
-
-#include "phy_types.h"
-
 typedef enum {
+    MCPS_DATA_REQUEST,
+    MCPS_DATA_CONFIRM,
+    MCPS_DATA_INDICATION,
+
     MLME_ASSOCIATE_REQUEST,
     MLME_ASSOCIATE_INDICATION,
     MLME_ASSOCIATE_RESPONSE,

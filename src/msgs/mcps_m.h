@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mac_msgs/mcps.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mcps.msg.
 //
 
 #ifndef __MCPS_M_H
@@ -22,19 +22,19 @@ class MCPSDataIndication;
 #include "types_m.h" // import types
 
 /**
- * Class generated from <tt>msgs/mac_msgs/mcps.msg:18</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mcps.msg:18</tt> by opp_msgtool.
  * <pre>
  * message MCPSDataRequest
  * {
  *     addressingMode_t srcAddrMode;
- *     int dstAddrMode;
- *     int dstOWPANId;
+ *     addressingMode_t dstAddrMode;
+ *     uint16_t dstOWPANId;
  *     uint64_t dstAddr;
- *     int msduLength;
+ *     uint16_t msduLength;
  *     uint8_t msdu[];
- *     int msduHandle;
+ *     uint8_t msduHandle;
  *     uint8_t txOptions;
- *     int securityLevel;
+ *     uint8_t securityLevel;
  *     uint8_t dataRate;
  *     bool burstMode;
  *     bool colorReceived;
@@ -46,15 +46,15 @@ class MCPSDataRequest : public ::omnetpp::cMessage
 {
   protected:
     addressingMode_t srcAddrMode = static_cast<addressingMode_t>(-1);
-    int dstAddrMode = 0;
-    int dstOWPANId = 0;
+    addressingMode_t dstAddrMode = static_cast<addressingMode_t>(-1);
+    uint16_t dstOWPANId = 0;
     uint64_t dstAddr = 0;
-    int msduLength = 0;
+    uint16_t msduLength = 0;
     uint8_t *msdu = nullptr;
     size_t msdu_arraysize = 0;
-    int msduHandle = 0;
+    uint8_t msduHandle = 0;
     uint8_t txOptions = 0;
-    int securityLevel = 0;
+    uint8_t securityLevel = 0;
     uint8_t dataRate = 0;
     bool burstMode = false;
     bool colorReceived = false;
@@ -78,17 +78,17 @@ class MCPSDataRequest : public ::omnetpp::cMessage
     virtual addressingMode_t getSrcAddrMode() const;
     virtual void setSrcAddrMode(addressingMode_t srcAddrMode);
 
-    virtual int getDstAddrMode() const;
-    virtual void setDstAddrMode(int dstAddrMode);
+    virtual addressingMode_t getDstAddrMode() const;
+    virtual void setDstAddrMode(addressingMode_t dstAddrMode);
 
-    virtual int getDstOWPANId() const;
-    virtual void setDstOWPANId(int dstOWPANId);
+    virtual uint16_t getDstOWPANId() const;
+    virtual void setDstOWPANId(uint16_t dstOWPANId);
 
     virtual uint64_t getDstAddr() const;
     virtual void setDstAddr(uint64_t dstAddr);
 
-    virtual int getMsduLength() const;
-    virtual void setMsduLength(int msduLength);
+    virtual uint16_t getMsduLength() const;
+    virtual void setMsduLength(uint16_t msduLength);
 
     virtual void setMsduArraySize(size_t size);
     virtual size_t getMsduArraySize() const;
@@ -99,14 +99,14 @@ class MCPSDataRequest : public ::omnetpp::cMessage
     virtual void appendMsdu(uint8_t msdu);
     virtual void eraseMsdu(size_t k);
 
-    virtual int getMsduHandle() const;
-    virtual void setMsduHandle(int msduHandle);
+    virtual uint8_t getMsduHandle() const;
+    virtual void setMsduHandle(uint8_t msduHandle);
 
     virtual uint8_t getTxOptions() const;
     virtual void setTxOptions(uint8_t txOptions);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 
     virtual uint8_t getDataRate() const;
     virtual void setDataRate(uint8_t dataRate);
@@ -125,22 +125,22 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MCPSDataRequest& obj)
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MCPSDataRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs/mcps.msg:34</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mcps.msg:34</tt> by opp_msgtool.
  * <pre>
  * message MCPSDataConfirm
  * {
- *     int msduHandle;
- *     uint8_t status;
- *     int timestamp;
+ *     uint8_t msduHandle;
+ *     macStatus_t status;
+ *     uint32_t timestamp;
  * }
  * </pre>
  */
 class MCPSDataConfirm : public ::omnetpp::cMessage
 {
   protected:
-    int msduHandle = 0;
-    uint8_t status = 0;
-    int timestamp = 0;
+    uint8_t msduHandle = 0;
+    macStatus_t status = static_cast<macStatus_t>(-1);
+    uint32_t timestamp = 0;
 
   private:
     void copy(const MCPSDataConfirm& other);
@@ -157,21 +157,21 @@ class MCPSDataConfirm : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getMsduHandle() const;
-    virtual void setMsduHandle(int msduHandle);
+    virtual uint8_t getMsduHandle() const;
+    virtual void setMsduHandle(uint8_t msduHandle);
 
-    virtual uint8_t getStatus() const;
-    virtual void setStatus(uint8_t status);
+    virtual macStatus_t getStatus() const;
+    virtual void setStatus(macStatus_t status);
 
-    virtual int getTimestamp() const;
-    virtual void setTimestamp(int timestamp);
+    virtual uint32_t getTimestamp() const;
+    virtual void setTimestamp(uint32_t timestamp);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MCPSDataConfirm& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MCPSDataConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/mac_msgs/mcps.msg:40</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/mcps.msg:40</tt> by opp_msgtool.
  * <pre>
  * message MCPSDataIndication
  * {

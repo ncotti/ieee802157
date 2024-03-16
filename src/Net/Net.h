@@ -9,6 +9,7 @@
 #define NET_H_
 
 #include <omnetpp.h>
+
 #include "../msgs/msgs.h"
 #include "../types.h"
 

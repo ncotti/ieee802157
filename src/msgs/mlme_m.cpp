@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mac_msgs//mlme.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/mlme.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -659,66 +659,66 @@ MLMEAssociateConfirm& MLMEAssociateConfirm::operator=(const MLMEAssociateConfirm
 
 void MLMEAssociateConfirm::copy(const MLMEAssociateConfirm& other)
 {
-    this->assoShortAddress = other.assoShortAddress;
+    this->assocShortAddress = other.assocShortAddress;
     this->status = other.status;
-    this->capabilityNegotationResponse = other.capabilityNegotationResponse;
+    this->capabilityNegotiationResponse = other.capabilityNegotiationResponse;
     this->securityLevel = other.securityLevel;
 }
 
 void MLMEAssociateConfirm::parsimPack(omnetpp::cCommBuffer *b) const
 {
     ::omnetpp::cMessage::parsimPack(b);
-    doParsimPacking(b,this->assoShortAddress);
+    doParsimPacking(b,this->assocShortAddress);
     doParsimPacking(b,this->status);
-    doParsimPacking(b,this->capabilityNegotationResponse);
+    doParsimPacking(b,this->capabilityNegotiationResponse);
     doParsimPacking(b,this->securityLevel);
 }
 
 void MLMEAssociateConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
 {
     ::omnetpp::cMessage::parsimUnpack(b);
-    doParsimUnpacking(b,this->assoShortAddress);
+    doParsimUnpacking(b,this->assocShortAddress);
     doParsimUnpacking(b,this->status);
-    doParsimUnpacking(b,this->capabilityNegotationResponse);
+    doParsimUnpacking(b,this->capabilityNegotiationResponse);
     doParsimUnpacking(b,this->securityLevel);
 }
 
-int MLMEAssociateConfirm::getAssoShortAddress() const
+uint16_t MLMEAssociateConfirm::getAssocShortAddress() const
 {
-    return this->assoShortAddress;
+    return this->assocShortAddress;
 }
 
-void MLMEAssociateConfirm::setAssoShortAddress(int assoShortAddress)
+void MLMEAssociateConfirm::setAssocShortAddress(uint16_t assocShortAddress)
 {
-    this->assoShortAddress = assoShortAddress;
+    this->assocShortAddress = assocShortAddress;
 }
 
-uint8_t MLMEAssociateConfirm::getStatus() const
+macStatus_t MLMEAssociateConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEAssociateConfirm::setStatus(uint8_t status)
+void MLMEAssociateConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
 
-int MLMEAssociateConfirm::getCapabilityNegotationResponse() const
+colorStabilizationScheme_t MLMEAssociateConfirm::getCapabilityNegotiationResponse() const
 {
-    return this->capabilityNegotationResponse;
+    return this->capabilityNegotiationResponse;
 }
 
-void MLMEAssociateConfirm::setCapabilityNegotationResponse(int capabilityNegotationResponse)
+void MLMEAssociateConfirm::setCapabilityNegotiationResponse(colorStabilizationScheme_t capabilityNegotiationResponse)
 {
-    this->capabilityNegotationResponse = capabilityNegotationResponse;
+    this->capabilityNegotiationResponse = capabilityNegotiationResponse;
 }
 
-int MLMEAssociateConfirm::getSecurityLevel() const
+uint8_t MLMEAssociateConfirm::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MLMEAssociateConfirm::setSecurityLevel(int securityLevel)
+void MLMEAssociateConfirm::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -728,9 +728,9 @@ class MLMEAssociateConfirmDescriptor : public omnetpp::cClassDescriptor
   private:
     mutable const char **propertyNames;
     enum FieldConstants {
-        FIELD_assoShortAddress,
+        FIELD_assocShortAddress,
         FIELD_status,
-        FIELD_capabilityNegotationResponse,
+        FIELD_capabilityNegotiationResponse,
         FIELD_securityLevel,
     };
   public:
@@ -810,9 +810,9 @@ unsigned int MLMEAssociateConfirmDescriptor::getFieldTypeFlags(int field) const
         field -= base->getFieldCount();
     }
     static unsigned int fieldTypeFlags[] = {
-        FD_ISEDITABLE,    // FIELD_assoShortAddress
+        FD_ISEDITABLE,    // FIELD_assocShortAddress
         FD_ISEDITABLE,    // FIELD_status
-        FD_ISEDITABLE,    // FIELD_capabilityNegotationResponse
+        FD_ISEDITABLE,    // FIELD_capabilityNegotiationResponse
         FD_ISEDITABLE,    // FIELD_securityLevel
     };
     return (field >= 0 && field < 4) ? fieldTypeFlags[field] : 0;
@@ -827,9 +827,9 @@ const char *MLMEAssociateConfirmDescriptor::getFieldName(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldNames[] = {
-        "assoShortAddress",
+        "assocShortAddress",
         "status",
-        "capabilityNegotationResponse",
+        "capabilityNegotiationResponse",
         "securityLevel",
     };
     return (field >= 0 && field < 4) ? fieldNames[field] : nullptr;
@@ -839,9 +839,9 @@ int MLMEAssociateConfirmDescriptor::findField(const char *fieldName) const
 {
     omnetpp::cClassDescriptor *base = getBaseClassDescriptor();
     int baseIndex = base ? base->getFieldCount() : 0;
-    if (strcmp(fieldName, "assoShortAddress") == 0) return baseIndex + 0;
+    if (strcmp(fieldName, "assocShortAddress") == 0) return baseIndex + 0;
     if (strcmp(fieldName, "status") == 0) return baseIndex + 1;
-    if (strcmp(fieldName, "capabilityNegotationResponse") == 0) return baseIndex + 2;
+    if (strcmp(fieldName, "capabilityNegotiationResponse") == 0) return baseIndex + 2;
     if (strcmp(fieldName, "securityLevel") == 0) return baseIndex + 3;
     return base ? base->findField(fieldName) : -1;
 }
@@ -855,10 +855,10 @@ const char *MLMEAssociateConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_assoShortAddress
-        "uint8_t",    // FIELD_status
-        "int",    // FIELD_capabilityNegotationResponse
-        "int",    // FIELD_securityLevel
+        "uint16_t",    // FIELD_assocShortAddress
+        "macStatus_t",    // FIELD_status
+        "colorStabilizationScheme_t",    // FIELD_capabilityNegotiationResponse
+        "uint8_t",    // FIELD_securityLevel
     };
     return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
 }
@@ -872,6 +872,14 @@ const char **MLMEAssociateConfirmDescriptor::getFieldPropertyNames(int field) co
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
+        case FIELD_capabilityNegotiationResponse: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -885,6 +893,12 @@ const char *MLMEAssociateConfirmDescriptor::getFieldProperty(int field, const ch
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
+        case FIELD_capabilityNegotiationResponse:
+            if (!strcmp(propertyName, "enum")) return "colorStabilizationScheme_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -943,10 +957,10 @@ std::string MLMEAssociateConfirmDescriptor::getFieldValueAsString(omnetpp::any_p
     }
     MLMEAssociateConfirm *pp = omnetpp::fromAnyPtr<MLMEAssociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_assoShortAddress: return long2string(pp->getAssoShortAddress());
-        case FIELD_status: return ulong2string(pp->getStatus());
-        case FIELD_capabilityNegotationResponse: return long2string(pp->getCapabilityNegotationResponse());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_assocShortAddress: return ulong2string(pp->getAssocShortAddress());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
+        case FIELD_capabilityNegotiationResponse: return enum2string(pp->getCapabilityNegotiationResponse(), "colorStabilizationScheme_t");
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         default: return "";
     }
 }
@@ -963,10 +977,10 @@ void MLMEAssociateConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr obje
     }
     MLMEAssociateConfirm *pp = omnetpp::fromAnyPtr<MLMEAssociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_assoShortAddress: pp->setAssoShortAddress(string2long(value)); break;
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
-        case FIELD_capabilityNegotationResponse: pp->setCapabilityNegotationResponse(string2long(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_assocShortAddress: pp->setAssocShortAddress(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
+        case FIELD_capabilityNegotiationResponse: pp->setCapabilityNegotiationResponse((colorStabilizationScheme_t)string2enum(value, "colorStabilizationScheme_t")); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEAssociateConfirm'", field);
     }
 }
@@ -981,10 +995,10 @@ omnetpp::cValue MLMEAssociateConfirmDescriptor::getFieldValue(omnetpp::any_ptr o
     }
     MLMEAssociateConfirm *pp = omnetpp::fromAnyPtr<MLMEAssociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_assoShortAddress: return pp->getAssoShortAddress();
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
-        case FIELD_capabilityNegotationResponse: return pp->getCapabilityNegotationResponse();
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_assocShortAddress: return (omnetpp::intval_t)(pp->getAssocShortAddress());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
+        case FIELD_capabilityNegotiationResponse: return static_cast<int>(pp->getCapabilityNegotiationResponse());
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEAssociateConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -1001,10 +1015,10 @@ void MLMEAssociateConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int 
     }
     MLMEAssociateConfirm *pp = omnetpp::fromAnyPtr<MLMEAssociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_assoShortAddress: pp->setAssoShortAddress(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_capabilityNegotationResponse: pp->setCapabilityNegotationResponse(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_assocShortAddress: pp->setAssocShortAddress(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
+        case FIELD_capabilityNegotiationResponse: pp->setCapabilityNegotiationResponse(static_cast<colorStabilizationScheme_t>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEAssociateConfirm'", field);
     }
 }
@@ -3511,32 +3525,32 @@ void MLMEDisassociateConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->deviceAddress);
 }
 
-uint8_t MLMEDisassociateConfirm::getStatus() const
+macStatus_t MLMEDisassociateConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEDisassociateConfirm::setStatus(uint8_t status)
+void MLMEDisassociateConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
 
-int MLMEDisassociateConfirm::getDeviceAddrMode() const
+addressingMode_t MLMEDisassociateConfirm::getDeviceAddrMode() const
 {
     return this->deviceAddrMode;
 }
 
-void MLMEDisassociateConfirm::setDeviceAddrMode(int deviceAddrMode)
+void MLMEDisassociateConfirm::setDeviceAddrMode(addressingMode_t deviceAddrMode)
 {
     this->deviceAddrMode = deviceAddrMode;
 }
 
-int MLMEDisassociateConfirm::getDeviceOWPANId() const
+uint16_t MLMEDisassociateConfirm::getDeviceOWPANId() const
 {
     return this->deviceOWPANId;
 }
 
-void MLMEDisassociateConfirm::setDeviceOWPANId(int deviceOWPANId)
+void MLMEDisassociateConfirm::setDeviceOWPANId(uint16_t deviceOWPANId)
 {
     this->deviceOWPANId = deviceOWPANId;
 }
@@ -3683,9 +3697,9 @@ const char *MLMEDisassociateConfirmDescriptor::getFieldTypeString(int field) con
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
-        "int",    // FIELD_deviceAddrMode
-        "int",    // FIELD_deviceOWPANId
+        "macStatus_t",    // FIELD_status
+        "addressingMode_t",    // FIELD_deviceAddrMode
+        "uint16_t",    // FIELD_deviceOWPANId
         "uint64_t",    // FIELD_deviceAddress
     };
     return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
@@ -3700,6 +3714,14 @@ const char **MLMEDisassociateConfirmDescriptor::getFieldPropertyNames(int field)
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
+        case FIELD_deviceAddrMode: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -3713,6 +3735,12 @@ const char *MLMEDisassociateConfirmDescriptor::getFieldProperty(int field, const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
+        case FIELD_deviceAddrMode:
+            if (!strcmp(propertyName, "enum")) return "addressingMode_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -3771,9 +3799,9 @@ std::string MLMEDisassociateConfirmDescriptor::getFieldValueAsString(omnetpp::an
     }
     MLMEDisassociateConfirm *pp = omnetpp::fromAnyPtr<MLMEDisassociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
-        case FIELD_deviceAddrMode: return long2string(pp->getDeviceAddrMode());
-        case FIELD_deviceOWPANId: return long2string(pp->getDeviceOWPANId());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
+        case FIELD_deviceAddrMode: return enum2string(pp->getDeviceAddrMode(), "addressingMode_t");
+        case FIELD_deviceOWPANId: return ulong2string(pp->getDeviceOWPANId());
         case FIELD_deviceAddress: return uint642string(pp->getDeviceAddress());
         default: return "";
     }
@@ -3791,9 +3819,9 @@ void MLMEDisassociateConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr o
     }
     MLMEDisassociateConfirm *pp = omnetpp::fromAnyPtr<MLMEDisassociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
-        case FIELD_deviceAddrMode: pp->setDeviceAddrMode(string2long(value)); break;
-        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(string2long(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
+        case FIELD_deviceAddrMode: pp->setDeviceAddrMode((addressingMode_t)string2enum(value, "addressingMode_t")); break;
+        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(string2ulong(value)); break;
         case FIELD_deviceAddress: pp->setDeviceAddress(string2uint64(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEDisassociateConfirm'", field);
     }
@@ -3809,9 +3837,9 @@ omnetpp::cValue MLMEDisassociateConfirmDescriptor::getFieldValue(omnetpp::any_pt
     }
     MLMEDisassociateConfirm *pp = omnetpp::fromAnyPtr<MLMEDisassociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
-        case FIELD_deviceAddrMode: return pp->getDeviceAddrMode();
-        case FIELD_deviceOWPANId: return pp->getDeviceOWPANId();
+        case FIELD_status: return static_cast<int>(pp->getStatus());
+        case FIELD_deviceAddrMode: return static_cast<int>(pp->getDeviceAddrMode());
+        case FIELD_deviceOWPANId: return (omnetpp::intval_t)(pp->getDeviceOWPANId());
         case FIELD_deviceAddress: return (omnetpp::intval_t)(pp->getDeviceAddress());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEDisassociateConfirm' as cValue -- field index out of range?", field);
     }
@@ -3829,9 +3857,9 @@ void MLMEDisassociateConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, i
     }
     MLMEDisassociateConfirm *pp = omnetpp::fromAnyPtr<MLMEDisassociateConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_deviceAddrMode: pp->setDeviceAddrMode(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
+        case FIELD_deviceAddrMode: pp->setDeviceAddrMode(static_cast<addressingMode_t>(value.intValue())); break;
+        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_deviceAddress: pp->setDeviceAddress(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEDisassociateConfirm'", field);
     }
@@ -4319,22 +4347,22 @@ void MLMEGetRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->PIBAttributeIndex);
 }
 
-int MLMEGetRequest::getPIBAttribute() const
+PIBAttribute_t MLMEGetRequest::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void MLMEGetRequest::setPIBAttribute(int PIBAttribute)
+void MLMEGetRequest::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
 
-int MLMEGetRequest::getPIBAttributeIndex() const
+uint8_t MLMEGetRequest::getPIBAttributeIndex() const
 {
     return this->PIBAttributeIndex;
 }
 
-void MLMEGetRequest::setPIBAttributeIndex(int PIBAttributeIndex)
+void MLMEGetRequest::setPIBAttributeIndex(uint8_t PIBAttributeIndex)
 {
     this->PIBAttributeIndex = PIBAttributeIndex;
 }
@@ -4463,8 +4491,8 @@ const char *MLMEGetRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_PIBAttribute
-        "int",    // FIELD_PIBAttributeIndex
+        "PIBAttribute_t",    // FIELD_PIBAttribute
+        "uint8_t",    // FIELD_PIBAttributeIndex
     };
     return (field >= 0 && field < 2) ? fieldTypeStrings[field] : nullptr;
 }
@@ -4478,6 +4506,10 @@ const char **MLMEGetRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -4491,6 +4523,9 @@ const char *MLMEGetRequestDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -4549,8 +4584,8 @@ std::string MLMEGetRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     MLMEGetRequest *pp = omnetpp::fromAnyPtr<MLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return long2string(pp->getPIBAttribute());
-        case FIELD_PIBAttributeIndex: return long2string(pp->getPIBAttributeIndex());
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
+        case FIELD_PIBAttributeIndex: return ulong2string(pp->getPIBAttributeIndex());
         default: return "";
     }
 }
@@ -4567,8 +4602,8 @@ void MLMEGetRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     MLMEGetRequest *pp = omnetpp::fromAnyPtr<MLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2long(value)); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2long(value)); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGetRequest'", field);
     }
 }
@@ -4583,8 +4618,8 @@ omnetpp::cValue MLMEGetRequestDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     MLMEGetRequest *pp = omnetpp::fromAnyPtr<MLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return pp->getPIBAttribute();
-        case FIELD_PIBAttributeIndex: return pp->getPIBAttributeIndex();
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
+        case FIELD_PIBAttributeIndex: return (omnetpp::intval_t)(pp->getPIBAttributeIndex());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEGetRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -4601,8 +4636,8 @@ void MLMEGetRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     MLMEGetRequest *pp = omnetpp::fromAnyPtr<MLMEGetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGetRequest'", field);
     }
 }
@@ -4699,42 +4734,42 @@ void MLMEGetConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->PIBAttributeValue);
 }
 
-uint8_t MLMEGetConfirm::getStatus() const
+macStatus_t MLMEGetConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEGetConfirm::setStatus(uint8_t status)
+void MLMEGetConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
 
-int MLMEGetConfirm::getPIBAttribute() const
+PIBAttribute_t MLMEGetConfirm::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void MLMEGetConfirm::setPIBAttribute(int PIBAttribute)
+void MLMEGetConfirm::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
 
-int MLMEGetConfirm::getPIBAttributeIndex() const
+uint8_t MLMEGetConfirm::getPIBAttributeIndex() const
 {
     return this->PIBAttributeIndex;
 }
 
-void MLMEGetConfirm::setPIBAttributeIndex(int PIBAttributeIndex)
+void MLMEGetConfirm::setPIBAttributeIndex(uint8_t PIBAttributeIndex)
 {
     this->PIBAttributeIndex = PIBAttributeIndex;
 }
 
-int MLMEGetConfirm::getPIBAttributeValue() const
+uint64_t MLMEGetConfirm::getPIBAttributeValue() const
 {
     return this->PIBAttributeValue;
 }
 
-void MLMEGetConfirm::setPIBAttributeValue(int PIBAttributeValue)
+void MLMEGetConfirm::setPIBAttributeValue(uint64_t PIBAttributeValue)
 {
     this->PIBAttributeValue = PIBAttributeValue;
 }
@@ -4871,10 +4906,10 @@ const char *MLMEGetConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
-        "int",    // FIELD_PIBAttribute
-        "int",    // FIELD_PIBAttributeIndex
-        "int",    // FIELD_PIBAttributeValue
+        "macStatus_t",    // FIELD_status
+        "PIBAttribute_t",    // FIELD_PIBAttribute
+        "uint8_t",    // FIELD_PIBAttributeIndex
+        "uint64_t",    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
 }
@@ -4888,6 +4923,14 @@ const char **MLMEGetConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -4901,6 +4944,12 @@ const char *MLMEGetConfirmDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -4959,10 +5008,10 @@ std::string MLMEGetConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     MLMEGetConfirm *pp = omnetpp::fromAnyPtr<MLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
-        case FIELD_PIBAttribute: return long2string(pp->getPIBAttribute());
-        case FIELD_PIBAttributeIndex: return long2string(pp->getPIBAttributeIndex());
-        case FIELD_PIBAttributeValue: return long2string(pp->getPIBAttributeValue());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
+        case FIELD_PIBAttributeIndex: return ulong2string(pp->getPIBAttributeIndex());
+        case FIELD_PIBAttributeValue: return uint642string(pp->getPIBAttributeValue());
         default: return "";
     }
 }
@@ -4979,10 +5028,10 @@ void MLMEGetConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     MLMEGetConfirm *pp = omnetpp::fromAnyPtr<MLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2long(value)); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2long(value)); break;
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(string2long(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2ulong(value)); break;
+        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(string2uint64(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGetConfirm'", field);
     }
 }
@@ -4997,10 +5046,10 @@ omnetpp::cValue MLMEGetConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     MLMEGetConfirm *pp = omnetpp::fromAnyPtr<MLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
-        case FIELD_PIBAttribute: return pp->getPIBAttribute();
-        case FIELD_PIBAttributeIndex: return pp->getPIBAttributeIndex();
-        case FIELD_PIBAttributeValue: return pp->getPIBAttributeValue();
+        case FIELD_status: return static_cast<int>(pp->getStatus());
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
+        case FIELD_PIBAttributeIndex: return (omnetpp::intval_t)(pp->getPIBAttributeIndex());
+        case FIELD_PIBAttributeValue: return (omnetpp::intval_t)(pp->getPIBAttributeValue());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEGetConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -5017,10 +5066,10 @@ void MLMEGetConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     MLMEGetConfirm *pp = omnetpp::fromAnyPtr<MLMEGetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGetConfirm'", field);
     }
 }
@@ -5495,12 +5544,12 @@ void MLMEGTSConfirm::setGTSCharacteristics(uint8_t GTSCharacteristics)
     this->GTSCharacteristics = GTSCharacteristics;
 }
 
-uint8_t MLMEGTSConfirm::getStatus() const
+macStatus_t MLMEGTSConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEGTSConfirm::setStatus(uint8_t status)
+void MLMEGTSConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
@@ -5630,7 +5679,7 @@ const char *MLMEGTSConfirmDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "uint8_t",    // FIELD_GTSCharacteristics
-        "uint8_t",    // FIELD_status
+        "macStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 2) ? fieldTypeStrings[field] : nullptr;
 }
@@ -5644,6 +5693,10 @@ const char **MLMEGTSConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -5657,6 +5710,9 @@ const char *MLMEGTSConfirmDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -5716,7 +5772,7 @@ std::string MLMEGTSConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     MLMEGTSConfirm *pp = omnetpp::fromAnyPtr<MLMEGTSConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: return ulong2string(pp->getGTSCharacteristics());
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
         default: return "";
     }
 }
@@ -5734,7 +5790,7 @@ void MLMEGTSConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     MLMEGTSConfirm *pp = omnetpp::fromAnyPtr<MLMEGTSConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: pp->setGTSCharacteristics(string2ulong(value)); break;
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGTSConfirm'", field);
     }
 }
@@ -5750,7 +5806,7 @@ omnetpp::cValue MLMEGTSConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     MLMEGTSConfirm *pp = omnetpp::fromAnyPtr<MLMEGTSConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: return (omnetpp::intval_t)(pp->getGTSCharacteristics());
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEGTSConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -5768,7 +5824,7 @@ void MLMEGTSConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     MLMEGTSConfirm *pp = omnetpp::fromAnyPtr<MLMEGTSConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: pp->setGTSCharacteristics(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGTSConfirm'", field);
     }
 }
@@ -6670,12 +6726,12 @@ void MLMEPollConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t MLMEPollConfirm::getStatus() const
+macStatus_t MLMEPollConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEPollConfirm::setStatus(uint8_t status)
+void MLMEPollConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
@@ -6800,7 +6856,7 @@ const char *MLMEPollConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "macStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -6814,6 +6870,10 @@ const char **MLMEPollConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -6827,6 +6887,9 @@ const char *MLMEPollConfirmDescriptor::getFieldProperty(int field, const char *p
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -6885,7 +6948,7 @@ std::string MLMEPollConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     }
     MLMEPollConfirm *pp = omnetpp::fromAnyPtr<MLMEPollConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
         default: return "";
     }
 }
@@ -6902,7 +6965,7 @@ void MLMEPollConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     }
     MLMEPollConfirm *pp = omnetpp::fromAnyPtr<MLMEPollConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEPollConfirm'", field);
     }
 }
@@ -6917,7 +6980,7 @@ omnetpp::cValue MLMEPollConfirmDescriptor::getFieldValue(omnetpp::any_ptr object
     }
     MLMEPollConfirm *pp = omnetpp::fromAnyPtr<MLMEPollConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEPollConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -6934,7 +6997,7 @@ void MLMEPollConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     }
     MLMEPollConfirm *pp = omnetpp::fromAnyPtr<MLMEPollConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEPollConfirm'", field);
     }
 }
@@ -7374,12 +7437,12 @@ void MLMEResetConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t MLMEResetConfirm::getStatus() const
+macStatus_t MLMEResetConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEResetConfirm::setStatus(uint8_t status)
+void MLMEResetConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
@@ -7504,7 +7567,7 @@ const char *MLMEResetConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "macStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -7518,6 +7581,10 @@ const char **MLMEResetConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -7531,6 +7598,9 @@ const char *MLMEResetConfirmDescriptor::getFieldProperty(int field, const char *
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -7589,7 +7659,7 @@ std::string MLMEResetConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr o
     }
     MLMEResetConfirm *pp = omnetpp::fromAnyPtr<MLMEResetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
         default: return "";
     }
 }
@@ -7606,7 +7676,7 @@ void MLMEResetConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, 
     }
     MLMEResetConfirm *pp = omnetpp::fromAnyPtr<MLMEResetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEResetConfirm'", field);
     }
 }
@@ -7621,7 +7691,7 @@ omnetpp::cValue MLMEResetConfirmDescriptor::getFieldValue(omnetpp::any_ptr objec
     }
     MLMEResetConfirm *pp = omnetpp::fromAnyPtr<MLMEResetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEResetConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -7638,7 +7708,7 @@ void MLMEResetConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int fiel
     }
     MLMEResetConfirm *pp = omnetpp::fromAnyPtr<MLMEResetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEResetConfirm'", field);
     }
 }
@@ -7742,22 +7812,22 @@ void MLMERxEnableRequest::setDeferPermit(bool deferPermit)
     this->deferPermit = deferPermit;
 }
 
-int MLMERxEnableRequest::getRxOnTime() const
+uint32_t MLMERxEnableRequest::getRxOnTime() const
 {
     return this->rxOnTime;
 }
 
-void MLMERxEnableRequest::setRxOnTime(int rxOnTime)
+void MLMERxEnableRequest::setRxOnTime(uint32_t rxOnTime)
 {
     this->rxOnTime = rxOnTime;
 }
 
-int MLMERxEnableRequest::getRxOnDuration() const
+uint32_t MLMERxEnableRequest::getRxOnDuration() const
 {
     return this->rxOnDuration;
 }
 
-void MLMERxEnableRequest::setRxOnDuration(int rxOnDuration)
+void MLMERxEnableRequest::setRxOnDuration(uint32_t rxOnDuration)
 {
     this->rxOnDuration = rxOnDuration;
 }
@@ -7891,8 +7961,8 @@ const char *MLMERxEnableRequestDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "bool",    // FIELD_deferPermit
-        "int",    // FIELD_rxOnTime
-        "int",    // FIELD_rxOnDuration
+        "uint32_t",    // FIELD_rxOnTime
+        "uint32_t",    // FIELD_rxOnDuration
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
 }
@@ -7978,8 +8048,8 @@ std::string MLMERxEnableRequestDescriptor::getFieldValueAsString(omnetpp::any_pt
     MLMERxEnableRequest *pp = omnetpp::fromAnyPtr<MLMERxEnableRequest>(object); (void)pp;
     switch (field) {
         case FIELD_deferPermit: return bool2string(pp->getDeferPermit());
-        case FIELD_rxOnTime: return long2string(pp->getRxOnTime());
-        case FIELD_rxOnDuration: return long2string(pp->getRxOnDuration());
+        case FIELD_rxOnTime: return ulong2string(pp->getRxOnTime());
+        case FIELD_rxOnDuration: return ulong2string(pp->getRxOnDuration());
         default: return "";
     }
 }
@@ -7997,8 +8067,8 @@ void MLMERxEnableRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr objec
     MLMERxEnableRequest *pp = omnetpp::fromAnyPtr<MLMERxEnableRequest>(object); (void)pp;
     switch (field) {
         case FIELD_deferPermit: pp->setDeferPermit(string2bool(value)); break;
-        case FIELD_rxOnTime: pp->setRxOnTime(string2long(value)); break;
-        case FIELD_rxOnDuration: pp->setRxOnDuration(string2long(value)); break;
+        case FIELD_rxOnTime: pp->setRxOnTime(string2ulong(value)); break;
+        case FIELD_rxOnDuration: pp->setRxOnDuration(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMERxEnableRequest'", field);
     }
 }
@@ -8014,8 +8084,8 @@ omnetpp::cValue MLMERxEnableRequestDescriptor::getFieldValue(omnetpp::any_ptr ob
     MLMERxEnableRequest *pp = omnetpp::fromAnyPtr<MLMERxEnableRequest>(object); (void)pp;
     switch (field) {
         case FIELD_deferPermit: return pp->getDeferPermit();
-        case FIELD_rxOnTime: return pp->getRxOnTime();
-        case FIELD_rxOnDuration: return pp->getRxOnDuration();
+        case FIELD_rxOnTime: return (omnetpp::intval_t)(pp->getRxOnTime());
+        case FIELD_rxOnDuration: return (omnetpp::intval_t)(pp->getRxOnDuration());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMERxEnableRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -8033,8 +8103,8 @@ void MLMERxEnableRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int f
     MLMERxEnableRequest *pp = omnetpp::fromAnyPtr<MLMERxEnableRequest>(object); (void)pp;
     switch (field) {
         case FIELD_deferPermit: pp->setDeferPermit(value.boolValue()); break;
-        case FIELD_rxOnTime: pp->setRxOnTime(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_rxOnDuration: pp->setRxOnDuration(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_rxOnTime: pp->setRxOnTime(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
+        case FIELD_rxOnDuration: pp->setRxOnDuration(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMERxEnableRequest'", field);
     }
 }
@@ -8122,12 +8192,12 @@ void MLMERxEnableConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t MLMERxEnableConfirm::getStatus() const
+macStatus_t MLMERxEnableConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMERxEnableConfirm::setStatus(uint8_t status)
+void MLMERxEnableConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
@@ -8252,7 +8322,7 @@ const char *MLMERxEnableConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "macStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -8266,6 +8336,10 @@ const char **MLMERxEnableConfirmDescriptor::getFieldPropertyNames(int field) con
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -8279,6 +8353,9 @@ const char *MLMERxEnableConfirmDescriptor::getFieldProperty(int field, const cha
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -8337,7 +8414,7 @@ std::string MLMERxEnableConfirmDescriptor::getFieldValueAsString(omnetpp::any_pt
     }
     MLMERxEnableConfirm *pp = omnetpp::fromAnyPtr<MLMERxEnableConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
         default: return "";
     }
 }
@@ -8354,7 +8431,7 @@ void MLMERxEnableConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr objec
     }
     MLMERxEnableConfirm *pp = omnetpp::fromAnyPtr<MLMERxEnableConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMERxEnableConfirm'", field);
     }
 }
@@ -8369,7 +8446,7 @@ omnetpp::cValue MLMERxEnableConfirmDescriptor::getFieldValue(omnetpp::any_ptr ob
     }
     MLMERxEnableConfirm *pp = omnetpp::fromAnyPtr<MLMERxEnableConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMERxEnableConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -8386,7 +8463,7 @@ void MLMERxEnableConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int f
     }
     MLMERxEnableConfirm *pp = omnetpp::fromAnyPtr<MLMERxEnableConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMERxEnableConfirm'", field);
     }
 }
@@ -8486,12 +8563,12 @@ void MLMEScanRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->colorScan);
 }
 
-int MLMEScanRequest::getScanType() const
+scanType_t MLMEScanRequest::getScanType() const
 {
     return this->scanType;
 }
 
-void MLMEScanRequest::setScanType(int scanType)
+void MLMEScanRequest::setScanType(scanType_t scanType)
 {
     this->scanType = scanType;
 }
@@ -8672,7 +8749,7 @@ const char *MLMEScanRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_scanType
+        "scanType_t",    // FIELD_scanType
         "uint8_t",    // FIELD_scanChannels
         "int",    // FIELD_scanDuration
         "int",    // FIELD_securityLevel
@@ -8690,6 +8767,10 @@ const char **MLMEScanRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_scanType: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -8703,6 +8784,9 @@ const char *MLMEScanRequestDescriptor::getFieldProperty(int field, const char *p
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_scanType:
+            if (!strcmp(propertyName, "enum")) return "scanType_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -8761,7 +8845,7 @@ std::string MLMEScanRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     }
     MLMEScanRequest *pp = omnetpp::fromAnyPtr<MLMEScanRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_scanType: return long2string(pp->getScanType());
+        case FIELD_scanType: return enum2string(pp->getScanType(), "scanType_t");
         case FIELD_scanChannels: return ulong2string(pp->getScanChannels());
         case FIELD_scanDuration: return long2string(pp->getScanDuration());
         case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
@@ -8782,7 +8866,7 @@ void MLMEScanRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     }
     MLMEScanRequest *pp = omnetpp::fromAnyPtr<MLMEScanRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_scanType: pp->setScanType(string2long(value)); break;
+        case FIELD_scanType: pp->setScanType((scanType_t)string2enum(value, "scanType_t")); break;
         case FIELD_scanChannels: pp->setScanChannels(string2ulong(value)); break;
         case FIELD_scanDuration: pp->setScanDuration(string2long(value)); break;
         case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
@@ -8801,7 +8885,7 @@ omnetpp::cValue MLMEScanRequestDescriptor::getFieldValue(omnetpp::any_ptr object
     }
     MLMEScanRequest *pp = omnetpp::fromAnyPtr<MLMEScanRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_scanType: return pp->getScanType();
+        case FIELD_scanType: return static_cast<int>(pp->getScanType());
         case FIELD_scanChannels: return (omnetpp::intval_t)(pp->getScanChannels());
         case FIELD_scanDuration: return pp->getScanDuration();
         case FIELD_securityLevel: return pp->getSecurityLevel();
@@ -8822,7 +8906,7 @@ void MLMEScanRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     }
     MLMEScanRequest *pp = omnetpp::fromAnyPtr<MLMEScanRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_scanType: pp->setScanType(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_scanType: pp->setScanType(static_cast<scanType_t>(value.intValue())); break;
         case FIELD_scanChannels: pp->setScanChannels(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_scanDuration: pp->setScanDuration(omnetpp::checked_int_cast<int>(value.intValue())); break;
         case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
@@ -8887,6 +8971,7 @@ MLMEScanConfirm::MLMEScanConfirm(const MLMEScanConfirm& other) : ::omnetpp::cMes
 
 MLMEScanConfirm::~MLMEScanConfirm()
 {
+    delete [] this->OWPANDescriptorList;
 }
 
 MLMEScanConfirm& MLMEScanConfirm::operator=(const MLMEScanConfirm& other)
@@ -8903,7 +8988,12 @@ void MLMEScanConfirm::copy(const MLMEScanConfirm& other)
     this->scanType = other.scanType;
     this->unscannedChannels = other.unscannedChannels;
     this->resultListSize = other.resultListSize;
-    this->OWPANDescriptorList = other.OWPANDescriptorList;
+    delete [] this->OWPANDescriptorList;
+    this->OWPANDescriptorList = (other.OWPANDescriptorList_arraysize==0) ? nullptr : new uint8_t[other.OWPANDescriptorList_arraysize];
+    OWPANDescriptorList_arraysize = other.OWPANDescriptorList_arraysize;
+    for (size_t i = 0; i < OWPANDescriptorList_arraysize; i++) {
+        this->OWPANDescriptorList[i] = other.OWPANDescriptorList[i];
+    }
 }
 
 void MLMEScanConfirm::parsimPack(omnetpp::cCommBuffer *b) const
@@ -8913,7 +9003,8 @@ void MLMEScanConfirm::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->scanType);
     doParsimPacking(b,this->unscannedChannels);
     doParsimPacking(b,this->resultListSize);
-    doParsimPacking(b,this->OWPANDescriptorList);
+    b->pack(OWPANDescriptorList_arraysize);
+    doParsimArrayPacking(b,this->OWPANDescriptorList,OWPANDescriptorList_arraysize);
 }
 
 void MLMEScanConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -8923,15 +9014,22 @@ void MLMEScanConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->scanType);
     doParsimUnpacking(b,this->unscannedChannels);
     doParsimUnpacking(b,this->resultListSize);
-    doParsimUnpacking(b,this->OWPANDescriptorList);
+    delete [] this->OWPANDescriptorList;
+    b->unpack(OWPANDescriptorList_arraysize);
+    if (OWPANDescriptorList_arraysize == 0) {
+        this->OWPANDescriptorList = nullptr;
+    } else {
+        this->OWPANDescriptorList = new uint8_t[OWPANDescriptorList_arraysize];
+        doParsimArrayUnpacking(b,this->OWPANDescriptorList,OWPANDescriptorList_arraysize);
+    }
 }
 
-uint8_t MLMEScanConfirm::getStatus() const
+macStatus_t MLMEScanConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEScanConfirm::setStatus(uint8_t status)
+void MLMEScanConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
@@ -8956,24 +9054,80 @@ void MLMEScanConfirm::setUnscannedChannels(uint8_t unscannedChannels)
     this->unscannedChannels = unscannedChannels;
 }
 
-int MLMEScanConfirm::getResultListSize() const
+uint16_t MLMEScanConfirm::getResultListSize() const
 {
     return this->resultListSize;
 }
 
-void MLMEScanConfirm::setResultListSize(int resultListSize)
+void MLMEScanConfirm::setResultListSize(uint16_t resultListSize)
 {
     this->resultListSize = resultListSize;
 }
 
-uint8_t MLMEScanConfirm::getOWPANDescriptorList() const
+size_t MLMEScanConfirm::getOWPANDescriptorListArraySize() const
 {
-    return this->OWPANDescriptorList;
+    return OWPANDescriptorList_arraysize;
 }
 
-void MLMEScanConfirm::setOWPANDescriptorList(uint8_t OWPANDescriptorList)
+uint8_t MLMEScanConfirm::getOWPANDescriptorList(size_t k) const
 {
-    this->OWPANDescriptorList = OWPANDescriptorList;
+    if (k >= OWPANDescriptorList_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)OWPANDescriptorList_arraysize, (unsigned long)k);
+    return this->OWPANDescriptorList[k];
+}
+
+void MLMEScanConfirm::setOWPANDescriptorListArraySize(size_t newSize)
+{
+    uint8_t *OWPANDescriptorList2 = (newSize==0) ? nullptr : new uint8_t[newSize];
+    size_t minSize = OWPANDescriptorList_arraysize < newSize ? OWPANDescriptorList_arraysize : newSize;
+    for (size_t i = 0; i < minSize; i++)
+        OWPANDescriptorList2[i] = this->OWPANDescriptorList[i];
+    for (size_t i = minSize; i < newSize; i++)
+        OWPANDescriptorList2[i] = 0;
+    delete [] this->OWPANDescriptorList;
+    this->OWPANDescriptorList = OWPANDescriptorList2;
+    OWPANDescriptorList_arraysize = newSize;
+}
+
+void MLMEScanConfirm::setOWPANDescriptorList(size_t k, uint8_t OWPANDescriptorList)
+{
+    if (k >= OWPANDescriptorList_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)OWPANDescriptorList_arraysize, (unsigned long)k);
+    this->OWPANDescriptorList[k] = OWPANDescriptorList;
+}
+
+void MLMEScanConfirm::insertOWPANDescriptorList(size_t k, uint8_t OWPANDescriptorList)
+{
+    if (k > OWPANDescriptorList_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)OWPANDescriptorList_arraysize, (unsigned long)k);
+    size_t newSize = OWPANDescriptorList_arraysize + 1;
+    uint8_t *OWPANDescriptorList2 = new uint8_t[newSize];
+    size_t i;
+    for (i = 0; i < k; i++)
+        OWPANDescriptorList2[i] = this->OWPANDescriptorList[i];
+    OWPANDescriptorList2[k] = OWPANDescriptorList;
+    for (i = k + 1; i < newSize; i++)
+        OWPANDescriptorList2[i] = this->OWPANDescriptorList[i-1];
+    delete [] this->OWPANDescriptorList;
+    this->OWPANDescriptorList = OWPANDescriptorList2;
+    OWPANDescriptorList_arraysize = newSize;
+}
+
+void MLMEScanConfirm::appendOWPANDescriptorList(uint8_t OWPANDescriptorList)
+{
+    insertOWPANDescriptorList(OWPANDescriptorList_arraysize, OWPANDescriptorList);
+}
+
+void MLMEScanConfirm::eraseOWPANDescriptorList(size_t k)
+{
+    if (k >= OWPANDescriptorList_arraysize) throw omnetpp::cRuntimeError("Array of size %lu indexed by %lu", (unsigned long)OWPANDescriptorList_arraysize, (unsigned long)k);
+    size_t newSize = OWPANDescriptorList_arraysize - 1;
+    uint8_t *OWPANDescriptorList2 = (newSize == 0) ? nullptr : new uint8_t[newSize];
+    size_t i;
+    for (i = 0; i < k; i++)
+        OWPANDescriptorList2[i] = this->OWPANDescriptorList[i];
+    for (i = k; i < newSize; i++)
+        OWPANDescriptorList2[i] = this->OWPANDescriptorList[i+1];
+    delete [] this->OWPANDescriptorList;
+    this->OWPANDescriptorList = OWPANDescriptorList2;
+    OWPANDescriptorList_arraysize = newSize;
 }
 
 class MLMEScanConfirmDescriptor : public omnetpp::cClassDescriptor
@@ -9068,7 +9222,7 @@ unsigned int MLMEScanConfirmDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_scanType
         FD_ISEDITABLE,    // FIELD_unscannedChannels
         FD_ISEDITABLE,    // FIELD_resultListSize
-        FD_ISEDITABLE,    // FIELD_OWPANDescriptorList
+        FD_ISARRAY | FD_ISEDITABLE | FD_ISRESIZABLE,    // FIELD_OWPANDescriptorList
     };
     return (field >= 0 && field < 5) ? fieldTypeFlags[field] : 0;
 }
@@ -9112,10 +9266,10 @@ const char *MLMEScanConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "macStatus_t",    // FIELD_status
         "int",    // FIELD_scanType
         "uint8_t",    // FIELD_unscannedChannels
-        "int",    // FIELD_resultListSize
+        "uint16_t",    // FIELD_resultListSize
         "uint8_t",    // FIELD_OWPANDescriptorList
     };
     return (field >= 0 && field < 5) ? fieldTypeStrings[field] : nullptr;
@@ -9130,6 +9284,10 @@ const char **MLMEScanConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -9143,6 +9301,9 @@ const char *MLMEScanConfirmDescriptor::getFieldProperty(int field, const char *p
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -9157,6 +9318,7 @@ int MLMEScanConfirmDescriptor::getFieldArraySize(omnetpp::any_ptr object, int fi
     }
     MLMEScanConfirm *pp = omnetpp::fromAnyPtr<MLMEScanConfirm>(object); (void)pp;
     switch (field) {
+        case FIELD_OWPANDescriptorList: return pp->getOWPANDescriptorListArraySize();
         default: return 0;
     }
 }
@@ -9173,6 +9335,7 @@ void MLMEScanConfirmDescriptor::setFieldArraySize(omnetpp::any_ptr object, int f
     }
     MLMEScanConfirm *pp = omnetpp::fromAnyPtr<MLMEScanConfirm>(object); (void)pp;
     switch (field) {
+        case FIELD_OWPANDescriptorList: pp->setOWPANDescriptorListArraySize(size); break;
         default: throw omnetpp::cRuntimeError("Cannot set array size of field %d of class 'MLMEScanConfirm'", field);
     }
 }
@@ -9201,11 +9364,11 @@ std::string MLMEScanConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     }
     MLMEScanConfirm *pp = omnetpp::fromAnyPtr<MLMEScanConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
         case FIELD_scanType: return long2string(pp->getScanType());
         case FIELD_unscannedChannels: return ulong2string(pp->getUnscannedChannels());
-        case FIELD_resultListSize: return long2string(pp->getResultListSize());
-        case FIELD_OWPANDescriptorList: return ulong2string(pp->getOWPANDescriptorList());
+        case FIELD_resultListSize: return ulong2string(pp->getResultListSize());
+        case FIELD_OWPANDescriptorList: return ulong2string(pp->getOWPANDescriptorList(i));
         default: return "";
     }
 }
@@ -9222,11 +9385,11 @@ void MLMEScanConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     }
     MLMEScanConfirm *pp = omnetpp::fromAnyPtr<MLMEScanConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
         case FIELD_scanType: pp->setScanType(string2long(value)); break;
         case FIELD_unscannedChannels: pp->setUnscannedChannels(string2ulong(value)); break;
-        case FIELD_resultListSize: pp->setResultListSize(string2long(value)); break;
-        case FIELD_OWPANDescriptorList: pp->setOWPANDescriptorList(string2ulong(value)); break;
+        case FIELD_resultListSize: pp->setResultListSize(string2ulong(value)); break;
+        case FIELD_OWPANDescriptorList: pp->setOWPANDescriptorList(i,string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEScanConfirm'", field);
     }
 }
@@ -9241,11 +9404,11 @@ omnetpp::cValue MLMEScanConfirmDescriptor::getFieldValue(omnetpp::any_ptr object
     }
     MLMEScanConfirm *pp = omnetpp::fromAnyPtr<MLMEScanConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         case FIELD_scanType: return pp->getScanType();
         case FIELD_unscannedChannels: return (omnetpp::intval_t)(pp->getUnscannedChannels());
-        case FIELD_resultListSize: return pp->getResultListSize();
-        case FIELD_OWPANDescriptorList: return (omnetpp::intval_t)(pp->getOWPANDescriptorList());
+        case FIELD_resultListSize: return (omnetpp::intval_t)(pp->getResultListSize());
+        case FIELD_OWPANDescriptorList: return (omnetpp::intval_t)(pp->getOWPANDescriptorList(i));
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEScanConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -9262,11 +9425,11 @@ void MLMEScanConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     }
     MLMEScanConfirm *pp = omnetpp::fromAnyPtr<MLMEScanConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
         case FIELD_scanType: pp->setScanType(omnetpp::checked_int_cast<int>(value.intValue())); break;
         case FIELD_unscannedChannels: pp->setUnscannedChannels(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_resultListSize: pp->setResultListSize(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_OWPANDescriptorList: pp->setOWPANDescriptorList(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_resultListSize: pp->setResultListSize(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
+        case FIELD_OWPANDescriptorList: pp->setOWPANDescriptorList(i,omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEScanConfirm'", field);
     }
 }
@@ -9360,22 +9523,22 @@ void MLMESetRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->PIBAttributeValue);
 }
 
-int MLMESetRequest::getPIBAttribute() const
+PIBAttribute_t MLMESetRequest::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void MLMESetRequest::setPIBAttribute(int PIBAttribute)
+void MLMESetRequest::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
 
-int MLMESetRequest::getPIBAttributeIndex() const
+uint8_t MLMESetRequest::getPIBAttributeIndex() const
 {
     return this->PIBAttributeIndex;
 }
 
-void MLMESetRequest::setPIBAttributeIndex(int PIBAttributeIndex)
+void MLMESetRequest::setPIBAttributeIndex(uint8_t PIBAttributeIndex)
 {
     this->PIBAttributeIndex = PIBAttributeIndex;
 }
@@ -9518,8 +9681,8 @@ const char *MLMESetRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_PIBAttribute
-        "int",    // FIELD_PIBAttributeIndex
+        "PIBAttribute_t",    // FIELD_PIBAttribute
+        "uint8_t",    // FIELD_PIBAttributeIndex
         "uint64_t",    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
@@ -9534,6 +9697,10 @@ const char **MLMESetRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -9547,6 +9714,9 @@ const char *MLMESetRequestDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -9605,8 +9775,8 @@ std::string MLMESetRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     MLMESetRequest *pp = omnetpp::fromAnyPtr<MLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return long2string(pp->getPIBAttribute());
-        case FIELD_PIBAttributeIndex: return long2string(pp->getPIBAttributeIndex());
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
+        case FIELD_PIBAttributeIndex: return ulong2string(pp->getPIBAttributeIndex());
         case FIELD_PIBAttributeValue: return uint642string(pp->getPIBAttributeValue());
         default: return "";
     }
@@ -9624,8 +9794,8 @@ void MLMESetRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     MLMESetRequest *pp = omnetpp::fromAnyPtr<MLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2long(value)); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2long(value)); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2ulong(value)); break;
         case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(string2uint64(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMESetRequest'", field);
     }
@@ -9641,8 +9811,8 @@ omnetpp::cValue MLMESetRequestDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     MLMESetRequest *pp = omnetpp::fromAnyPtr<MLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: return pp->getPIBAttribute();
-        case FIELD_PIBAttributeIndex: return pp->getPIBAttributeIndex();
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
+        case FIELD_PIBAttributeIndex: return (omnetpp::intval_t)(pp->getPIBAttributeIndex());
         case FIELD_PIBAttributeValue: return (omnetpp::intval_t)(pp->getPIBAttributeValue());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMESetRequest' as cValue -- field index out of range?", field);
     }
@@ -9660,8 +9830,8 @@ void MLMESetRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     MLMESetRequest *pp = omnetpp::fromAnyPtr<MLMESetRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMESetRequest'", field);
     }
@@ -9756,32 +9926,32 @@ void MLMESetConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->PIBAttributeIndex);
 }
 
-uint8_t MLMESetConfirm::getStatus() const
+macStatus_t MLMESetConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMESetConfirm::setStatus(uint8_t status)
+void MLMESetConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
 
-int MLMESetConfirm::getPIBAttribute() const
+PIBAttribute_t MLMESetConfirm::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void MLMESetConfirm::setPIBAttribute(int PIBAttribute)
+void MLMESetConfirm::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
 
-int MLMESetConfirm::getPIBAttributeIndex() const
+uint8_t MLMESetConfirm::getPIBAttributeIndex() const
 {
     return this->PIBAttributeIndex;
 }
 
-void MLMESetConfirm::setPIBAttributeIndex(int PIBAttributeIndex)
+void MLMESetConfirm::setPIBAttributeIndex(uint8_t PIBAttributeIndex)
 {
     this->PIBAttributeIndex = PIBAttributeIndex;
 }
@@ -9914,9 +10084,9 @@ const char *MLMESetConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
-        "int",    // FIELD_PIBAttribute
-        "int",    // FIELD_PIBAttributeIndex
+        "macStatus_t",    // FIELD_status
+        "PIBAttribute_t",    // FIELD_PIBAttribute
+        "uint8_t",    // FIELD_PIBAttributeIndex
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
 }
@@ -9930,6 +10100,14 @@ const char **MLMESetConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -9943,6 +10121,12 @@ const char *MLMESetConfirmDescriptor::getFieldProperty(int field, const char *pr
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -10001,9 +10185,9 @@ std::string MLMESetConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     }
     MLMESetConfirm *pp = omnetpp::fromAnyPtr<MLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
-        case FIELD_PIBAttribute: return long2string(pp->getPIBAttribute());
-        case FIELD_PIBAttributeIndex: return long2string(pp->getPIBAttributeIndex());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
+        case FIELD_PIBAttributeIndex: return ulong2string(pp->getPIBAttributeIndex());
         default: return "";
     }
 }
@@ -10020,9 +10204,9 @@ void MLMESetConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     }
     MLMESetConfirm *pp = omnetpp::fromAnyPtr<MLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2long(value)); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2long(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMESetConfirm'", field);
     }
 }
@@ -10037,9 +10221,9 @@ omnetpp::cValue MLMESetConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     }
     MLMESetConfirm *pp = omnetpp::fromAnyPtr<MLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
-        case FIELD_PIBAttribute: return pp->getPIBAttribute();
-        case FIELD_PIBAttributeIndex: return pp->getPIBAttributeIndex();
+        case FIELD_status: return static_cast<int>(pp->getStatus());
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
+        case FIELD_PIBAttributeIndex: return (omnetpp::intval_t)(pp->getPIBAttributeIndex());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMESetConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -10056,9 +10240,9 @@ void MLMESetConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     }
     MLMESetConfirm *pp = omnetpp::fromAnyPtr<MLMESetConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
+        case FIELD_PIBAttributeIndex: pp->setPIBAttributeIndex(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMESetConfirm'", field);
     }
 }
@@ -10674,12 +10858,12 @@ void MLMEStartConfirm::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
 }
 
-uint8_t MLMEStartConfirm::getStatus() const
+macStatus_t MLMEStartConfirm::getStatus() const
 {
     return this->status;
 }
 
-void MLMEStartConfirm::setStatus(uint8_t status)
+void MLMEStartConfirm::setStatus(macStatus_t status)
 {
     this->status = status;
 }
@@ -10804,7 +10988,7 @@ const char *MLMEStartConfirmDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint8_t",    // FIELD_status
+        "macStatus_t",    // FIELD_status
     };
     return (field >= 0 && field < 1) ? fieldTypeStrings[field] : nullptr;
 }
@@ -10818,6 +11002,10 @@ const char **MLMEStartConfirmDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -10831,6 +11019,9 @@ const char *MLMEStartConfirmDescriptor::getFieldProperty(int field, const char *
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_status:
+            if (!strcmp(propertyName, "enum")) return "macStatus_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -10889,7 +11080,7 @@ std::string MLMEStartConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr o
     }
     MLMEStartConfirm *pp = omnetpp::fromAnyPtr<MLMEStartConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return ulong2string(pp->getStatus());
+        case FIELD_status: return enum2string(pp->getStatus(), "macStatus_t");
         default: return "";
     }
 }
@@ -10906,7 +11097,7 @@ void MLMEStartConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, 
     }
     MLMEStartConfirm *pp = omnetpp::fromAnyPtr<MLMEStartConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(string2ulong(value)); break;
+        case FIELD_status: pp->setStatus((macStatus_t)string2enum(value, "macStatus_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEStartConfirm'", field);
     }
 }
@@ -10921,7 +11112,7 @@ omnetpp::cValue MLMEStartConfirmDescriptor::getFieldValue(omnetpp::any_ptr objec
     }
     MLMEStartConfirm *pp = omnetpp::fromAnyPtr<MLMEStartConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: return (omnetpp::intval_t)(pp->getStatus());
+        case FIELD_status: return static_cast<int>(pp->getStatus());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEStartConfirm' as cValue -- field index out of range?", field);
     }
 }
@@ -10938,7 +11129,7 @@ void MLMEStartConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int fiel
     }
     MLMEStartConfirm *pp = omnetpp::fromAnyPtr<MLMEStartConfirm>(object); (void)pp;
     switch (field) {
-        case FIELD_status: pp->setStatus(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_status: pp->setStatus(static_cast<macStatus_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEStartConfirm'", field);
     }
 }
