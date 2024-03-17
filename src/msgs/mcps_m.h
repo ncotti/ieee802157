@@ -35,7 +35,7 @@ class MCPSDataIndication;
  *     uint8_t msduHandle;
  *     uint8_t txOptions;
  *     uint8_t securityLevel;
- *     uint8_t dataRate;
+ *     MCS_t dataRate;
  *     bool burstMode;
  *     bool colorReceived;
  *     bool colorNotReceived;
@@ -55,7 +55,7 @@ class MCPSDataRequest : public ::omnetpp::cMessage
     uint8_t msduHandle = 0;
     uint8_t txOptions = 0;
     uint8_t securityLevel = 0;
-    uint8_t dataRate = 0;
+    MCS_t dataRate = static_cast<MCS_t>(-1);
     bool burstMode = false;
     bool colorReceived = false;
     bool colorNotReceived = false;
@@ -108,8 +108,8 @@ class MCPSDataRequest : public ::omnetpp::cMessage
     virtual uint8_t getSecurityLevel() const;
     virtual void setSecurityLevel(uint8_t securityLevel);
 
-    virtual uint8_t getDataRate() const;
-    virtual void setDataRate(uint8_t dataRate);
+    virtual MCS_t getDataRate() const;
+    virtual void setDataRate(MCS_t dataRate);
 
     virtual bool getBurstMode() const;
     virtual void setBurstMode(bool burstMode);

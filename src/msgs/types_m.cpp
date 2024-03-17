@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs//types.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/types.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -1149,7 +1149,7 @@ void security_tDescriptor::setFieldStructValuePointer(omnetpp::any_ptr object, i
 
 Register_Enum(commandFrameIdentifier_t, (commandFrameIdentifier_t::ASSOCIATION_REQUEST, commandFrameIdentifier_t::ASSOCIATION_RESPONSE, commandFrameIdentifier_t::DISASSOCIATION_NOTIFICATION, commandFrameIdentifier_t::DATA_REQUEST, commandFrameIdentifier_t::OWPAN_ID_CONFLICT_NOTIFICATION, commandFrameIdentifier_t::BEACON_REQUEST, commandFrameIdentifier_t::COORDINATOR_REALIGNMENT, commandFrameIdentifier_t::GTS_REQUEST, commandFrameIdentifier_t::BLINKING_NOTIFICATION, commandFrameIdentifier_t::DIMMING_NOTIFICATION, commandFrameIdentifier_t::FAST_LINK_RECOVERY, commandFrameIdentifier_t::MOBILITY_NOTIFICATION, commandFrameIdentifier_t::GTS_RESPONSE, commandFrameIdentifier_t::CLOCK_RATE_CHANGE_NOTIFICATION, commandFrameIdentifier_t::MULTIPLE_CHANNEL_ASSIGNMENT, commandFrameIdentifier_t::BAND_HOPING, commandFrameIdentifier_t::COLOR_STABILIZATION_TIMER_NOTIFICATION, commandFrameIdentifier_t::COLOR_STABILIZATION_INFORMATION, commandFrameIdentifier_t::CVD_DISABLE, commandFrameIdentifier_t::INFORMATION_ELEMENT));
 
-Register_Enum(macStatus_t, (macStatus_t::ASSOCIATION_SUCCESSFUL, macStatus_t::OWPAN_AT_CAPACITY, macStatus_t::OWPAN_ACCESS_DENIED, macStatus_t::SUCCESS, macStatus_t::TRANSACTION_OVERFLOW, macStatus_t::TRANSACTION_EXPIRED, macStatus_t::CHANNEL_ACCESS_FAILURE, macStatus_t::INVALID_ADDRESS, macStatus_t::INVALID_GTS, macStatus_t::NO_ACK, macStatus_t::COUNTER_ERROR, macStatus_t::FRAME_TOO_LONG, macStatus_t::UNAVAILABLE_KEY, macStatus_t::UNSUPPORTED_SECURITY, macStatus_t::INVALID_PARAMETER, macStatus_t::INVALID_INDEX, macStatus_t::UNSUPPORTED_ATTRIBUTE_MAC, macStatus_t::READ_ONLY));
+Register_Enum(macStatus_t, (macStatus_t::ASSOCIATION_SUCCESSFUL, macStatus_t::OWPAN_AT_CAPACITY, macStatus_t::OWPAN_ACCESS_DENIED, macStatus_t::SUCCESS, macStatus_t::TRANSACTION_OVERFLOW, macStatus_t::TRANSACTION_EXPIRED, macStatus_t::CHANNEL_ACCESS_FAILURE, macStatus_t::INVALID_ADDRESS, macStatus_t::INVALID_GTS, macStatus_t::NO_ACK, macStatus_t::COUNTER_ERROR, macStatus_t::FRAME_TOO_LONG, macStatus_t::UNAVAILABLE_KEY, macStatus_t::UNSUPPORTED_SECURITY, macStatus_t::INVALID_PARAMETER, macStatus_t::INVALID_INDEX, macStatus_t::UNSUPPORTED_ATTRIBUTE_MAC, macStatus_t::READ_ONLY, macStatus_t::SCAN_IN_PROGRESS));
 
 Register_Enum(frameType_t, (frameType_t::beacon, frameType_t::data, frameType_t::ack, frameType_t::command, frameType_t::cvd));
 

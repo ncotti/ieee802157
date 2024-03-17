@@ -42,6 +42,7 @@ public:
     capabilityInformation_t varCapabilities;
     uint32_t varOpticalClockDuration;
     uint8_t phyType;
+    bool pdDataConfirmReceived;
 
     // Used by the FSM Superframe
     uint16_t varBeaconInterval;
@@ -87,10 +88,19 @@ public:
     PIBAttribute_t getPIBAttribute;
     uint64_t getPHYPIBAttributeValue;
 
-    // Used by the SET FMS
+    // Used by the SET FSM
     bool notificationSetRequest = false;
     PIBAttribute_t setPIBAttribute;
     uint64_t setPIBAttributeValue;
+
+    // Used by the SCAN FSM
+    bool notificationScan = false;
+    opticalChannel_t scanChannels[8];
+    uint8_t scanChannelsLeft;
+    cMessage* timerScanDuration = nullptr;
+    uint8_t scanDuration;
+    bool timerScanDurationTriggered = false;
+    scanType_t scanType;
 
     // All MAC PIB attributes
     int macAckWaitDuration;

@@ -45,8 +45,6 @@ message PLMESetConfirm {
     PIBAttribute_t PIBAttribute;
 };
 
-
-
 message PLMESetTrxStateRequest {
     phyStatus_t state;
 };

@@ -140,6 +140,7 @@ enum macStatus_t {
     INVALID_INDEX = 0x8c;
     UNSUPPORTED_ATTRIBUTE_MAC = 0x8d;
     READ_ONLY = 0x8e;
+    SCAN_IN_PROGRESS = 0x8f;
 };
 
 enum frameType_t {

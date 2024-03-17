@@ -260,7 +260,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetConfirm& obj) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/plme.msg:50</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:48</tt> by opp_msgtool.
  * <pre>
  * message PLMESetTrxStateRequest
  * {
@@ -296,7 +296,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetTrxStateReques
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetTrxStateRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/plme.msg:54</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:52</tt> by opp_msgtool.
  * <pre>
  * message PLMESetTrxStateConfirm
  * {
@@ -332,7 +332,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESetTrxStateConfir
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESetTrxStateConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/plme.msg:59</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:57</tt> by opp_msgtool.
  * <pre>
  * message PLMESwitchRequest
  * {
@@ -373,7 +373,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PLMESwitchRequest& ob
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMESwitchRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/plme.msg:64</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/plme.msg:62</tt> by opp_msgtool.
  * <pre>
  * message PLMESwitchConfirm
  * {

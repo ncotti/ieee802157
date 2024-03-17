@@ -51,12 +51,12 @@ class MLMESyncLossIndication;
  * <pre>
  * message MLMEAssociateRequest
  * {
- *     int logicalChannel;
- *     int coordAddrMode;
- *     int coordOWPANId;
- *     int coordAddress;
- *     uint64_t capabilityInformation;
- *     int securityLevel;
+ *     opticalChannel_t logicalChannel;
+ *     addressingMode_t coordAddrMode;
+ *     uint16_t coordOWPANId;
+ *     uint64_t coordAddress;
+ *     capabilityInformation_t capabilityInformation;
+ *     uint8_t securityLevel;
  *     bool colorAssoc;
  * }
  * </pre>
@@ -64,12 +64,12 @@ class MLMESyncLossIndication;
 class MLMEAssociateRequest : public ::omnetpp::cMessage
 {
   protected:
-    int logicalChannel = 0;
-    int coordAddrMode = 0;
-    int coordOWPANId = 0;
-    int coordAddress = 0;
-    uint64_t capabilityInformation = 0;
-    int securityLevel = 0;
+    opticalChannel_t logicalChannel = static_cast<opticalChannel_t>(-1);
+    addressingMode_t coordAddrMode = static_cast<addressingMode_t>(-1);
+    uint16_t coordOWPANId = 0;
+    uint64_t coordAddress = 0;
+    capabilityInformation_t capabilityInformation;
+    uint8_t securityLevel = 0;
     bool colorAssoc = false;
 
   private:
@@ -87,23 +87,24 @@ class MLMEAssociateRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getLogicalChannel() const;
-    virtual void setLogicalChannel(int logicalChannel);
+    virtual opticalChannel_t getLogicalChannel() const;
+    virtual void setLogicalChannel(opticalChannel_t logicalChannel);
 
-    virtual int getCoordAddrMode() const;
-    virtual void setCoordAddrMode(int coordAddrMode);
+    virtual addressingMode_t getCoordAddrMode() const;
+    virtual void setCoordAddrMode(addressingMode_t coordAddrMode);
 
-    virtual int getCoordOWPANId() const;
-    virtual void setCoordOWPANId(int coordOWPANId);
+    virtual uint16_t getCoordOWPANId() const;
+    virtual void setCoordOWPANId(uint16_t coordOWPANId);
 
-    virtual int getCoordAddress() const;
-    virtual void setCoordAddress(int coordAddress);
+    virtual uint64_t getCoordAddress() const;
+    virtual void setCoordAddress(uint64_t coordAddress);
 
-    virtual uint64_t getCapabilityInformation() const;
-    virtual void setCapabilityInformation(uint64_t capabilityInformation);
+    virtual const capabilityInformation_t& getCapabilityInformation() const;
+    virtual capabilityInformation_t& getCapabilityInformationForUpdate() { return const_cast<capabilityInformation_t&>(const_cast<MLMEAssociateRequest*>(this)->getCapabilityInformation());}
+    virtual void setCapabilityInformation(const capabilityInformation_t& capabilityInformation);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 
     virtual bool getColorAssoc() const;
     virtual void setColorAssoc(bool colorAssoc);
@@ -411,12 +412,12 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMECommStatusIndication&
  * <pre>
  * message MLMEDisassociateRequest
  * {
- *     int deviceAddrMode;
- *     int deviceOWPANId;
+ *     addressingMode_t deviceAddrMode;
+ *     uint16_t deviceOWPANId;
  *     uint64_t deviceAddress;
- *     int disassociateReason;
+ *     uint8_t disassociateReason;
  *     bool txIndirect;
- *     int securityLevel;
+ *     uint8_t securityLevel;
  *     bool colorDisAssoc;
  * }
  * </pre>
@@ -424,12 +425,12 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMECommStatusIndication&
 class MLMEDisassociateRequest : public ::omnetpp::cMessage
 {
   protected:
-    int deviceAddrMode = 0;
-    int deviceOWPANId = 0;
+    addressingMode_t deviceAddrMode = static_cast<addressingMode_t>(-1);
+    uint16_t deviceOWPANId = 0;
     uint64_t deviceAddress = 0;
-    int disassociateReason = 0;
+    uint8_t disassociateReason = 0;
     bool txIndirect = false;
-    int securityLevel = 0;
+    uint8_t securityLevel = 0;
     bool colorDisAssoc = false;
 
   private:
@@ -447,23 +448,23 @@ class MLMEDisassociateRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getDeviceAddrMode() const;
-    virtual void setDeviceAddrMode(int deviceAddrMode);
+    virtual addressingMode_t getDeviceAddrMode() const;
+    virtual void setDeviceAddrMode(addressingMode_t deviceAddrMode);
 
-    virtual int getDeviceOWPANId() const;
-    virtual void setDeviceOWPANId(int deviceOWPANId);
+    virtual uint16_t getDeviceOWPANId() const;
+    virtual void setDeviceOWPANId(uint16_t deviceOWPANId);
 
     virtual uint64_t getDeviceAddress() const;
     virtual void setDeviceAddress(uint64_t deviceAddress);
 
-    virtual int getDisassociateReason() const;
-    virtual void setDisassociateReason(int disassociateReason);
+    virtual uint8_t getDisassociateReason() const;
+    virtual void setDisassociateReason(uint8_t disassociateReason);
 
     virtual bool getTxIndirect() const;
     virtual void setTxIndirect(bool txIndirect);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 
     virtual bool getColorDisAssoc() const;
     virtual void setColorDisAssoc(bool colorDisAssoc);
@@ -667,7 +668,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGetConfirm& obj) {obj
  * message MLMEGTSRequest
  * {
  *     uint8_t GTSCharacteristics;
- *     int securityLevel;
+ *     uint8_t securityLevel;
  * }
  * </pre>
  */
@@ -675,7 +676,7 @@ class MLMEGTSRequest : public ::omnetpp::cMessage
 {
   protected:
     uint8_t GTSCharacteristics = 0;
-    int securityLevel = 0;
+    uint8_t securityLevel = 0;
 
   private:
     void copy(const MLMEGTSRequest& other);
@@ -695,8 +696,8 @@ class MLMEGTSRequest : public ::omnetpp::cMessage
     virtual uint8_t getGTSCharacteristics() const;
     virtual void setGTSCharacteristics(uint8_t GTSCharacteristics);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEGTSRequest& obj) {obj.parsimPack(b);}
@@ -794,20 +795,20 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEGTSIndication& obj) {
  * <pre>
  * message MLMEPollRequest
  * {
- *     int coordAddrMode;
- *     int coordOWPANId;
+ *     addressingMode_t coordAddrMode;
+ *     uint16_t coordOWPANId;
  *     uint64_t coordAddress;
- *     int securityLevel;
+ *     uint8_t securityLevel;
  * }
  * </pre>
  */
 class MLMEPollRequest : public ::omnetpp::cMessage
 {
   protected:
-    int coordAddrMode = 0;
-    int coordOWPANId = 0;
+    addressingMode_t coordAddrMode = static_cast<addressingMode_t>(-1);
+    uint16_t coordOWPANId = 0;
     uint64_t coordAddress = 0;
-    int securityLevel = 0;
+    uint8_t securityLevel = 0;
 
   private:
     void copy(const MLMEPollRequest& other);
@@ -824,17 +825,17 @@ class MLMEPollRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getCoordAddrMode() const;
-    virtual void setCoordAddrMode(int coordAddrMode);
+    virtual addressingMode_t getCoordAddrMode() const;
+    virtual void setCoordAddrMode(addressingMode_t coordAddrMode);
 
-    virtual int getCoordOWPANId() const;
-    virtual void setCoordOWPANId(int coordOWPANId);
+    virtual uint16_t getCoordOWPANId() const;
+    virtual void setCoordOWPANId(uint16_t coordOWPANId);
 
     virtual uint64_t getCoordAddress() const;
     virtual void setCoordAddress(uint64_t coordAddress);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEPollRequest& obj) {obj.parsimPack(b);}
@@ -1037,8 +1038,8 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMERxEnableConfirm& obj)
  * {
  *     scanType_t scanType;
  *     uint8_t scanChannels;
- *     int scanDuration;
- *     int securityLevel;
+ *     uint8_t scanDuration;
+ *     uint8_t securityLevel;
  *     bool colorScan;
  * }
  * </pre>
@@ -1048,8 +1049,8 @@ class MLMEScanRequest : public ::omnetpp::cMessage
   protected:
     scanType_t scanType = static_cast<scanType_t>(-1);
     uint8_t scanChannels = 0;
-    int scanDuration = 0;
-    int securityLevel = 0;
+    uint8_t scanDuration = 0;
+    uint8_t securityLevel = 0;
     bool colorScan = false;
 
   private:
@@ -1073,11 +1074,11 @@ class MLMEScanRequest : public ::omnetpp::cMessage
     virtual uint8_t getScanChannels() const;
     virtual void setScanChannels(uint8_t scanChannels);
 
-    virtual int getScanDuration() const;
-    virtual void setScanDuration(int scanDuration);
+    virtual uint8_t getScanDuration() const;
+    virtual void setScanDuration(uint8_t scanDuration);
 
-    virtual int getSecurityLevel() const;
-    virtual void setSecurityLevel(int securityLevel);
+    virtual uint8_t getSecurityLevel() const;
+    virtual void setSecurityLevel(uint8_t securityLevel);
 
     virtual bool getColorScan() const;
     virtual void setColorScan(bool colorScan);
@@ -1246,30 +1247,30 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMESetConfirm& obj) {obj
  * <pre>
  * message MLMEStartRequest
  * {
- *     int OWPANId;
- *     int logicalChannel;
- *     int startTime;
- *     int beaconOrder;
- *     int superframeOrder;
+ *     uint16_t OWPANId;
+ *     opticalChannel_t logicalChannel;
+ *     uint32_t startTime;
+ *     uint8_t beaconOrder;
+ *     uint8_t superframeOrder;
  *     bool OWPANCoordinator;
  *     bool coordRealignment;
- *     int coordRealingmentSecurityLevel;
- *     int beaconSecurityLevel;
+ *     uint8_t coordRealingmentSecurityLevel;
+ *     uint8_t coordBeaconSecurityLevel;
  * }
  * </pre>
  */
 class MLMEStartRequest : public ::omnetpp::cMessage
 {
   protected:
-    int OWPANId = 0;
-    int logicalChannel = 0;
-    int startTime = 0;
-    int beaconOrder = 0;
-    int superframeOrder = 0;
+    uint16_t OWPANId = 0;
+    opticalChannel_t logicalChannel = static_cast<opticalChannel_t>(-1);
+    uint32_t startTime = 0;
+    uint8_t beaconOrder = 0;
+    uint8_t superframeOrder = 0;
     bool OWPANCoordinator = false;
     bool coordRealignment = false;
-    int coordRealingmentSecurityLevel = 0;
-    int beaconSecurityLevel = 0;
+    uint8_t coordRealingmentSecurityLevel = 0;
+    uint8_t coordBeaconSecurityLevel = 0;
 
   private:
     void copy(const MLMEStartRequest& other);
@@ -1286,20 +1287,20 @@ class MLMEStartRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getOWPANId() const;
-    virtual void setOWPANId(int OWPANId);
+    virtual uint16_t getOWPANId() const;
+    virtual void setOWPANId(uint16_t OWPANId);
 
-    virtual int getLogicalChannel() const;
-    virtual void setLogicalChannel(int logicalChannel);
+    virtual opticalChannel_t getLogicalChannel() const;
+    virtual void setLogicalChannel(opticalChannel_t logicalChannel);
 
-    virtual int getStartTime() const;
-    virtual void setStartTime(int startTime);
+    virtual uint32_t getStartTime() const;
+    virtual void setStartTime(uint32_t startTime);
 
-    virtual int getBeaconOrder() const;
-    virtual void setBeaconOrder(int beaconOrder);
+    virtual uint8_t getBeaconOrder() const;
+    virtual void setBeaconOrder(uint8_t beaconOrder);
 
-    virtual int getSuperframeOrder() const;
-    virtual void setSuperframeOrder(int superframeOrder);
+    virtual uint8_t getSuperframeOrder() const;
+    virtual void setSuperframeOrder(uint8_t superframeOrder);
 
     virtual bool getOWPANCoordinator() const;
     virtual void setOWPANCoordinator(bool OWPANCoordinator);
@@ -1307,11 +1308,11 @@ class MLMEStartRequest : public ::omnetpp::cMessage
     virtual bool getCoordRealignment() const;
     virtual void setCoordRealignment(bool coordRealignment);
 
-    virtual int getCoordRealingmentSecurityLevel() const;
-    virtual void setCoordRealingmentSecurityLevel(int coordRealingmentSecurityLevel);
+    virtual uint8_t getCoordRealingmentSecurityLevel() const;
+    virtual void setCoordRealingmentSecurityLevel(uint8_t coordRealingmentSecurityLevel);
 
-    virtual int getBeaconSecurityLevel() const;
-    virtual void setBeaconSecurityLevel(int beaconSecurityLevel);
+    virtual uint8_t getCoordBeaconSecurityLevel() const;
+    virtual void setCoordBeaconSecurityLevel(uint8_t coordBeaconSecurityLevel);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const MLMEStartRequest& obj) {obj.parsimPack(b);}
@@ -1358,7 +1359,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEStartConfirm& obj) {o
  * <pre>
  * message MLMESyncRequest
  * {
- *     int logicalChannel;
+ *     opticalChannel_t logicalChannel;
  *     bool trackBeacon;
  * }
  * </pre>
@@ -1366,7 +1367,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MLMEStartConfirm& obj) {o
 class MLMESyncRequest : public ::omnetpp::cMessage
 {
   protected:
-    int logicalChannel = 0;
+    opticalChannel_t logicalChannel = static_cast<opticalChannel_t>(-1);
     bool trackBeacon = false;
 
   private:
@@ -1384,8 +1385,8 @@ class MLMESyncRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual int getLogicalChannel() const;
-    virtual void setLogicalChannel(int logicalChannel);
+    virtual opticalChannel_t getLogicalChannel() const;
+    virtual void setLogicalChannel(opticalChannel_t logicalChannel);
 
     virtual bool getTrackBeacon() const;
     virtual void setTrackBeacon(bool trackBeacon);

@@ -208,62 +208,62 @@ void MLMEAssociateRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->colorAssoc);
 }
 
-int MLMEAssociateRequest::getLogicalChannel() const
+opticalChannel_t MLMEAssociateRequest::getLogicalChannel() const
 {
     return this->logicalChannel;
 }
 
-void MLMEAssociateRequest::setLogicalChannel(int logicalChannel)
+void MLMEAssociateRequest::setLogicalChannel(opticalChannel_t logicalChannel)
 {
     this->logicalChannel = logicalChannel;
 }
 
-int MLMEAssociateRequest::getCoordAddrMode() const
+addressingMode_t MLMEAssociateRequest::getCoordAddrMode() const
 {
     return this->coordAddrMode;
 }
 
-void MLMEAssociateRequest::setCoordAddrMode(int coordAddrMode)
+void MLMEAssociateRequest::setCoordAddrMode(addressingMode_t coordAddrMode)
 {
     this->coordAddrMode = coordAddrMode;
 }
 
-int MLMEAssociateRequest::getCoordOWPANId() const
+uint16_t MLMEAssociateRequest::getCoordOWPANId() const
 {
     return this->coordOWPANId;
 }
 
-void MLMEAssociateRequest::setCoordOWPANId(int coordOWPANId)
+void MLMEAssociateRequest::setCoordOWPANId(uint16_t coordOWPANId)
 {
     this->coordOWPANId = coordOWPANId;
 }
 
-int MLMEAssociateRequest::getCoordAddress() const
+uint64_t MLMEAssociateRequest::getCoordAddress() const
 {
     return this->coordAddress;
 }
 
-void MLMEAssociateRequest::setCoordAddress(int coordAddress)
+void MLMEAssociateRequest::setCoordAddress(uint64_t coordAddress)
 {
     this->coordAddress = coordAddress;
 }
 
-uint64_t MLMEAssociateRequest::getCapabilityInformation() const
+const capabilityInformation_t& MLMEAssociateRequest::getCapabilityInformation() const
 {
     return this->capabilityInformation;
 }
 
-void MLMEAssociateRequest::setCapabilityInformation(uint64_t capabilityInformation)
+void MLMEAssociateRequest::setCapabilityInformation(const capabilityInformation_t& capabilityInformation)
 {
     this->capabilityInformation = capabilityInformation;
 }
 
-int MLMEAssociateRequest::getSecurityLevel() const
+uint8_t MLMEAssociateRequest::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MLMEAssociateRequest::setSecurityLevel(int securityLevel)
+void MLMEAssociateRequest::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -372,7 +372,7 @@ unsigned int MLMEAssociateRequestDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_coordAddrMode
         FD_ISEDITABLE,    // FIELD_coordOWPANId
         FD_ISEDITABLE,    // FIELD_coordAddress
-        FD_ISEDITABLE,    // FIELD_capabilityInformation
+        FD_ISCOMPOUND,    // FIELD_capabilityInformation
         FD_ISEDITABLE,    // FIELD_securityLevel
         FD_ISEDITABLE,    // FIELD_colorAssoc
     };
@@ -422,12 +422,12 @@ const char *MLMEAssociateRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_logicalChannel
-        "int",    // FIELD_coordAddrMode
-        "int",    // FIELD_coordOWPANId
-        "int",    // FIELD_coordAddress
-        "uint64_t",    // FIELD_capabilityInformation
-        "int",    // FIELD_securityLevel
+        "opticalChannel_t",    // FIELD_logicalChannel
+        "addressingMode_t",    // FIELD_coordAddrMode
+        "uint16_t",    // FIELD_coordOWPANId
+        "uint64_t",    // FIELD_coordAddress
+        "capabilityInformation_t",    // FIELD_capabilityInformation
+        "uint8_t",    // FIELD_securityLevel
         "bool",    // FIELD_colorAssoc
     };
     return (field >= 0 && field < 7) ? fieldTypeStrings[field] : nullptr;
@@ -442,6 +442,14 @@ const char **MLMEAssociateRequestDescriptor::getFieldPropertyNames(int field) co
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_logicalChannel: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
+        case FIELD_coordAddrMode: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -455,6 +463,12 @@ const char *MLMEAssociateRequestDescriptor::getFieldProperty(int field, const ch
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_logicalChannel:
+            if (!strcmp(propertyName, "enum")) return "opticalChannel_t";
+            return nullptr;
+        case FIELD_coordAddrMode:
+            if (!strcmp(propertyName, "enum")) return "addressingMode_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -513,12 +527,12 @@ std::string MLMEAssociateRequestDescriptor::getFieldValueAsString(omnetpp::any_p
     }
     MLMEAssociateRequest *pp = omnetpp::fromAnyPtr<MLMEAssociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: return long2string(pp->getLogicalChannel());
-        case FIELD_coordAddrMode: return long2string(pp->getCoordAddrMode());
-        case FIELD_coordOWPANId: return long2string(pp->getCoordOWPANId());
-        case FIELD_coordAddress: return long2string(pp->getCoordAddress());
-        case FIELD_capabilityInformation: return uint642string(pp->getCapabilityInformation());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_logicalChannel: return enum2string(pp->getLogicalChannel(), "opticalChannel_t");
+        case FIELD_coordAddrMode: return enum2string(pp->getCoordAddrMode(), "addressingMode_t");
+        case FIELD_coordOWPANId: return ulong2string(pp->getCoordOWPANId());
+        case FIELD_coordAddress: return uint642string(pp->getCoordAddress());
+        case FIELD_capabilityInformation: return "";
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         case FIELD_colorAssoc: return bool2string(pp->getColorAssoc());
         default: return "";
     }
@@ -536,12 +550,11 @@ void MLMEAssociateRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr obje
     }
     MLMEAssociateRequest *pp = omnetpp::fromAnyPtr<MLMEAssociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: pp->setLogicalChannel(string2long(value)); break;
-        case FIELD_coordAddrMode: pp->setCoordAddrMode(string2long(value)); break;
-        case FIELD_coordOWPANId: pp->setCoordOWPANId(string2long(value)); break;
-        case FIELD_coordAddress: pp->setCoordAddress(string2long(value)); break;
-        case FIELD_capabilityInformation: pp->setCapabilityInformation(string2uint64(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_logicalChannel: pp->setLogicalChannel((opticalChannel_t)string2enum(value, "opticalChannel_t")); break;
+        case FIELD_coordAddrMode: pp->setCoordAddrMode((addressingMode_t)string2enum(value, "addressingMode_t")); break;
+        case FIELD_coordOWPANId: pp->setCoordOWPANId(string2ulong(value)); break;
+        case FIELD_coordAddress: pp->setCoordAddress(string2uint64(value)); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         case FIELD_colorAssoc: pp->setColorAssoc(string2bool(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEAssociateRequest'", field);
     }
@@ -557,12 +570,12 @@ omnetpp::cValue MLMEAssociateRequestDescriptor::getFieldValue(omnetpp::any_ptr o
     }
     MLMEAssociateRequest *pp = omnetpp::fromAnyPtr<MLMEAssociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: return pp->getLogicalChannel();
-        case FIELD_coordAddrMode: return pp->getCoordAddrMode();
-        case FIELD_coordOWPANId: return pp->getCoordOWPANId();
-        case FIELD_coordAddress: return pp->getCoordAddress();
-        case FIELD_capabilityInformation: return (omnetpp::intval_t)(pp->getCapabilityInformation());
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_logicalChannel: return static_cast<int>(pp->getLogicalChannel());
+        case FIELD_coordAddrMode: return static_cast<int>(pp->getCoordAddrMode());
+        case FIELD_coordOWPANId: return (omnetpp::intval_t)(pp->getCoordOWPANId());
+        case FIELD_coordAddress: return (omnetpp::intval_t)(pp->getCoordAddress());
+        case FIELD_capabilityInformation: return omnetpp::toAnyPtr(&pp->getCapabilityInformation()); break;
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         case FIELD_colorAssoc: return pp->getColorAssoc();
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEAssociateRequest' as cValue -- field index out of range?", field);
     }
@@ -580,12 +593,11 @@ void MLMEAssociateRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int 
     }
     MLMEAssociateRequest *pp = omnetpp::fromAnyPtr<MLMEAssociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: pp->setLogicalChannel(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_coordAddrMode: pp->setCoordAddrMode(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_coordOWPANId: pp->setCoordOWPANId(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_coordAddress: pp->setCoordAddress(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_capabilityInformation: pp->setCapabilityInformation(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_logicalChannel: pp->setLogicalChannel(static_cast<opticalChannel_t>(value.intValue())); break;
+        case FIELD_coordAddrMode: pp->setCoordAddrMode(static_cast<addressingMode_t>(value.intValue())); break;
+        case FIELD_coordOWPANId: pp->setCoordOWPANId(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
+        case FIELD_coordAddress: pp->setCoordAddress(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_colorAssoc: pp->setColorAssoc(value.boolValue()); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEAssociateRequest'", field);
     }
@@ -600,6 +612,7 @@ const char *MLMEAssociateRequestDescriptor::getFieldStructName(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_capabilityInformation: return omnetpp::opp_typename(typeid(capabilityInformation_t));
         default: return nullptr;
     };
 }
@@ -614,6 +627,7 @@ omnetpp::any_ptr MLMEAssociateRequestDescriptor::getFieldStructValuePointer(omne
     }
     MLMEAssociateRequest *pp = omnetpp::fromAnyPtr<MLMEAssociateRequest>(object); (void)pp;
     switch (field) {
+        case FIELD_capabilityInformation: return omnetpp::toAnyPtr(&pp->getCapabilityInformation()); break;
         default: return omnetpp::any_ptr(nullptr);
     }
 }
@@ -3050,22 +3064,22 @@ void MLMEDisassociateRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->colorDisAssoc);
 }
 
-int MLMEDisassociateRequest::getDeviceAddrMode() const
+addressingMode_t MLMEDisassociateRequest::getDeviceAddrMode() const
 {
     return this->deviceAddrMode;
 }
 
-void MLMEDisassociateRequest::setDeviceAddrMode(int deviceAddrMode)
+void MLMEDisassociateRequest::setDeviceAddrMode(addressingMode_t deviceAddrMode)
 {
     this->deviceAddrMode = deviceAddrMode;
 }
 
-int MLMEDisassociateRequest::getDeviceOWPANId() const
+uint16_t MLMEDisassociateRequest::getDeviceOWPANId() const
 {
     return this->deviceOWPANId;
 }
 
-void MLMEDisassociateRequest::setDeviceOWPANId(int deviceOWPANId)
+void MLMEDisassociateRequest::setDeviceOWPANId(uint16_t deviceOWPANId)
 {
     this->deviceOWPANId = deviceOWPANId;
 }
@@ -3080,12 +3094,12 @@ void MLMEDisassociateRequest::setDeviceAddress(uint64_t deviceAddress)
     this->deviceAddress = deviceAddress;
 }
 
-int MLMEDisassociateRequest::getDisassociateReason() const
+uint8_t MLMEDisassociateRequest::getDisassociateReason() const
 {
     return this->disassociateReason;
 }
 
-void MLMEDisassociateRequest::setDisassociateReason(int disassociateReason)
+void MLMEDisassociateRequest::setDisassociateReason(uint8_t disassociateReason)
 {
     this->disassociateReason = disassociateReason;
 }
@@ -3100,12 +3114,12 @@ void MLMEDisassociateRequest::setTxIndirect(bool txIndirect)
     this->txIndirect = txIndirect;
 }
 
-int MLMEDisassociateRequest::getSecurityLevel() const
+uint8_t MLMEDisassociateRequest::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MLMEDisassociateRequest::setSecurityLevel(int securityLevel)
+void MLMEDisassociateRequest::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -3264,12 +3278,12 @@ const char *MLMEDisassociateRequestDescriptor::getFieldTypeString(int field) con
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_deviceAddrMode
-        "int",    // FIELD_deviceOWPANId
+        "addressingMode_t",    // FIELD_deviceAddrMode
+        "uint16_t",    // FIELD_deviceOWPANId
         "uint64_t",    // FIELD_deviceAddress
-        "int",    // FIELD_disassociateReason
+        "uint8_t",    // FIELD_disassociateReason
         "bool",    // FIELD_txIndirect
-        "int",    // FIELD_securityLevel
+        "uint8_t",    // FIELD_securityLevel
         "bool",    // FIELD_colorDisAssoc
     };
     return (field >= 0 && field < 7) ? fieldTypeStrings[field] : nullptr;
@@ -3284,6 +3298,10 @@ const char **MLMEDisassociateRequestDescriptor::getFieldPropertyNames(int field)
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_deviceAddrMode: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -3297,6 +3315,9 @@ const char *MLMEDisassociateRequestDescriptor::getFieldProperty(int field, const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_deviceAddrMode:
+            if (!strcmp(propertyName, "enum")) return "addressingMode_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -3355,12 +3376,12 @@ std::string MLMEDisassociateRequestDescriptor::getFieldValueAsString(omnetpp::an
     }
     MLMEDisassociateRequest *pp = omnetpp::fromAnyPtr<MLMEDisassociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_deviceAddrMode: return long2string(pp->getDeviceAddrMode());
-        case FIELD_deviceOWPANId: return long2string(pp->getDeviceOWPANId());
+        case FIELD_deviceAddrMode: return enum2string(pp->getDeviceAddrMode(), "addressingMode_t");
+        case FIELD_deviceOWPANId: return ulong2string(pp->getDeviceOWPANId());
         case FIELD_deviceAddress: return uint642string(pp->getDeviceAddress());
-        case FIELD_disassociateReason: return long2string(pp->getDisassociateReason());
+        case FIELD_disassociateReason: return ulong2string(pp->getDisassociateReason());
         case FIELD_txIndirect: return bool2string(pp->getTxIndirect());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         case FIELD_colorDisAssoc: return bool2string(pp->getColorDisAssoc());
         default: return "";
     }
@@ -3378,12 +3399,12 @@ void MLMEDisassociateRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr o
     }
     MLMEDisassociateRequest *pp = omnetpp::fromAnyPtr<MLMEDisassociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_deviceAddrMode: pp->setDeviceAddrMode(string2long(value)); break;
-        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(string2long(value)); break;
+        case FIELD_deviceAddrMode: pp->setDeviceAddrMode((addressingMode_t)string2enum(value, "addressingMode_t")); break;
+        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(string2ulong(value)); break;
         case FIELD_deviceAddress: pp->setDeviceAddress(string2uint64(value)); break;
-        case FIELD_disassociateReason: pp->setDisassociateReason(string2long(value)); break;
+        case FIELD_disassociateReason: pp->setDisassociateReason(string2ulong(value)); break;
         case FIELD_txIndirect: pp->setTxIndirect(string2bool(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         case FIELD_colorDisAssoc: pp->setColorDisAssoc(string2bool(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEDisassociateRequest'", field);
     }
@@ -3399,12 +3420,12 @@ omnetpp::cValue MLMEDisassociateRequestDescriptor::getFieldValue(omnetpp::any_pt
     }
     MLMEDisassociateRequest *pp = omnetpp::fromAnyPtr<MLMEDisassociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_deviceAddrMode: return pp->getDeviceAddrMode();
-        case FIELD_deviceOWPANId: return pp->getDeviceOWPANId();
+        case FIELD_deviceAddrMode: return static_cast<int>(pp->getDeviceAddrMode());
+        case FIELD_deviceOWPANId: return (omnetpp::intval_t)(pp->getDeviceOWPANId());
         case FIELD_deviceAddress: return (omnetpp::intval_t)(pp->getDeviceAddress());
-        case FIELD_disassociateReason: return pp->getDisassociateReason();
+        case FIELD_disassociateReason: return (omnetpp::intval_t)(pp->getDisassociateReason());
         case FIELD_txIndirect: return pp->getTxIndirect();
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         case FIELD_colorDisAssoc: return pp->getColorDisAssoc();
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEDisassociateRequest' as cValue -- field index out of range?", field);
     }
@@ -3422,12 +3443,12 @@ void MLMEDisassociateRequestDescriptor::setFieldValue(omnetpp::any_ptr object, i
     }
     MLMEDisassociateRequest *pp = omnetpp::fromAnyPtr<MLMEDisassociateRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_deviceAddrMode: pp->setDeviceAddrMode(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_deviceAddrMode: pp->setDeviceAddrMode(static_cast<addressingMode_t>(value.intValue())); break;
+        case FIELD_deviceOWPANId: pp->setDeviceOWPANId(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_deviceAddress: pp->setDeviceAddress(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
-        case FIELD_disassociateReason: pp->setDisassociateReason(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_disassociateReason: pp->setDisassociateReason(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_txIndirect: pp->setTxIndirect(value.boolValue()); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_colorDisAssoc: pp->setColorDisAssoc(value.boolValue()); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEDisassociateRequest'", field);
     }
@@ -5170,12 +5191,12 @@ void MLMEGTSRequest::setGTSCharacteristics(uint8_t GTSCharacteristics)
     this->GTSCharacteristics = GTSCharacteristics;
 }
 
-int MLMEGTSRequest::getSecurityLevel() const
+uint8_t MLMEGTSRequest::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MLMEGTSRequest::setSecurityLevel(int securityLevel)
+void MLMEGTSRequest::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -5305,7 +5326,7 @@ const char *MLMEGTSRequestDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "uint8_t",    // FIELD_GTSCharacteristics
-        "int",    // FIELD_securityLevel
+        "uint8_t",    // FIELD_securityLevel
     };
     return (field >= 0 && field < 2) ? fieldTypeStrings[field] : nullptr;
 }
@@ -5391,7 +5412,7 @@ std::string MLMEGTSRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     MLMEGTSRequest *pp = omnetpp::fromAnyPtr<MLMEGTSRequest>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: return ulong2string(pp->getGTSCharacteristics());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         default: return "";
     }
 }
@@ -5409,7 +5430,7 @@ void MLMEGTSRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     MLMEGTSRequest *pp = omnetpp::fromAnyPtr<MLMEGTSRequest>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: pp->setGTSCharacteristics(string2ulong(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGTSRequest'", field);
     }
 }
@@ -5425,7 +5446,7 @@ omnetpp::cValue MLMEGTSRequestDescriptor::getFieldValue(omnetpp::any_ptr object,
     MLMEGTSRequest *pp = omnetpp::fromAnyPtr<MLMEGTSRequest>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: return (omnetpp::intval_t)(pp->getGTSCharacteristics());
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEGTSRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -5443,7 +5464,7 @@ void MLMEGTSRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     MLMEGTSRequest *pp = omnetpp::fromAnyPtr<MLMEGTSRequest>(object); (void)pp;
     switch (field) {
         case FIELD_GTSCharacteristics: pp->setGTSCharacteristics(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEGTSRequest'", field);
     }
 }
@@ -6317,22 +6338,22 @@ void MLMEPollRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->securityLevel);
 }
 
-int MLMEPollRequest::getCoordAddrMode() const
+addressingMode_t MLMEPollRequest::getCoordAddrMode() const
 {
     return this->coordAddrMode;
 }
 
-void MLMEPollRequest::setCoordAddrMode(int coordAddrMode)
+void MLMEPollRequest::setCoordAddrMode(addressingMode_t coordAddrMode)
 {
     this->coordAddrMode = coordAddrMode;
 }
 
-int MLMEPollRequest::getCoordOWPANId() const
+uint16_t MLMEPollRequest::getCoordOWPANId() const
 {
     return this->coordOWPANId;
 }
 
-void MLMEPollRequest::setCoordOWPANId(int coordOWPANId)
+void MLMEPollRequest::setCoordOWPANId(uint16_t coordOWPANId)
 {
     this->coordOWPANId = coordOWPANId;
 }
@@ -6347,12 +6368,12 @@ void MLMEPollRequest::setCoordAddress(uint64_t coordAddress)
     this->coordAddress = coordAddress;
 }
 
-int MLMEPollRequest::getSecurityLevel() const
+uint8_t MLMEPollRequest::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MLMEPollRequest::setSecurityLevel(int securityLevel)
+void MLMEPollRequest::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -6489,10 +6510,10 @@ const char *MLMEPollRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_coordAddrMode
-        "int",    // FIELD_coordOWPANId
+        "addressingMode_t",    // FIELD_coordAddrMode
+        "uint16_t",    // FIELD_coordOWPANId
         "uint64_t",    // FIELD_coordAddress
-        "int",    // FIELD_securityLevel
+        "uint8_t",    // FIELD_securityLevel
     };
     return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
 }
@@ -6506,6 +6527,10 @@ const char **MLMEPollRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_coordAddrMode: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -6519,6 +6544,9 @@ const char *MLMEPollRequestDescriptor::getFieldProperty(int field, const char *p
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_coordAddrMode:
+            if (!strcmp(propertyName, "enum")) return "addressingMode_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -6577,10 +6605,10 @@ std::string MLMEPollRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     }
     MLMEPollRequest *pp = omnetpp::fromAnyPtr<MLMEPollRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_coordAddrMode: return long2string(pp->getCoordAddrMode());
-        case FIELD_coordOWPANId: return long2string(pp->getCoordOWPANId());
+        case FIELD_coordAddrMode: return enum2string(pp->getCoordAddrMode(), "addressingMode_t");
+        case FIELD_coordOWPANId: return ulong2string(pp->getCoordOWPANId());
         case FIELD_coordAddress: return uint642string(pp->getCoordAddress());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         default: return "";
     }
 }
@@ -6597,10 +6625,10 @@ void MLMEPollRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     }
     MLMEPollRequest *pp = omnetpp::fromAnyPtr<MLMEPollRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_coordAddrMode: pp->setCoordAddrMode(string2long(value)); break;
-        case FIELD_coordOWPANId: pp->setCoordOWPANId(string2long(value)); break;
+        case FIELD_coordAddrMode: pp->setCoordAddrMode((addressingMode_t)string2enum(value, "addressingMode_t")); break;
+        case FIELD_coordOWPANId: pp->setCoordOWPANId(string2ulong(value)); break;
         case FIELD_coordAddress: pp->setCoordAddress(string2uint64(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEPollRequest'", field);
     }
 }
@@ -6615,10 +6643,10 @@ omnetpp::cValue MLMEPollRequestDescriptor::getFieldValue(omnetpp::any_ptr object
     }
     MLMEPollRequest *pp = omnetpp::fromAnyPtr<MLMEPollRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_coordAddrMode: return pp->getCoordAddrMode();
-        case FIELD_coordOWPANId: return pp->getCoordOWPANId();
+        case FIELD_coordAddrMode: return static_cast<int>(pp->getCoordAddrMode());
+        case FIELD_coordOWPANId: return (omnetpp::intval_t)(pp->getCoordOWPANId());
         case FIELD_coordAddress: return (omnetpp::intval_t)(pp->getCoordAddress());
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEPollRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -6635,10 +6663,10 @@ void MLMEPollRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     }
     MLMEPollRequest *pp = omnetpp::fromAnyPtr<MLMEPollRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_coordAddrMode: pp->setCoordAddrMode(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_coordOWPANId: pp->setCoordOWPANId(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_coordAddrMode: pp->setCoordAddrMode(static_cast<addressingMode_t>(value.intValue())); break;
+        case FIELD_coordOWPANId: pp->setCoordOWPANId(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_coordAddress: pp->setCoordAddress(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEPollRequest'", field);
     }
 }
@@ -8583,22 +8611,22 @@ void MLMEScanRequest::setScanChannels(uint8_t scanChannels)
     this->scanChannels = scanChannels;
 }
 
-int MLMEScanRequest::getScanDuration() const
+uint8_t MLMEScanRequest::getScanDuration() const
 {
     return this->scanDuration;
 }
 
-void MLMEScanRequest::setScanDuration(int scanDuration)
+void MLMEScanRequest::setScanDuration(uint8_t scanDuration)
 {
     this->scanDuration = scanDuration;
 }
 
-int MLMEScanRequest::getSecurityLevel() const
+uint8_t MLMEScanRequest::getSecurityLevel() const
 {
     return this->securityLevel;
 }
 
-void MLMEScanRequest::setSecurityLevel(int securityLevel)
+void MLMEScanRequest::setSecurityLevel(uint8_t securityLevel)
 {
     this->securityLevel = securityLevel;
 }
@@ -8751,8 +8779,8 @@ const char *MLMEScanRequestDescriptor::getFieldTypeString(int field) const
     static const char *fieldTypeStrings[] = {
         "scanType_t",    // FIELD_scanType
         "uint8_t",    // FIELD_scanChannels
-        "int",    // FIELD_scanDuration
-        "int",    // FIELD_securityLevel
+        "uint8_t",    // FIELD_scanDuration
+        "uint8_t",    // FIELD_securityLevel
         "bool",    // FIELD_colorScan
     };
     return (field >= 0 && field < 5) ? fieldTypeStrings[field] : nullptr;
@@ -8847,8 +8875,8 @@ std::string MLMEScanRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     switch (field) {
         case FIELD_scanType: return enum2string(pp->getScanType(), "scanType_t");
         case FIELD_scanChannels: return ulong2string(pp->getScanChannels());
-        case FIELD_scanDuration: return long2string(pp->getScanDuration());
-        case FIELD_securityLevel: return long2string(pp->getSecurityLevel());
+        case FIELD_scanDuration: return ulong2string(pp->getScanDuration());
+        case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
         case FIELD_colorScan: return bool2string(pp->getColorScan());
         default: return "";
     }
@@ -8868,8 +8896,8 @@ void MLMEScanRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     switch (field) {
         case FIELD_scanType: pp->setScanType((scanType_t)string2enum(value, "scanType_t")); break;
         case FIELD_scanChannels: pp->setScanChannels(string2ulong(value)); break;
-        case FIELD_scanDuration: pp->setScanDuration(string2long(value)); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(string2long(value)); break;
+        case FIELD_scanDuration: pp->setScanDuration(string2ulong(value)); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
         case FIELD_colorScan: pp->setColorScan(string2bool(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEScanRequest'", field);
     }
@@ -8887,8 +8915,8 @@ omnetpp::cValue MLMEScanRequestDescriptor::getFieldValue(omnetpp::any_ptr object
     switch (field) {
         case FIELD_scanType: return static_cast<int>(pp->getScanType());
         case FIELD_scanChannels: return (omnetpp::intval_t)(pp->getScanChannels());
-        case FIELD_scanDuration: return pp->getScanDuration();
-        case FIELD_securityLevel: return pp->getSecurityLevel();
+        case FIELD_scanDuration: return (omnetpp::intval_t)(pp->getScanDuration());
+        case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
         case FIELD_colorScan: return pp->getColorScan();
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEScanRequest' as cValue -- field index out of range?", field);
     }
@@ -8908,8 +8936,8 @@ void MLMEScanRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     switch (field) {
         case FIELD_scanType: pp->setScanType(static_cast<scanType_t>(value.intValue())); break;
         case FIELD_scanChannels: pp->setScanChannels(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_scanDuration: pp->setScanDuration(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_scanDuration: pp->setScanDuration(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_colorScan: pp->setColorScan(value.boolValue()); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEScanRequest'", field);
     }
@@ -10323,7 +10351,7 @@ void MLMEStartRequest::copy(const MLMEStartRequest& other)
     this->OWPANCoordinator = other.OWPANCoordinator;
     this->coordRealignment = other.coordRealignment;
     this->coordRealingmentSecurityLevel = other.coordRealingmentSecurityLevel;
-    this->beaconSecurityLevel = other.beaconSecurityLevel;
+    this->coordBeaconSecurityLevel = other.coordBeaconSecurityLevel;
 }
 
 void MLMEStartRequest::parsimPack(omnetpp::cCommBuffer *b) const
@@ -10337,7 +10365,7 @@ void MLMEStartRequest::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->OWPANCoordinator);
     doParsimPacking(b,this->coordRealignment);
     doParsimPacking(b,this->coordRealingmentSecurityLevel);
-    doParsimPacking(b,this->beaconSecurityLevel);
+    doParsimPacking(b,this->coordBeaconSecurityLevel);
 }
 
 void MLMEStartRequest::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -10351,55 +10379,55 @@ void MLMEStartRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->OWPANCoordinator);
     doParsimUnpacking(b,this->coordRealignment);
     doParsimUnpacking(b,this->coordRealingmentSecurityLevel);
-    doParsimUnpacking(b,this->beaconSecurityLevel);
+    doParsimUnpacking(b,this->coordBeaconSecurityLevel);
 }
 
-int MLMEStartRequest::getOWPANId() const
+uint16_t MLMEStartRequest::getOWPANId() const
 {
     return this->OWPANId;
 }
 
-void MLMEStartRequest::setOWPANId(int OWPANId)
+void MLMEStartRequest::setOWPANId(uint16_t OWPANId)
 {
     this->OWPANId = OWPANId;
 }
 
-int MLMEStartRequest::getLogicalChannel() const
+opticalChannel_t MLMEStartRequest::getLogicalChannel() const
 {
     return this->logicalChannel;
 }
 
-void MLMEStartRequest::setLogicalChannel(int logicalChannel)
+void MLMEStartRequest::setLogicalChannel(opticalChannel_t logicalChannel)
 {
     this->logicalChannel = logicalChannel;
 }
 
-int MLMEStartRequest::getStartTime() const
+uint32_t MLMEStartRequest::getStartTime() const
 {
     return this->startTime;
 }
 
-void MLMEStartRequest::setStartTime(int startTime)
+void MLMEStartRequest::setStartTime(uint32_t startTime)
 {
     this->startTime = startTime;
 }
 
-int MLMEStartRequest::getBeaconOrder() const
+uint8_t MLMEStartRequest::getBeaconOrder() const
 {
     return this->beaconOrder;
 }
 
-void MLMEStartRequest::setBeaconOrder(int beaconOrder)
+void MLMEStartRequest::setBeaconOrder(uint8_t beaconOrder)
 {
     this->beaconOrder = beaconOrder;
 }
 
-int MLMEStartRequest::getSuperframeOrder() const
+uint8_t MLMEStartRequest::getSuperframeOrder() const
 {
     return this->superframeOrder;
 }
 
-void MLMEStartRequest::setSuperframeOrder(int superframeOrder)
+void MLMEStartRequest::setSuperframeOrder(uint8_t superframeOrder)
 {
     this->superframeOrder = superframeOrder;
 }
@@ -10424,24 +10452,24 @@ void MLMEStartRequest::setCoordRealignment(bool coordRealignment)
     this->coordRealignment = coordRealignment;
 }
 
-int MLMEStartRequest::getCoordRealingmentSecurityLevel() const
+uint8_t MLMEStartRequest::getCoordRealingmentSecurityLevel() const
 {
     return this->coordRealingmentSecurityLevel;
 }
 
-void MLMEStartRequest::setCoordRealingmentSecurityLevel(int coordRealingmentSecurityLevel)
+void MLMEStartRequest::setCoordRealingmentSecurityLevel(uint8_t coordRealingmentSecurityLevel)
 {
     this->coordRealingmentSecurityLevel = coordRealingmentSecurityLevel;
 }
 
-int MLMEStartRequest::getBeaconSecurityLevel() const
+uint8_t MLMEStartRequest::getCoordBeaconSecurityLevel() const
 {
-    return this->beaconSecurityLevel;
+    return this->coordBeaconSecurityLevel;
 }
 
-void MLMEStartRequest::setBeaconSecurityLevel(int beaconSecurityLevel)
+void MLMEStartRequest::setCoordBeaconSecurityLevel(uint8_t coordBeaconSecurityLevel)
 {
-    this->beaconSecurityLevel = beaconSecurityLevel;
+    this->coordBeaconSecurityLevel = coordBeaconSecurityLevel;
 }
 
 class MLMEStartRequestDescriptor : public omnetpp::cClassDescriptor
@@ -10457,7 +10485,7 @@ class MLMEStartRequestDescriptor : public omnetpp::cClassDescriptor
         FIELD_OWPANCoordinator,
         FIELD_coordRealignment,
         FIELD_coordRealingmentSecurityLevel,
-        FIELD_beaconSecurityLevel,
+        FIELD_coordBeaconSecurityLevel,
     };
   public:
     MLMEStartRequestDescriptor();
@@ -10544,7 +10572,7 @@ unsigned int MLMEStartRequestDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_OWPANCoordinator
         FD_ISEDITABLE,    // FIELD_coordRealignment
         FD_ISEDITABLE,    // FIELD_coordRealingmentSecurityLevel
-        FD_ISEDITABLE,    // FIELD_beaconSecurityLevel
+        FD_ISEDITABLE,    // FIELD_coordBeaconSecurityLevel
     };
     return (field >= 0 && field < 9) ? fieldTypeFlags[field] : 0;
 }
@@ -10566,7 +10594,7 @@ const char *MLMEStartRequestDescriptor::getFieldName(int field) const
         "OWPANCoordinator",
         "coordRealignment",
         "coordRealingmentSecurityLevel",
-        "beaconSecurityLevel",
+        "coordBeaconSecurityLevel",
     };
     return (field >= 0 && field < 9) ? fieldNames[field] : nullptr;
 }
@@ -10583,7 +10611,7 @@ int MLMEStartRequestDescriptor::findField(const char *fieldName) const
     if (strcmp(fieldName, "OWPANCoordinator") == 0) return baseIndex + 5;
     if (strcmp(fieldName, "coordRealignment") == 0) return baseIndex + 6;
     if (strcmp(fieldName, "coordRealingmentSecurityLevel") == 0) return baseIndex + 7;
-    if (strcmp(fieldName, "beaconSecurityLevel") == 0) return baseIndex + 8;
+    if (strcmp(fieldName, "coordBeaconSecurityLevel") == 0) return baseIndex + 8;
     return base ? base->findField(fieldName) : -1;
 }
 
@@ -10596,15 +10624,15 @@ const char *MLMEStartRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_OWPANId
-        "int",    // FIELD_logicalChannel
-        "int",    // FIELD_startTime
-        "int",    // FIELD_beaconOrder
-        "int",    // FIELD_superframeOrder
+        "uint16_t",    // FIELD_OWPANId
+        "opticalChannel_t",    // FIELD_logicalChannel
+        "uint32_t",    // FIELD_startTime
+        "uint8_t",    // FIELD_beaconOrder
+        "uint8_t",    // FIELD_superframeOrder
         "bool",    // FIELD_OWPANCoordinator
         "bool",    // FIELD_coordRealignment
-        "int",    // FIELD_coordRealingmentSecurityLevel
-        "int",    // FIELD_beaconSecurityLevel
+        "uint8_t",    // FIELD_coordRealingmentSecurityLevel
+        "uint8_t",    // FIELD_coordBeaconSecurityLevel
     };
     return (field >= 0 && field < 9) ? fieldTypeStrings[field] : nullptr;
 }
@@ -10618,6 +10646,10 @@ const char **MLMEStartRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_logicalChannel: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -10631,6 +10663,9 @@ const char *MLMEStartRequestDescriptor::getFieldProperty(int field, const char *
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_logicalChannel:
+            if (!strcmp(propertyName, "enum")) return "opticalChannel_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -10689,15 +10724,15 @@ std::string MLMEStartRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr o
     }
     MLMEStartRequest *pp = omnetpp::fromAnyPtr<MLMEStartRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_OWPANId: return long2string(pp->getOWPANId());
-        case FIELD_logicalChannel: return long2string(pp->getLogicalChannel());
-        case FIELD_startTime: return long2string(pp->getStartTime());
-        case FIELD_beaconOrder: return long2string(pp->getBeaconOrder());
-        case FIELD_superframeOrder: return long2string(pp->getSuperframeOrder());
+        case FIELD_OWPANId: return ulong2string(pp->getOWPANId());
+        case FIELD_logicalChannel: return enum2string(pp->getLogicalChannel(), "opticalChannel_t");
+        case FIELD_startTime: return ulong2string(pp->getStartTime());
+        case FIELD_beaconOrder: return ulong2string(pp->getBeaconOrder());
+        case FIELD_superframeOrder: return ulong2string(pp->getSuperframeOrder());
         case FIELD_OWPANCoordinator: return bool2string(pp->getOWPANCoordinator());
         case FIELD_coordRealignment: return bool2string(pp->getCoordRealignment());
-        case FIELD_coordRealingmentSecurityLevel: return long2string(pp->getCoordRealingmentSecurityLevel());
-        case FIELD_beaconSecurityLevel: return long2string(pp->getBeaconSecurityLevel());
+        case FIELD_coordRealingmentSecurityLevel: return ulong2string(pp->getCoordRealingmentSecurityLevel());
+        case FIELD_coordBeaconSecurityLevel: return ulong2string(pp->getCoordBeaconSecurityLevel());
         default: return "";
     }
 }
@@ -10714,15 +10749,15 @@ void MLMEStartRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, 
     }
     MLMEStartRequest *pp = omnetpp::fromAnyPtr<MLMEStartRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_OWPANId: pp->setOWPANId(string2long(value)); break;
-        case FIELD_logicalChannel: pp->setLogicalChannel(string2long(value)); break;
-        case FIELD_startTime: pp->setStartTime(string2long(value)); break;
-        case FIELD_beaconOrder: pp->setBeaconOrder(string2long(value)); break;
-        case FIELD_superframeOrder: pp->setSuperframeOrder(string2long(value)); break;
+        case FIELD_OWPANId: pp->setOWPANId(string2ulong(value)); break;
+        case FIELD_logicalChannel: pp->setLogicalChannel((opticalChannel_t)string2enum(value, "opticalChannel_t")); break;
+        case FIELD_startTime: pp->setStartTime(string2ulong(value)); break;
+        case FIELD_beaconOrder: pp->setBeaconOrder(string2ulong(value)); break;
+        case FIELD_superframeOrder: pp->setSuperframeOrder(string2ulong(value)); break;
         case FIELD_OWPANCoordinator: pp->setOWPANCoordinator(string2bool(value)); break;
         case FIELD_coordRealignment: pp->setCoordRealignment(string2bool(value)); break;
-        case FIELD_coordRealingmentSecurityLevel: pp->setCoordRealingmentSecurityLevel(string2long(value)); break;
-        case FIELD_beaconSecurityLevel: pp->setBeaconSecurityLevel(string2long(value)); break;
+        case FIELD_coordRealingmentSecurityLevel: pp->setCoordRealingmentSecurityLevel(string2ulong(value)); break;
+        case FIELD_coordBeaconSecurityLevel: pp->setCoordBeaconSecurityLevel(string2ulong(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEStartRequest'", field);
     }
 }
@@ -10737,15 +10772,15 @@ omnetpp::cValue MLMEStartRequestDescriptor::getFieldValue(omnetpp::any_ptr objec
     }
     MLMEStartRequest *pp = omnetpp::fromAnyPtr<MLMEStartRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_OWPANId: return pp->getOWPANId();
-        case FIELD_logicalChannel: return pp->getLogicalChannel();
-        case FIELD_startTime: return pp->getStartTime();
-        case FIELD_beaconOrder: return pp->getBeaconOrder();
-        case FIELD_superframeOrder: return pp->getSuperframeOrder();
+        case FIELD_OWPANId: return (omnetpp::intval_t)(pp->getOWPANId());
+        case FIELD_logicalChannel: return static_cast<int>(pp->getLogicalChannel());
+        case FIELD_startTime: return (omnetpp::intval_t)(pp->getStartTime());
+        case FIELD_beaconOrder: return (omnetpp::intval_t)(pp->getBeaconOrder());
+        case FIELD_superframeOrder: return (omnetpp::intval_t)(pp->getSuperframeOrder());
         case FIELD_OWPANCoordinator: return pp->getOWPANCoordinator();
         case FIELD_coordRealignment: return pp->getCoordRealignment();
-        case FIELD_coordRealingmentSecurityLevel: return pp->getCoordRealingmentSecurityLevel();
-        case FIELD_beaconSecurityLevel: return pp->getBeaconSecurityLevel();
+        case FIELD_coordRealingmentSecurityLevel: return (omnetpp::intval_t)(pp->getCoordRealingmentSecurityLevel());
+        case FIELD_coordBeaconSecurityLevel: return (omnetpp::intval_t)(pp->getCoordBeaconSecurityLevel());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMEStartRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -10762,15 +10797,15 @@ void MLMEStartRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int fiel
     }
     MLMEStartRequest *pp = omnetpp::fromAnyPtr<MLMEStartRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_OWPANId: pp->setOWPANId(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_logicalChannel: pp->setLogicalChannel(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_startTime: pp->setStartTime(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_beaconOrder: pp->setBeaconOrder(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_superframeOrder: pp->setSuperframeOrder(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_OWPANId: pp->setOWPANId(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
+        case FIELD_logicalChannel: pp->setLogicalChannel(static_cast<opticalChannel_t>(value.intValue())); break;
+        case FIELD_startTime: pp->setStartTime(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
+        case FIELD_beaconOrder: pp->setBeaconOrder(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_superframeOrder: pp->setSuperframeOrder(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_OWPANCoordinator: pp->setOWPANCoordinator(value.boolValue()); break;
         case FIELD_coordRealignment: pp->setCoordRealignment(value.boolValue()); break;
-        case FIELD_coordRealingmentSecurityLevel: pp->setCoordRealingmentSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
-        case FIELD_beaconSecurityLevel: pp->setBeaconSecurityLevel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_coordRealingmentSecurityLevel: pp->setCoordRealingmentSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_coordBeaconSecurityLevel: pp->setCoordBeaconSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMEStartRequest'", field);
     }
 }
@@ -11220,12 +11255,12 @@ void MLMESyncRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->trackBeacon);
 }
 
-int MLMESyncRequest::getLogicalChannel() const
+opticalChannel_t MLMESyncRequest::getLogicalChannel() const
 {
     return this->logicalChannel;
 }
 
-void MLMESyncRequest::setLogicalChannel(int logicalChannel)
+void MLMESyncRequest::setLogicalChannel(opticalChannel_t logicalChannel)
 {
     this->logicalChannel = logicalChannel;
 }
@@ -11364,7 +11399,7 @@ const char *MLMESyncRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "int",    // FIELD_logicalChannel
+        "opticalChannel_t",    // FIELD_logicalChannel
         "bool",    // FIELD_trackBeacon
     };
     return (field >= 0 && field < 2) ? fieldTypeStrings[field] : nullptr;
@@ -11379,6 +11414,10 @@ const char **MLMESyncRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_logicalChannel: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -11392,6 +11431,9 @@ const char *MLMESyncRequestDescriptor::getFieldProperty(int field, const char *p
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_logicalChannel:
+            if (!strcmp(propertyName, "enum")) return "opticalChannel_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -11450,7 +11492,7 @@ std::string MLMESyncRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
     }
     MLMESyncRequest *pp = omnetpp::fromAnyPtr<MLMESyncRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: return long2string(pp->getLogicalChannel());
+        case FIELD_logicalChannel: return enum2string(pp->getLogicalChannel(), "opticalChannel_t");
         case FIELD_trackBeacon: return bool2string(pp->getTrackBeacon());
         default: return "";
     }
@@ -11468,7 +11510,7 @@ void MLMESyncRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
     }
     MLMESyncRequest *pp = omnetpp::fromAnyPtr<MLMESyncRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: pp->setLogicalChannel(string2long(value)); break;
+        case FIELD_logicalChannel: pp->setLogicalChannel((opticalChannel_t)string2enum(value, "opticalChannel_t")); break;
         case FIELD_trackBeacon: pp->setTrackBeacon(string2bool(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMESyncRequest'", field);
     }
@@ -11484,7 +11526,7 @@ omnetpp::cValue MLMESyncRequestDescriptor::getFieldValue(omnetpp::any_ptr object
     }
     MLMESyncRequest *pp = omnetpp::fromAnyPtr<MLMESyncRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: return pp->getLogicalChannel();
+        case FIELD_logicalChannel: return static_cast<int>(pp->getLogicalChannel());
         case FIELD_trackBeacon: return pp->getTrackBeacon();
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'MLMESyncRequest' as cValue -- field index out of range?", field);
     }
@@ -11502,7 +11544,7 @@ void MLMESyncRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field
     }
     MLMESyncRequest *pp = omnetpp::fromAnyPtr<MLMESyncRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_logicalChannel: pp->setLogicalChannel(omnetpp::checked_int_cast<int>(value.intValue())); break;
+        case FIELD_logicalChannel: pp->setLogicalChannel(static_cast<opticalChannel_t>(value.intValue())); break;
         case FIELD_trackBeacon: pp->setTrackBeacon(value.boolValue()); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'MLMESyncRequest'", field);
     }

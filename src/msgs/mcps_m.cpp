@@ -386,12 +386,12 @@ void MCPSDataRequest::setSecurityLevel(uint8_t securityLevel)
     this->securityLevel = securityLevel;
 }
 
-uint8_t MCPSDataRequest::getDataRate() const
+MCS_t MCPSDataRequest::getDataRate() const
 {
     return this->dataRate;
 }
 
-void MCPSDataRequest::setDataRate(uint8_t dataRate)
+void MCPSDataRequest::setDataRate(MCS_t dataRate)
 {
     this->dataRate = dataRate;
 }
@@ -603,7 +603,7 @@ const char *MCPSDataRequestDescriptor::getFieldTypeString(int field) const
         "uint8_t",    // FIELD_msduHandle
         "uint8_t",    // FIELD_txOptions
         "uint8_t",    // FIELD_securityLevel
-        "uint8_t",    // FIELD_dataRate
+        "MCS_t",    // FIELD_dataRate
         "bool",    // FIELD_burstMode
         "bool",    // FIELD_colorReceived
         "bool",    // FIELD_colorNotReceived
@@ -628,6 +628,10 @@ const char **MCPSDataRequestDescriptor::getFieldPropertyNames(int field) const
             static const char *names[] = { "enum",  nullptr };
             return names;
         }
+        case FIELD_dataRate: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -646,6 +650,9 @@ const char *MCPSDataRequestDescriptor::getFieldProperty(int field, const char *p
             return nullptr;
         case FIELD_dstAddrMode:
             if (!strcmp(propertyName, "enum")) return "addressingMode_t";
+            return nullptr;
+        case FIELD_dataRate:
+            if (!strcmp(propertyName, "enum")) return "MCS_t";
             return nullptr;
         default: return nullptr;
     }
@@ -716,7 +723,7 @@ std::string MCPSDataRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr ob
         case FIELD_msduHandle: return ulong2string(pp->getMsduHandle());
         case FIELD_txOptions: return ulong2string(pp->getTxOptions());
         case FIELD_securityLevel: return ulong2string(pp->getSecurityLevel());
-        case FIELD_dataRate: return ulong2string(pp->getDataRate());
+        case FIELD_dataRate: return enum2string(pp->getDataRate(), "MCS_t");
         case FIELD_burstMode: return bool2string(pp->getBurstMode());
         case FIELD_colorReceived: return bool2string(pp->getColorReceived());
         case FIELD_colorNotReceived: return bool2string(pp->getColorNotReceived());
@@ -745,7 +752,7 @@ void MCPSDataRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, i
         case FIELD_msduHandle: pp->setMsduHandle(string2ulong(value)); break;
         case FIELD_txOptions: pp->setTxOptions(string2ulong(value)); break;
         case FIELD_securityLevel: pp->setSecurityLevel(string2ulong(value)); break;
-        case FIELD_dataRate: pp->setDataRate(string2ulong(value)); break;
+        case FIELD_dataRate: pp->setDataRate((MCS_t)string2enum(value, "MCS_t")); break;
         case FIELD_burstMode: pp->setBurstMode(string2bool(value)); break;
         case FIELD_colorReceived: pp->setColorReceived(string2bool(value)); break;
         case FIELD_colorNotReceived: pp->setColorNotReceived(string2bool(value)); break;
@@ -772,7 +779,7 @@ omnetpp::cValue MCPSDataRequestDescriptor::getFieldValue(omnetpp::any_ptr object
         case FIELD_msduHandle: return (omnetpp::intval_t)(pp->getMsduHandle());
         case FIELD_txOptions: return (omnetpp::intval_t)(pp->getTxOptions());
         case FIELD_securityLevel: return (omnetpp::intval_t)(pp->getSecurityLevel());
-        case FIELD_dataRate: return (omnetpp::intval_t)(pp->getDataRate());
+        case FIELD_dataRate: return static_cast<int>(pp->getDataRate());
         case FIELD_burstMode: return pp->getBurstMode();
         case FIELD_colorReceived: return pp->getColorReceived();
         case FIELD_colorNotReceived: return pp->getColorNotReceived();
@@ -801,7 +808,7 @@ void MCPSDataRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field
         case FIELD_msduHandle: pp->setMsduHandle(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_txOptions: pp->setTxOptions(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_securityLevel: pp->setSecurityLevel(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_dataRate: pp->setDataRate(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_dataRate: pp->setDataRate(static_cast<MCS_t>(value.intValue())); break;
         case FIELD_burstMode: pp->setBurstMode(value.boolValue()); break;
         case FIELD_colorReceived: pp->setColorReceived(value.boolValue()); break;
         case FIELD_colorNotReceived: pp->setColorNotReceived(value.boolValue()); break;

@@ -7,6 +7,8 @@
 
 #include "mac.h"
 
+#include "fsm_scan/fsm_scan.h"
+
 void Mac::mcps_data_request(cMessage* msg) {
 //    MCPSDataRequest *xMsg = new MCPSDataRequest();
 //
@@ -353,8 +355,31 @@ void Mac::mlme_rx_enable_request(cMessage* msg) {
     delete xMsg;
 }
 
+/// TODO doing
 void Mac::mlme_scan_request(cMessage* msg) {
     MLMEScanRequest *xMsg = check_and_cast<MLMEScanRequest *>(msg);
+
+    if (fsm_scan_get_state() != ST_SCAN_IDLE) {
+        // Scan already in progress
+        this->mlme_scan_confirm(macStatus_t::SCAN_IN_PROGRESS, xMsg->getScanType(), 0xff, 0, nullptr);
+    } else if (xMsg->getScanChannels() == 0) {
+        // Scan requested, but no channels specified
+        // TODO
+    } else {
+        this->notificationScan = true;
+
+        // Store each optical channel to be checked
+        this->scanChannelsLeft = 0;
+        for (uint8_t i = 0; i < 8; i++) {
+            if (xMsg->getScanChannels() & (0x01 << i)) {
+                this->scanChannels[scanChannelsLeft] = (opticalChannel_t) i;
+                this->scanChannelsLeft++;
+            }
+        }
+
+        this->scanDuration = xMsg->getScanDuration();
+        this->scanType = xMsg->getScanType();
+    }
 
     delete xMsg;
 }

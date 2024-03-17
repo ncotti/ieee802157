@@ -25,7 +25,7 @@ message MCPSDataRequest {
   	uint8_t msduHandle;
   	uint8_t txOptions;
   	uint8_t securityLevel;
-  	uint8_t dataRate;
+  	MCS_t dataRate;
   	bool burstMode;
   	bool colorReceived;
   	bool colorNotReceived;  

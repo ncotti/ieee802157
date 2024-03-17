@@ -9,14 +9,9 @@
 #include "fsm_superframe/fsm_superframe.h"
 #include "fsm_random_access/fsm_random_access.h"
 #include "fsm_reset/fsm_reset.h"
-
-
+#include "fsm_scan/fsm_scan.h"
 
 using namespace omnetpp;
-
-typedef enum {
-    KIND_BEACON,
-} macMsgKind;
 
 typedef enum {
     UNSLOTTED_RANDOM_ACCESS,
@@ -64,6 +59,7 @@ void Mac::initialize() {
     this->timerBeaconInterval   = new cMessage("timer_beacon");
     this->timerOpticalClock     = new cMessage("timer_optical_clock");
     this->timerSlot             = new cMessage("timer_slot");
+    this->timerScanDuration     = new cMessage("timer_scan_duration");
 
     // Initialize notifications
     this->notificationBeaconEnabled = new cMessage("notification_beacon_enabled");
@@ -83,8 +79,12 @@ void Mac::handleMessage(cMessage *msg) {
 
     // Internal timer or something else
     if (msg->isSelfMessage()) {
+        if (msg == timerScanDuration) {
+            timerScanDurationTriggered = true;
+        }
         fsm_superframe(msg, this);
-       fsm_random_access(msg, this);
+        fsm_random_access(msg, this);
+        fsm_scan(this);
     } else if (msg->arrivedOn("requestIn")) {
         this->processMsgFromHigherLayer(msg);
     } else if (msg->arrivedOn("confirmIn")) {

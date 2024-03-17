@@ -44,9 +44,14 @@ OBJS = \
     $O/Mac/fsm_random_access/fsm_random_access_transitions.o \
     $O/Mac/fsm_reset/fsm_reset_states.o \
     $O/Mac/fsm_reset/fsm_reset_transitions.o \
+    $O/Mac/fsm_scan/fsm_scan_states.o \
+    $O/Mac/fsm_scan/fsm_scan_transitions.o \
+    $O/Mac/fsm_set/fsm_set_states.o \
+    $O/Mac/fsm_set/fsm_set_transitions.o \
     $O/Mac/fsm_superframe/fsm_superframe_states.o \
     $O/Mac/fsm_superframe/fsm_superframe_transitions.o \
     $O/Net/Net.o \
+    $O/Net/net_primitives.o \
     $O/Phy/phy.o \
     $O/Phy/phy_primitives.o \
     $O/msgs/mcps_m.o \

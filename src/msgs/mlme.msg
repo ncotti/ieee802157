@@ -16,12 +16,12 @@
 import types;
 
 message MLMEAssociateRequest {
-    int logicalChannel;
-    int coordAddrMode;
-    int coordOWPANId;
-    int coordAddress;
-    uint64_t capabilityInformation;
-    int securityLevel;
+    opticalChannel_t logicalChannel;
+    addressingMode_t coordAddrMode;
+    uint16_t coordOWPANId;
+    uint64_t coordAddress;
+    capabilityInformation_t capabilityInformation;
+    uint8_t securityLevel;
     bool colorAssoc;
 };
 
@@ -72,12 +72,12 @@ message MLMECommStatusIndication {
 
 
 message MLMEDisassociateRequest {
-    int deviceAddrMode;
-    int deviceOWPANId;
+    addressingMode_t deviceAddrMode;
+    uint16_t deviceOWPANId;
     uint64_t deviceAddress;
-    int disassociateReason;
+    uint8_t disassociateReason;
     bool txIndirect;
-    int securityLevel;
+    uint8_t securityLevel;
     bool colorDisAssoc;
 };
 
@@ -112,7 +112,7 @@ message MLMEGetConfirm {
 
 message MLMEGTSRequest {
     uint8_t GTSCharacteristics;
-    int securityLevel;
+    uint8_t securityLevel;
 };
 
 message MLMEGTSConfirm {
@@ -129,10 +129,10 @@ message MLMEGTSIndication {
 
 
 message MLMEPollRequest {
-    int coordAddrMode;
-    int coordOWPANId;
+    addressingMode_t coordAddrMode;
+    uint16_t coordOWPANId;
     uint64_t coordAddress;
-    int securityLevel;
+    uint8_t securityLevel;
 };
 
 message MLMEPollConfirm {
@@ -166,8 +166,8 @@ message MLMERxEnableConfirm {
 message MLMEScanRequest {
     scanType_t scanType;
     uint8_t scanChannels;
-    int scanDuration;
-    int securityLevel;
+    uint8_t scanDuration;
+    uint8_t securityLevel;
     bool colorScan;
 };
 
@@ -196,15 +196,15 @@ message MLMESetConfirm {
 
 
 message MLMEStartRequest {
-    int OWPANId;
-    int logicalChannel;
-    int startTime;
-    int beaconOrder;
-    int superframeOrder;
+    uint16_t OWPANId;
+    opticalChannel_t logicalChannel;
+    uint32_t startTime;
+    uint8_t beaconOrder;
+    uint8_t superframeOrder;
     bool OWPANCoordinator;
     bool coordRealignment;
-    int coordRealingmentSecurityLevel;
-    int beaconSecurityLevel;
+    uint8_t coordRealingmentSecurityLevel;
+    uint8_t coordBeaconSecurityLevel;
 };
 
 message MLMEStartConfirm {
@@ -214,7 +214,7 @@ message MLMEStartConfirm {
 
 
 message MLMESyncRequest {
-	int logicalChannel;
+	opticalChannel_t logicalChannel;
 	bool trackBeacon;
 };
 

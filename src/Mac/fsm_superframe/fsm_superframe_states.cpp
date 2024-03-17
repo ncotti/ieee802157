@@ -1,5 +1,7 @@
 #include "fsm_superframe.h"
 
+static fsm_superframe_state_t current_state = FSM_SUPERFRAME_INITIAL_STATE;
+
 /******************************************************************************
  * State functions
 ******************************************************************************/
@@ -67,8 +69,7 @@ static const fsm_superframe_fn_t fsm_superframe_fn_list[FSM_SUPERFRAME_STATE_QTY
 /******************************************************************************
  * FSM (Finite state machine)
 ******************************************************************************/
-fsm_superframe_state_t fsm_superframe(const cMessage* msg, Mac* mac) {
-    static fsm_superframe_state_t current_state = FSM_SUPERFRAME_INITIAL_STATE;
+void fsm_superframe(const cMessage* msg, Mac* mac) {
     fsm_superframe_state_t new_state = fsm_superframe_fn_list[current_state](msg, mac);
     fsm_superframe_transition_t transition = fsm_superframe_transition_table[current_state][new_state];
 
@@ -77,5 +78,8 @@ fsm_superframe_state_t fsm_superframe(const cMessage* msg, Mac* mac) {
     }
 
     current_state = new_state;
+}
+
+fsm_superframe_state_t fsm_superframe_get_state(void) {
     return current_state;
 }
