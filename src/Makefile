@@ -38,6 +38,8 @@ OBJS = \
     $O/Mac/mac_command_frame.o \
     $O/Mac/mac_primitives.o \
     $O/Mac/mac_procedures.o \
+    $O/Mac/fsm_data/fsm_data_states.o \
+    $O/Mac/fsm_data/fsm_data_transitions.o \
     $O/Mac/fsm_get/fsm_get_states.o \
     $O/Mac/fsm_get/fsm_get_transitions.o \
     $O/Mac/fsm_random_access/fsm_random_access_states.o \
@@ -52,8 +54,11 @@ OBJS = \
     $O/Mac/fsm_superframe/fsm_superframe_transitions.o \
     $O/Net/Net.o \
     $O/Net/net_primitives.o \
+    $O/Net/fsm_start_net/fsm_start_net_states.o \
+    $O/Net/fsm_start_net/fsm_start_net_transitions.o \
     $O/Phy/phy.o \
     $O/Phy/phy_primitives.o \
+    $O/msgs/mac_frame_m.o \
     $O/msgs/mcps_m.o \
     $O/msgs/mlme_m.o \
     $O/msgs/pd_m.o \
@@ -63,6 +68,7 @@ OBJS = \
 
 # Message files
 MSGFILES = \
+    msgs/mac_frame.msg \
     msgs/mcps.msg \
     msgs/mlme.msg \
     msgs/pd.msg \

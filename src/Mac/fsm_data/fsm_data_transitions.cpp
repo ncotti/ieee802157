@@ -1,41 +1,46 @@
-#include "fsm_start_net.h"
+#include "fsm_data.h"
 
-static uint8_t scanSavedBeaconOrder;
-static uint16_t scanSavedNetOWPANId;
+static bool success = false;
 
 /******************************************************************************
  * Transition Functions
 ******************************************************************************/
-static void from_idle_to_reset(Net* net) {
-    net->notificationStartOWPAN = false;
-    net->mlme_reset_request(true);
+static void from_idle_rx_on(Mac* mac) {
+    mac->notificationRequestData = false;
+    mac->plme_set_trx_state_request(phyStatus_t::RX_ON);
 }
 
-static void from_reset_to_set_owpan_id(Net* net) {
-    net->notificationConfirmReset = false;
-    net->mlme_set_request(PIBAttribute_t::MAC_OWPAN_ID, 0, net->OWPANId);
+static void from_rx_on_to_cca(Mac* mac) {
+    mac->notificationConfirmReceived = false;
+    mac->plme_cca_request();
 }
 
-static void from_set_owpan_id_to_scan(Net* net) {
-    net->notificationConfirmSet = false;
-    // TODO chequear bien los parámetros a pasar
-    //net->mlme_scan_request(scanType_t::ACTIVE_SCAN, 0xff, scanDuration, 0, colorScan)
+static void from_cca_to_tx_on(Mac* mac) {
+    mac->notificationConfirmReceived = false;
+    mac->plme_set_trx_state_request(phyStatus_t::TX_ON);
 }
 
-static void from_scan_to_set_variables(Net* net) {
-    net->notificationConfirmScan = false;
-    // TODO get short address from scan
-    //net->mlme_set_request(PIBAttribute_t::MAC_SHORT_ADDRESS, PIBAttributeIndex, PIBAttributeValue)
+static void from_tx_on_to_transmit(Mac* mac) {
+    mac->notificationConfirmReceived = false;
+    // TODO arguments
+    // mac->pd_data_request(psduLength, psdu, bandplanID);
 }
 
-static void from_set_variables_to_start(Net* net) {
-    net->notificationConfirmSet = false;
-    // TODO get parameters
-    //net->mlme_start_request(OWPANId, logicalChannel, startTime, beaconOrder, superframeOrder, OWPANCoordinator, coordRealignment, coordRealingmentSecurityLevel, beaconSecurityLevel)
+static void from_transmit_to_wait_for_ack(Mac* mac) {
+    mac->notificationConfirmReceived = false;
+    mac->scheduleAfter(mac->macAckWaitDuration, mac->timerAckWait);
 }
 
-static void from_start_to_idle(Net* net) {
-    net->notificationConfirmStart = false;
+static void from_transmit_to_trx_off(Mac* mac) {
+    if (mac->timerAckWaitTriggered) {
+        mac->timerAckWaitTriggered = false;
+        success = false;
+    } else if (mac->notificationConfirmReceived) {
+        mac->notificationConfirmReceived = false;
+        success = true;
+    }
+
+    mac->plme_set_trx_state_request(phyStatus_t::TRX_OFF);
 }
 
 
@@ -45,8 +50,8 @@ static void from_start_to_idle(Net* net) {
 /// @brief Transition table, holding all actions to be executed when
 ///     transitioning from state "X" to state "Y" as a matrix:
 ///         transition_table[X][Y]
-const fsm_start_net_transition_t fsm_start_net_transition_table[FSM_START_NET_STATE_QTY][FSM_START_NET_STATE_QTY] = {};
-//const fsm_start_net_transition_t fsm_start_net_transition_table[FSM_START_NET_STATE_QTY][FSM_START_NET_STATE_QTY] = {
+const fsm_data_transition_t fsm_data_transition_table[FSM_DATA_STATE_QTY][FSM_DATA_STATE_QTY] = {};
+//const fsm_data_transition_t fsm_data_transition_table[FSM_DATA_STATE_QTY][FSM_DATA_STATE_QTY] = {
 //                    /*ST_IDLE*/             /*ST_WAIT*/                             /*ST_CHANGING*/                                     /*ST_TX_ON*/                    /*ST_SENDING*/                  /*ST_RX_ON*/                    /*ST_RECEIVING*/                        /*ST_TRX_OFF*/
 //    /*ST_IDLE*/     {NULL,                  from_idle_to_wait_for_beacon_inactive,  NULL,                                               NULL,                           NULL,                           NULL,                           NULL,                                   NULL,                           },
 //    /*ST_WAIT*/     {NULL,                  NULL,                                   from_wait_for_beacon_inactive_to_changing_channel,  NULL,                           NULL,                           NULL,                           NULL,                                   NULL,                           },

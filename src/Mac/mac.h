@@ -102,6 +102,11 @@ public:
     bool timerScanDurationTriggered = false;
     scanType_t scanType;
 
+    // Used by the DATA FSM
+    bool notificationRequestData = false;
+    cMessage *timerAckWait;
+    bool timerAckWaitTriggered = false;
+
     // All MAC PIB attributes
     int macAckWaitDuration;
     bool macAssociatedOWPANCoord            = false;

@@ -57,13 +57,11 @@ static fsm_start_net_state_t st_start_fn(Net* net) {
 ******************************************************************************/
 static const fsm_start_net_fn_t fsm_start_net_fn_list[FSM_START_NET_STATE_QTY] = {
     st_idle_fn,
-    st_wait_for_beacon_inactive_fn,
-    st_changing_channel_fn,
-    st_tx_on_fn,
-    st_sending_data_fn,
-    st_rx_on_fn,
-    st_receiving_data_fn,
-    st_trx_off_fn,
+    st_reset_fn,
+    st_set_owpan_id_fn,
+    st_set_scan_fn,
+    st_set_variables_fn,
+    st_start_fn,
 };
 
 /******************************************************************************

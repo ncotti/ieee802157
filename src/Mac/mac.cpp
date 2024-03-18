@@ -60,6 +60,7 @@ void Mac::initialize() {
     this->timerOpticalClock     = new cMessage("timer_optical_clock");
     this->timerSlot             = new cMessage("timer_slot");
     this->timerScanDuration     = new cMessage("timer_scan_duration");
+    this->timerAckWait          = new cMessage("timer_ack_wait");
 
     // Initialize notifications
     this->notificationBeaconEnabled = new cMessage("notification_beacon_enabled");
@@ -81,6 +82,8 @@ void Mac::handleMessage(cMessage *msg) {
     if (msg->isSelfMessage()) {
         if (msg == timerScanDuration) {
             timerScanDurationTriggered = true;
+        } else if (msg == timerAckWait) {
+            timerAckWaitTriggered = true;
         }
         fsm_superframe(msg, this);
         fsm_random_access(msg, this);
