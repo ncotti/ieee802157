@@ -26,73 +26,57 @@ void Net::handleMessage(cMessage *msg) {
 
 void Net::processMsgFromLowerLayer(cMessage* msg) {
     switch (msg->getKind()) {
+        case MCPS_DATA_CONFIRM: {
+            mcps_data_confirm(msg);
+            break;
+        }
         case MLME_ASSOCIATE_CONFIRM: {
-            MLMEAssociateConfirm *xMsg = check_and_cast<MLMEAssociateConfirm *>(msg);
-
-            delete xMsg;
+            mlme_associate_confirm(msg);
             break;
         }
 
         case MLME_DISASSOCIATE_CONFIRM: {
-            MLMEDisassociateConfirm *xMsg = check_and_cast<MLMEDisassociateConfirm *>(msg);
-
-            delete xMsg;
+            mlme_disassociate_confirm(msg);
             break;
         }
 
         case MLME_GET_CONFIRM: {
-            MLMEGetConfirm *xMsg = check_and_cast<MLMEGetConfirm *>(msg);
-
-            delete xMsg;
+            mlme_get_confirm(msg);
             break;
         }
 
         case MLME_GTS_CONFIRM: {
-            MLMEGTSConfirm *xMsg = check_and_cast<MLMEGTSConfirm *>(msg);
-
-            delete xMsg;
+            mlme_gts_confirm(msg);
             break;
         }
 
         case MLME_RESET_CONFIRM: {
-            MLMEResetConfirm *xMsg = check_and_cast<MLMEResetConfirm *>(msg);
-
-            delete xMsg;
+            mlme_reset_confirm(msg);
             break;
         }
 
         case MLME_RX_ENABLE_CONFIRM: {
-            MLMERxEnableConfirm *xMsg = check_and_cast<MLMERxEnableConfirm *>(msg);
-
-            delete xMsg;
+            mlme_rx_enable_confirm(msg);
             break;
         }
 
         case MLME_SCAN_CONFIRM: {
-            MLMEScanConfirm *xMsg = check_and_cast<MLMEScanConfirm *>(msg);
-
-            delete xMsg;
+            mlme_scan_confirm(msg);
             break;
         }
 
         case MLME_SET_CONFIRM: {
-            MLMESetConfirm *xMsg = check_and_cast<MLMESetConfirm *>(msg);
-
-            delete xMsg;
+            mlme_set_confirm(msg);
             break;
         }
 
         case MLME_START_CONFIRM: {
-            MLMEStartConfirm *xMsg = check_and_cast<MLMEStartConfirm *>(msg);
-
-            delete xMsg;
+            mlme_start_confirm(msg);
             break;
         }
 
         case MLME_POLL_CONFIRM: {
-            MLMEPollConfirm *xMsg = check_and_cast<MLMEPollConfirm *>(msg);
-
-            delete xMsg;
+            mlme_poll_confirm(msg);
             break;
         }
     }

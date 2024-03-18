@@ -179,3 +179,87 @@ void Net::mlme_poll_request(addressingMode_t coordAddrMode, uint16_t coordOWPANI
     delete msg;
 }
 
+
+//////////////////////////////////////////////////////////////////////////////
+
+void Net::mcps_data_confirm(cMessage* msg) {
+    MCPSDataConfirm *xMsg = check_and_cast<MCPSDataConfirm *>(msg);
+
+    macStatus = xMsg->getStatus();
+
+    notificationConfirmData = true;
+    delete xMsg;
+}
+
+void Net::mlme_associate_confirm(cMessage* msg) {
+    MLMEAssociateConfirm *xMsg = check_and_cast<MLMEAssociateConfirm *>(msg);
+
+    notificationConfirmAssociate = true;
+    delete xMsg;
+}
+
+void Net::mlme_disassociate_confirm(cMessage* msg) {
+    MLMEDisassociateConfirm *xMsg = check_and_cast<MLMEDisassociateConfirm *>(msg);
+
+    notificationConfirmDisassociate = true;
+    delete xMsg;
+}
+void Net::mlme_get_confirm(cMessage* msg) {
+    MLMEGetConfirm *xMsg = check_and_cast<MLMEGetConfirm *>(msg);
+
+    notificationConfirmGet = true;
+    delete xMsg;
+}
+
+void Net::mlme_gts_confirm(cMessage* msg) {
+    MLMEGTSConfirm *xMsg = check_and_cast<MLMEGTSConfirm *>(msg);
+
+    notificationConfirmGTS = true;
+    delete xMsg;
+}
+
+/// Done
+void Net::mlme_reset_confirm(cMessage* msg) {
+    MLMEResetConfirm *xMsg = check_and_cast<MLMEResetConfirm *>(msg);
+
+    macStatus = xMsg->getStatus();
+
+    notificationConfirmReset = true;
+    delete xMsg;
+}
+
+void Net::mlme_rx_enable_confirm(cMessage* msg) {
+    MLMERxEnableConfirm *xMsg = check_and_cast<MLMERxEnableConfirm *>(msg);
+
+    notificationConfirmRxEnable = true;
+    delete xMsg;
+}
+
+void Net::mlme_scan_confirm(cMessage* msg) {
+    MLMEScanConfirm *xMsg = check_and_cast<MLMEScanConfirm *>(msg);
+
+    notificationConfirmScan = true;
+    delete xMsg;
+}
+
+void Net::mlme_set_confirm(cMessage* msg) {
+    MLMESetConfirm *xMsg = check_and_cast<MLMESetConfirm *>(msg);
+
+    notificationConfirmSet = true;
+    delete xMsg;
+}
+
+void Net::mlme_start_confirm(cMessage* msg) {
+    MLMEStartConfirm *xMsg = check_and_cast<MLMEStartConfirm *>(msg);
+
+    notificationConfirmStart = true;
+    delete xMsg;
+}
+
+void Net::mlme_poll_confirm(cMessage* msg) {
+    MLMEPollConfirm *xMsg = check_and_cast<MLMEPollConfirm *>(msg);
+
+    notificationConfirmPoll = true;
+    delete xMsg;
+}
+

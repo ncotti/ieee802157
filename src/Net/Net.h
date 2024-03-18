@@ -25,6 +25,25 @@ protected:
 
 public:
 
+    macStatus_t macStatus;
+
+    // Used for FSM START NET
+    bool notificationStartOWPAN;
+    uint16_t OWPANId;
+
+    // Notification from mlme_xxx_confirm
+    bool notificationConfirmData;
+    bool notificationConfirmAssociate;
+    bool notificationConfirmDisassociate;
+    bool notificationConfirmGet;
+    bool notificationConfirmGTS;
+    bool notificationConfirmReset;
+    bool notificationConfirmRxEnable;
+    bool notificationConfirmScan;
+    bool notificationConfirmSet;
+    bool notificationConfirmStart;
+    bool notificationConfirmPoll;
+
     // -------------------- Primitives ------------------------------------- //
     void mcps_data_request(addressingMode_t srcAddrMode,
                 addressingMode_t dstAddrMode, uint16_t dstOWPANId, uint64_t dstAddr,
@@ -63,6 +82,22 @@ public:
 
     void mlme_poll_request(addressingMode_t coordAddrMode, uint16_t coordOWPANId,
                 uint64_t coordAddress, uint8_t securityLevel);
+
+
+
+
+    void mcps_data_confirm(cMessage* msg);
+    void mlme_associate_confirm(cMessage* msg);
+    void mlme_disassociate_confirm(cMessage* msg);
+    void mlme_get_confirm(cMessage* msg);
+    void mlme_gts_confirm(cMessage* msg);
+    void mlme_reset_confirm(cMessage* msg);
+    void mlme_rx_enable_confirm(cMessage* msg);
+    void mlme_scan_confirm(cMessage* msg);
+    void mlme_set_confirm(cMessage* msg);
+    void mlme_start_confirm(cMessage* msg);
+    void mlme_poll_confirm(cMessage* msg);
+
 
     // ------------------- End Primitives ---------------------------------- //
 };
