@@ -7,7 +7,8 @@
 
 #include "Net.h"
 
-void mcps_data_request(addressingMode_t srcAddrMode,
+
+void Net::mcps_data_request(addressingMode_t srcAddrMode,
         addressingMode_t dstAddrMode, uint16_t dstOWPANId, uint64_t dstAddr,
         uint16_t msduLength, uint8_t* msdu, uint8_t msduHandle, uint8_t txOptions,
         uint8_t securityLevel,
@@ -33,7 +34,9 @@ void mcps_data_request(addressingMode_t srcAddrMode,
     msg->setColorNotReceived(colorNotReceived);
 
     msg->setKind(MCPS_DATA_REQUEST);
-    delete msg;
+
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_associate_request(opticalChannel_t logicalChannel,
@@ -51,7 +54,8 @@ void Net::mlme_associate_request(opticalChannel_t logicalChannel,
     msg->setColorAssoc(colorAssoc);
 
     msg->setKind(MLME_ASSOCIATE_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_disassociate_request(addressingMode_t deviceAddrMode, uint16_t deviceOWPANId,
@@ -68,7 +72,8 @@ void Net::mlme_disassociate_request(addressingMode_t deviceAddrMode, uint16_t de
     msg->setColorDisAssoc(colorDisAssoc);
 
     msg->setKind(MLME_DISASSOCIATE_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_get_request(PIBAttribute_t PIBAttribute, uint8_t PIBAttributeIndex) {
@@ -78,7 +83,8 @@ void Net::mlme_get_request(PIBAttribute_t PIBAttribute, uint8_t PIBAttributeInde
     msg->setPIBAttributeIndex(PIBAttributeIndex);
 
     msg->setKind(MLME_GET_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_gts_request(uint8_t GTSCharacteristics, uint8_t securityLevel) {
@@ -88,7 +94,8 @@ void Net::mlme_gts_request(uint8_t GTSCharacteristics, uint8_t securityLevel) {
     msg->setSecurityLevel(securityLevel);
 
     msg->setKind(MLME_GTS_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_reset_request(bool setDefaultPIB) {
@@ -97,7 +104,8 @@ void Net::mlme_reset_request(bool setDefaultPIB) {
     msg->setSetDefaultPIB(setDefaultPIB);
 
     msg->setKind(MLME_RESET_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_rx_enable_request(bool deferPermit, uint32_t rxOnTime, uint32_t rxOnDuration) {
@@ -108,7 +116,8 @@ void Net::mlme_rx_enable_request(bool deferPermit, uint32_t rxOnTime, uint32_t r
     msg->setRxOnDuration(rxOnDuration);
 
     msg->setKind(MLME_RX_ENABLE_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_scan_request(scanType_t scanType, uint8_t scanChannels, uint8_t scanDuration,
@@ -122,7 +131,8 @@ void Net::mlme_scan_request(scanType_t scanType, uint8_t scanChannels, uint8_t s
     msg->setColorScan(colorScan);
 
     msg->setKind(MLME_SCAN_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_set_request(PIBAttribute_t PIBAttribute, uint8_t PIBAttributeIndex, uint64_t PIBAttributeValue) {
@@ -133,7 +143,8 @@ void Net::mlme_set_request(PIBAttribute_t PIBAttribute, uint8_t PIBAttributeInde
     msg->setPIBAttributeValue(PIBAttributeValue);
 
     msg->setKind(MLME_SET_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_start_request(uint16_t OWPANId, opticalChannel_t logicalChannel,
@@ -153,7 +164,8 @@ void Net::mlme_start_request(uint16_t OWPANId, opticalChannel_t logicalChannel,
     msg->setCoordBeaconSecurityLevel(beaconSecurityLevel);
 
     msg->setKind(MLME_START_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_sync_request(opticalChannel_t logicalChannel, bool trackBeacon) {
@@ -163,7 +175,8 @@ void Net::mlme_sync_request(opticalChannel_t logicalChannel, bool trackBeacon) {
     msg->setTrackBeacon(trackBeacon);
 
     msg->setKind(MLME_SYNC_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 void Net::mlme_poll_request(addressingMode_t coordAddrMode, uint16_t coordOWPANId,
@@ -176,7 +189,8 @@ void Net::mlme_poll_request(addressingMode_t coordAddrMode, uint16_t coordOWPANI
     msg->setSecurityLevel(securityLevel);
 
     msg->setKind(MLME_POLL_REQUEST);
-    delete msg;
+    send(msg, "requestOut");
+    scheduleAfter(DELAY_CONFIRM, this->timerConfirm);
 }
 
 
@@ -188,6 +202,7 @@ void Net::mcps_data_confirm(cMessage* msg) {
     macStatus = xMsg->getStatus();
 
     notificationConfirmData = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -195,6 +210,7 @@ void Net::mlme_associate_confirm(cMessage* msg) {
     MLMEAssociateConfirm *xMsg = check_and_cast<MLMEAssociateConfirm *>(msg);
 
     notificationConfirmAssociate = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -202,12 +218,14 @@ void Net::mlme_disassociate_confirm(cMessage* msg) {
     MLMEDisassociateConfirm *xMsg = check_and_cast<MLMEDisassociateConfirm *>(msg);
 
     notificationConfirmDisassociate = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 void Net::mlme_get_confirm(cMessage* msg) {
     MLMEGetConfirm *xMsg = check_and_cast<MLMEGetConfirm *>(msg);
 
     notificationConfirmGet = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -215,6 +233,7 @@ void Net::mlme_gts_confirm(cMessage* msg) {
     MLMEGTSConfirm *xMsg = check_and_cast<MLMEGTSConfirm *>(msg);
 
     notificationConfirmGTS = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -222,9 +241,10 @@ void Net::mlme_gts_confirm(cMessage* msg) {
 void Net::mlme_reset_confirm(cMessage* msg) {
     MLMEResetConfirm *xMsg = check_and_cast<MLMEResetConfirm *>(msg);
 
-    macStatus = xMsg->getStatus();
+    //macStatus = xMsg->getStatus();
 
     notificationConfirmReset = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -232,6 +252,7 @@ void Net::mlme_rx_enable_confirm(cMessage* msg) {
     MLMERxEnableConfirm *xMsg = check_and_cast<MLMERxEnableConfirm *>(msg);
 
     notificationConfirmRxEnable = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -239,6 +260,7 @@ void Net::mlme_scan_confirm(cMessage* msg) {
     MLMEScanConfirm *xMsg = check_and_cast<MLMEScanConfirm *>(msg);
 
     notificationConfirmScan = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -246,6 +268,7 @@ void Net::mlme_set_confirm(cMessage* msg) {
     MLMESetConfirm *xMsg = check_and_cast<MLMESetConfirm *>(msg);
 
     notificationConfirmSet = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -253,6 +276,7 @@ void Net::mlme_start_confirm(cMessage* msg) {
     MLMEStartConfirm *xMsg = check_and_cast<MLMEStartConfirm *>(msg);
 
     notificationConfirmStart = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 
@@ -260,6 +284,7 @@ void Net::mlme_poll_confirm(cMessage* msg) {
     MLMEPollConfirm *xMsg = check_and_cast<MLMEPollConfirm *>(msg);
 
     notificationConfirmPoll = true;
+    cancelEvent(timerConfirm);
     delete xMsg;
 }
 

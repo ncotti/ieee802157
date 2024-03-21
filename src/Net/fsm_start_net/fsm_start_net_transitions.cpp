@@ -16,10 +16,18 @@ static void from_reset_to_set_owpan_id(Net* net) {
     net->mlme_set_request(PIBAttribute_t::MAC_OWPAN_ID, 0, net->OWPANId);
 }
 
+static void from_reset_to_idle(Net* net) {
+    net->notificationTimerConfirm = false;
+}
+
 static void from_set_owpan_id_to_scan(Net* net) {
     net->notificationConfirmSet = false;
-    // TODO chequear bien los parámetros a pasar
-    //net->mlme_scan_request(scanType_t::ACTIVE_SCAN, 0xff, scanDuration, 0, colorScan)
+    net->mlme_scan_request(scanType_t::ACTIVE_SCAN, net->startScanChannels, net->startScanDuration, 0, net->startColorScan);
+}
+
+static void from_set_owpan_id_to_idle(Net* net) {
+    net->notificationTimerConfirm = false;
+    net->notificationConfirmSet = false;
 }
 
 static void from_scan_to_set_variables(Net* net) {

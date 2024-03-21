@@ -38,6 +38,9 @@ public:
     cMessage* timerOpticalClock = nullptr;
     cMessage* timerSlot = nullptr;
 
+    cMessage* timerConfirm = nullptr;
+    bool notificationTimerConfirm = false;
+
     // Internal variables used by several fsm
     capabilityInformation_t varCapabilities;
     uint32_t varOpticalClockDuration;
@@ -80,7 +83,7 @@ public:
 
 
     // Used by the reset FSM
-    bool setDefaultPIB;
+    bool resetSetDefaultPIB;
     bool notificationResetRequest = false;
 
     // Used by the GET FSM
@@ -174,6 +177,7 @@ public:
 
     void waitForConfirm();
     void resetPIB(void);
+    void resetInternalVariables(void);
 
     uint16_t formatMHR(uint8_t* frame, uint16_t i, uint16_t frameControl, uint8_t sequenceNumber,
             uint16_t destOWPANId, uint64_t destAddress, uint16_t srcOWPANId, uint64_t srcAddress);

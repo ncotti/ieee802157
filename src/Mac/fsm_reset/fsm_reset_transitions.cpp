@@ -1,7 +1,5 @@
 #include "fsm_reset.h"
 
-static uint8_t PIBAttributeCounter = 0;
-
 /******************************************************************************
  * Transition Functions
 ******************************************************************************/
@@ -13,10 +11,12 @@ static void from_idle_to_wait_trx(Mac* mac) {
 static void from_wait_trx_to_idle (Mac* mac) {
     mac->notificationConfirmReceived = false;
 
-    if (mac->setDefaultPIB) {
-        mac->setDefaultPIB = false;
+    if (mac->resetSetDefaultPIB) {
+        mac->resetSetDefaultPIB = false;
         mac->resetPIB();
     }
+
+    mac->resetInternalVariables();
 
     mac->mlme_reset_confirm(macStatus_t::SUCCESS);
 }

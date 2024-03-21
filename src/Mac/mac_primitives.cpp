@@ -300,6 +300,7 @@ void Mac::mlme_get_request(cMessage* msg) {
                 value = macAcknowledgeField;
                 break;
             case MAC_FRAME_PAYLOAD:
+                // TODO check if macMsduLength is the length of frame Payload
                 if (xMsg->getPIBAttributeIndex() >= macMsduLength) {
                     status = macStatus_t::INVALID_INDEX;
                     value = 0;
@@ -343,7 +344,7 @@ void Mac::mlme_gts_request(cMessage* msg) {
 void Mac::mlme_reset_request(cMessage* msg) {
     MLMEResetRequest *xMsg = check_and_cast<MLMEResetRequest *>(msg);
 
-    this->setDefaultPIB = xMsg->getSetDefaultPIB();
+    this->resetSetDefaultPIB = xMsg->getSetDefaultPIB();
     this->notificationResetRequest = true;
 
     delete xMsg;
@@ -706,6 +707,7 @@ void Mac::mlme_get_confirm(macStatus_t status, PIBAttribute_t PIBAttribute, uint
     msg->setStatus(status);
     msg->setPIBAttribute(PIBAttribute);
     msg->setPIBAttributeIndex(PIBAttributeIndex);
+    msg->setPIBAttributeValue(PIBAttributeValue);
 
     msg->setKind(MLME_GET_CONFIRM);
     send(msg, "confirmOut");
@@ -734,7 +736,6 @@ void Mac::mlme_reset_confirm(macStatus_t status) {
 
     msg->setKind(MLME_RESET_CONFIRM);
     send(msg, "confirmOut");
-    delete msg;
 }
 
 
@@ -908,7 +909,6 @@ void Mac::plme_get_request(PIBAttribute_t PIBAttribute) {
 
     msg->setKind(PLME_GET_REQUEST);
     send(msg, "indicationOut");
-    delete msg;
 }
 
 /// Done
@@ -931,7 +931,6 @@ void Mac::plme_set_trx_state_request(phyStatus_t state) {
 
     msg->setKind(PLME_SET_TRX_STATE_REQUEST);
     send(msg, "indicationOut");
-    delete msg;
 }
 
 void Mac::plme_switch_request(bool* swBitMap, bool dir) {

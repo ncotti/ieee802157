@@ -1,7 +1,5 @@
 #include "fsm_get.h"
 
-static uint8_t PIBAttributeCounter = 0;
-
 /******************************************************************************
  * Transition Functions
 ******************************************************************************/
@@ -11,15 +9,16 @@ static void from_idle_to_wait(Mac* mac) {
 }
 
 static void from_wait_to_idle (Mac* mac) {
-    mac->notificationConfirmReceived = false;
-
     macStatus_t status;
+
+    mac->notificationConfirmReceived = false;
 
     if (mac->confirmPhyStatus == phyStatus_t::UNSUPPORTED_ATTRIBUTE) {
         status = macStatus_t::UNSUPPORTED_ATTRIBUTE_MAC;
     } else {
         status = macStatus_t::SUCCESS;
     }
+
     mac->mlme_get_confirm(status, mac->getPIBAttribute, 0, mac->getPHYPIBAttributeValue);
 }
 

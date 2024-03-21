@@ -1245,12 +1245,12 @@ void PLMEGetConfirm::setStatus(phyStatus_t status)
     this->status = status;
 }
 
-uint8_t PLMEGetConfirm::getPIBAttribute() const
+PIBAttribute_t PLMEGetConfirm::getPIBAttribute() const
 {
     return this->PIBAttribute;
 }
 
-void PLMEGetConfirm::setPIBAttribute(uint8_t PIBAttribute)
+void PLMEGetConfirm::setPIBAttribute(PIBAttribute_t PIBAttribute)
 {
     this->PIBAttribute = PIBAttribute;
 }
@@ -1394,7 +1394,7 @@ const char *PLMEGetConfirmDescriptor::getFieldTypeString(int field) const
     }
     static const char *fieldTypeStrings[] = {
         "phyStatus_t",    // FIELD_status
-        "uint8_t",    // FIELD_PIBAttribute
+        "PIBAttribute_t",    // FIELD_PIBAttribute
         "uint64_t",    // FIELD_PIBAttributeValue
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
@@ -1413,6 +1413,10 @@ const char **PLMEGetConfirmDescriptor::getFieldPropertyNames(int field) const
             static const char *names[] = { "enum",  nullptr };
             return names;
         }
+        case FIELD_PIBAttribute: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -1428,6 +1432,9 @@ const char *PLMEGetConfirmDescriptor::getFieldProperty(int field, const char *pr
     switch (field) {
         case FIELD_status:
             if (!strcmp(propertyName, "enum")) return "phyStatus_t";
+            return nullptr;
+        case FIELD_PIBAttribute:
+            if (!strcmp(propertyName, "enum")) return "PIBAttribute_t";
             return nullptr;
         default: return nullptr;
     }
@@ -1488,7 +1495,7 @@ std::string PLMEGetConfirmDescriptor::getFieldValueAsString(omnetpp::any_ptr obj
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_status: return enum2string(pp->getStatus(), "phyStatus_t");
-        case FIELD_PIBAttribute: return ulong2string(pp->getPIBAttribute());
+        case FIELD_PIBAttribute: return enum2string(pp->getPIBAttribute(), "PIBAttribute_t");
         case FIELD_PIBAttributeValue: return uint642string(pp->getPIBAttributeValue());
         default: return "";
     }
@@ -1507,7 +1514,7 @@ void PLMEGetConfirmDescriptor::setFieldValueAsString(omnetpp::any_ptr object, in
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_status: pp->setStatus((phyStatus_t)string2enum(value, "phyStatus_t")); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(string2ulong(value)); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute((PIBAttribute_t)string2enum(value, "PIBAttribute_t")); break;
         case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(string2uint64(value)); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMEGetConfirm'", field);
     }
@@ -1524,7 +1531,7 @@ omnetpp::cValue PLMEGetConfirmDescriptor::getFieldValue(omnetpp::any_ptr object,
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_status: return static_cast<int>(pp->getStatus());
-        case FIELD_PIBAttribute: return (omnetpp::intval_t)(pp->getPIBAttribute());
+        case FIELD_PIBAttribute: return static_cast<int>(pp->getPIBAttribute());
         case FIELD_PIBAttributeValue: return (omnetpp::intval_t)(pp->getPIBAttributeValue());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PLMEGetConfirm' as cValue -- field index out of range?", field);
     }
@@ -1543,7 +1550,7 @@ void PLMEGetConfirmDescriptor::setFieldValue(omnetpp::any_ptr object, int field,
     PLMEGetConfirm *pp = omnetpp::fromAnyPtr<PLMEGetConfirm>(object); (void)pp;
     switch (field) {
         case FIELD_status: pp->setStatus(static_cast<phyStatus_t>(value.intValue())); break;
-        case FIELD_PIBAttribute: pp->setPIBAttribute(omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
+        case FIELD_PIBAttribute: pp->setPIBAttribute(static_cast<PIBAttribute_t>(value.intValue())); break;
         case FIELD_PIBAttributeValue: pp->setPIBAttributeValue(omnetpp::checked_int_cast<uint64_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PLMEGetConfirm'", field);
     }

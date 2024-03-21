@@ -15,11 +15,17 @@ void Net::initialize() {
         EV << "Sending initial message\n";
         send(msg, "requestOut");
     }
+
+    timerConfirm = new cMessage("timer_confirm");
 }
 
 void Net::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("ConfirmIn")) {
         this->processMsgFromLowerLayer(msg);
+    } else if (msg->isSelfMessage()) {
+        if (msg == timerConfirm) {
+            notificationTimerConfirm = true;
+        }
     }
 
 }
@@ -80,6 +86,21 @@ void Net::processMsgFromLowerLayer(cMessage* msg) {
             break;
         }
     }
+}
+
+// TODO all parameters needed to start the OWPAN should be arguments of this
+// function, and then start the FSM_START_NET
+void Net::startOWPAN(uint8_t scanChannels, uint8_t scanDuration, bool colorScan) {
+    this->startScanChannels = scanChannels;
+
+    if (scanDuration > 14) {
+        EV << "ERROR RANGE";
+    }
+
+    this->startScanDuration = scanDuration;
+    this->startColorScan = colorScan;
+
+    this->notificationStartOWPAN = true;
 }
 
 

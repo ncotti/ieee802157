@@ -137,7 +137,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PLMEGetRequest& obj) {obj
  * message PLMEGetConfirm
  * {
  *     phyStatus_t status;
- *     uint8_t PIBAttribute;
+ *     PIBAttribute_t PIBAttribute;
  *     uint64_t PIBAttributeValue;
  * }
  * </pre>
@@ -146,7 +146,7 @@ class PLMEGetConfirm : public ::omnetpp::cMessage
 {
   protected:
     phyStatus_t status = static_cast<phyStatus_t>(-1);
-    uint8_t PIBAttribute = 0;
+    PIBAttribute_t PIBAttribute = static_cast<PIBAttribute_t>(-1);
     uint64_t PIBAttributeValue = 0;
 
   private:
@@ -167,8 +167,8 @@ class PLMEGetConfirm : public ::omnetpp::cMessage
     virtual phyStatus_t getStatus() const;
     virtual void setStatus(phyStatus_t status);
 
-    virtual uint8_t getPIBAttribute() const;
-    virtual void setPIBAttribute(uint8_t PIBAttribute);
+    virtual PIBAttribute_t getPIBAttribute() const;
+    virtual void setPIBAttribute(PIBAttribute_t PIBAttribute);
 
     virtual uint64_t getPIBAttributeValue() const;
     virtual void setPIBAttributeValue(uint64_t PIBAttributeValue);

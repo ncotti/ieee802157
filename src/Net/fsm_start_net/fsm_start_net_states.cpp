@@ -15,7 +15,13 @@ static fsm_start_net_state_t st_idle_fn(Net* net) {
 
 static fsm_start_net_state_t st_reset_fn(Net* net) {
     if (net->notificationConfirmReset) {
-        return ST_START_NET_SET_OWPAN_ID;
+        if (net->macStatus == macStatus_t::SUCCESS) {
+            return ST_START_NET_SET_OWPAN_ID;
+        } else {
+            return ST_START_NET_IDLE;
+        }
+    } else if (net->notificationTimerConfirm) {
+        return ST_START_NET_IDLE;
     }
 
     return ST_START_NET_RESET;
@@ -23,7 +29,14 @@ static fsm_start_net_state_t st_reset_fn(Net* net) {
 
 static fsm_start_net_state_t st_set_owpan_id_fn(Net* net) {
     if (net->notificationConfirmSet) {
-        return ST_START_NET_SCAN;
+        if (net->macStatus == macStatus_t::SUCCESS) {
+            return ST_START_NET_SCAN;
+        } else {
+            return ST_START_NET_IDLE;
+        }
+
+    } else if (net->notificationTimerConfirm) {
+        return ST_START_NET_IDLE;
     }
 
     return ST_START_NET_SET_OWPAN_ID;

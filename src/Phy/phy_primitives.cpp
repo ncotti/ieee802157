@@ -10,8 +10,8 @@
 void Phy::plme_cca_request(PLMECCARequest* msg) {
     PLMECCAConfirm *xMsg = new PLMECCAConfirm();
 
-    if (this->varTrxState == phyStatus_t::TRX_OFF || this->varTrxState == phyStatus_t::TX_ON) {
-        xMsg->setStatus(this->varTrxState);
+    if (this->trxState == phyStatus_t::TRX_OFF || this->trxState == phyStatus_t::TX_ON) {
+        xMsg->setStatus(this->trxState);
     } else {
         if (this->phyCCAMode & 0b1) {
             // Energy above threshold
@@ -34,58 +34,63 @@ void Phy::plme_cca_confirm(PLMECCAConfirm* msg) {
 }
 
 void Phy::plme_get_request(PLMEGetRequest* msg) {
-    PLMEGetConfirm *xMsg = new PLMEGetConfirm();
-
-    xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
+    phyStatus_t status = phyStatus_t::SUCCESS_PHY;
+    uint64_t value = 0;
 
     switch (msg->getPIBAttribute()) {
         case PIBAttribute_t::PHY_CURRENT_CHANNEL: {
-            xMsg->setPIBAttributeValue(this->phyCurrentChannel);
+            value = this->phyCurrentChannel;
             break;
         }
         case PIBAttribute_t::PHY_CCA_MODE: {
-            xMsg->setPIBAttributeValue(this->phyCCAMode);
+            value = this->phyCCAMode;
             break;
         }
         case PIBAttribute_t::PHY_DIM: {
-            xMsg->setPIBAttributeValue(this->phyDim);
+            value = this->phyDim;
             break;
         }
         case PIBAttribute_t::PHY_USE_EXTENDED_MODE: {
-            xMsg->setPIBAttributeValue(this->phyUseExtendedMode);
+            value = this->phyUseExtendedMode;
             break;
         }
         case PIBAttribute_t::PHY_COLOR_FUNCTION: {
-            xMsg->setPIBAttributeValue(this->phyColorFunction);
+            //value = this->phyColorFunction;
+            // TODO matrix value
             break;
         }
         case PIBAttribute_t::PHY_BLINKING_NOTIFICATION_FREQUENCY: {
-            xMsg->setPIBAttributeValue(this->phyBlinkingNotificationFrequency);
+            value = this->phyBlinkingNotificationFrequency;
             break;
         }
         case PIBAttribute_t::PHY_OCC_ENABLE: {
-            xMsg->setPIBAttributeValue(this->phyOccEnable);
+            value = this->phyOccEnable;
             break;
         }
         case PIBAttribute_t::PHY_OCC_MCS_ID: {
-            xMsg->setPIBAttributeValue(this->phyOccMcsID);
+            value = this->phyOccMcsID;
             break;
         }
         case PIBAttribute_t::PHY_PSDU_LENGTH: {
-            xMsg->setPIBAttributeValue(this->phyPSDULength);
+            value = this->phyPSDULength;
             break;
         }
         default: {
-            xMsg->setStatus(phyStatus_t::UNSUPPORTED_ATTRIBUTE);
+            status = phyStatus_t::UNSUPPORTED_ATTRIBUTE;
             break;
         }
     }
 
-    this->plme_get_confirm(xMsg);
-    delete xMsg;
+    this->plme_get_confirm(status, msg->getPIBAttribute(), value);
 }
 
-void Phy::plme_get_confirm(PLMEGetConfirm* msg) {
+void Phy::plme_get_confirm(phyStatus_t status, PIBAttribute_t PIBAttribute, uint64_t PIBAttributeValue) {
+    PLMEGetConfirm *msg = new PLMEGetConfirm();
+
+    msg->setStatus(status);
+    msg->setPIBAttribute(PIBAttribute);
+    msg->setPIBAttributeValue(PIBAttributeValue);
+
     msg->setKind(PLME_GET_CONFIRM);
     send(msg, "confirmOut");
 }
@@ -191,29 +196,38 @@ void Phy::plme_set_confirm(PLMESetConfirm* msg) {
 }
 
 void Phy::plme_set_trx_state_request(PLMESetTrxStateRequest* msg) {
+    phyStatus_t futureState = msg->getState();
+    phyStatus_t msgState;
 
-    PLMESetTrxStateConfirm *xMsg = new PLMESetTrxStateConfirm();
+    if (futureState == this->trxState) {
+        msgState = futureState;
 
-    if (msg->getState() == this->varTrxState) {
-        xMsg->setStatus(this->varTrxState);
-    } else if ((msg->getState() == phyStatus_t::RX_ON || msg->getState() == phyStatus_t::TRX_OFF) && this->isBusyTx) {
-        xMsg->setStatus(phyStatus_t::BUSY_TX);
-        this->varTrxState = (phyStatus_t) msg->getState();    // TODO defer until end of transmision
-    } else if ((msg->getState() == phyStatus_t::TX_ON || msg->getState() == phyStatus_t::TRX_OFF) && this->isBusyRx) {
-        xMsg->setStatus(phyStatus_t::BUSY_RX);
-        this->varTrxState = (phyStatus_t) msg->getState();  // TODO defer until end of transmision
-    } else if (msg->getState() == phyStatus_t::FORCE_TRX_OFF) {
-        xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
-        this->varTrxState = (phyStatus_t) msg->getState(); // Immeadiate
+    } else if ((futureState == phyStatus_t::RX_ON || futureState == phyStatus_t::TRX_OFF) && this->isBusyTx) {
+        msgState = phyStatus_t::BUSY_TX;
+        this->notificationChangeTrx = true;
+        this->futureTrxState = futureState;
+
+    } else if ((futureState == phyStatus_t::TX_ON || futureState == phyStatus_t::TRX_OFF) && this->isBusyRx) {
+        msgState = phyStatus_t::BUSY_RX;
+        this->notificationChangeTrx = true;
+        this->futureTrxState = futureState;
+
+    } else if (futureState == phyStatus_t::FORCE_TRX_OFF) {
+        msgState = phyStatus_t::SUCCESS_PHY;
+        this->trxState = phyStatus_t::TRX_OFF;
+
     } else {
-        xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
+        msgState = phyStatus_t::SUCCESS_PHY;
     }
 
-    this->plme_set_trx_state_confirm(xMsg);
-    delete xMsg;
+    this->plme_set_trx_state_confirm(msgState);
 }
 
-void Phy::plme_set_trx_state_confirm(PLMESetTrxStateConfirm* msg) {
+void Phy::plme_set_trx_state_confirm(phyStatus_t status) {
+    PLMESetTrxStateConfirm *msg = new PLMESetTrxStateConfirm();
+
+    msg->setStatus(status);
+
     msg->setKind(PLME_SET_TRX_STATE_CONFIRM);
     send(msg, "confirmOut");
 }
@@ -228,8 +242,8 @@ void Phy::plme_switch_confirm(PLMESwitchConfirm* msg) {
 
 void Phy::pd_data_request(PDDataRequest* msg) {
     PDDataConfirm* xMsg = new PDDataConfirm();
-    if (this->varTrxState == phyStatus_t::RX_ON || this->varTrxState == phyStatus_t::TRX_OFF) {
-        xMsg->setStatus(this->varTrxState);
+    if (this->trxState == phyStatus_t::RX_ON || this->trxState == phyStatus_t::TRX_OFF) {
+        xMsg->setStatus(this->trxState);
     } else {
         // TODO transmit data
         xMsg->setStatus(phyStatus_t::SUCCESS_PHY);

@@ -13,6 +13,8 @@
 #include "../msgs/msgs.h"
 #include "../types.h"
 
+#define DELAY_CONFIRM 10 //seg
+
 using namespace omnetpp;
 
 class Net : public cSimpleModule {
@@ -27,9 +29,15 @@ public:
 
     macStatus_t macStatus;
 
+    cMessage *timerConfirm = nullptr;
+    bool notificationTimerConfirm;
+
     // Used for FSM START NET
     bool notificationStartOWPAN;
     uint16_t OWPANId;
+    uint8_t startScanChannels;
+    uint8_t startScanDuration;
+    bool startColorScan;
 
     // Notification from mlme_xxx_confirm
     bool notificationConfirmData;
@@ -100,6 +108,8 @@ public:
 
 
     // ------------------- End Primitives ---------------------------------- //
+
+    void startOWPAN(uint8_t scanChannels, uint8_t scanDuration, bool colorScan);
 };
 
 

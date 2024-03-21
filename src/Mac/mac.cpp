@@ -62,6 +62,8 @@ void Mac::initialize() {
     this->timerScanDuration     = new cMessage("timer_scan_duration");
     this->timerAckWait          = new cMessage("timer_ack_wait");
 
+    this->timerConfirm          = new cMessage("timer_confirm");
+
     // Initialize notifications
     this->notificationBeaconEnabled = new cMessage("notification_beacon_enabled");
 
@@ -191,6 +193,7 @@ void Mac::processMsgFromLowerLayer(cMessage* msg) {
 
 }
 
+// TODO check
 /// @brief Reset all PIB MAC attributes to their default values
 void Mac::resetPIB(void) {
     if (this->phyType == 1) {
@@ -253,7 +256,7 @@ void Mac::resetPIB(void) {
     this->macDestinationAddress          = 0;
     this->macSourceOWPANIdentifier       = 0;
     this->macSourceAddress               = 0;
-    this->macAcknowledgeField            = NULL;
+    this->macAcknowledgeField            = false;
     this->macFramePayload                = NULL;
     this->macFCS                         = 0;
     this->macMsduLength                  = 0;
@@ -277,4 +280,9 @@ void Mac::setMacMaxFrameTotalWaitTime(void) {
     } else {
         this->macMaxFrameTotalWaitTime += aMaxPHYIIFrameSize;
     }
+}
+
+// TODO all variables that are not PIB should be set to default values.
+void Mac::resetInternalVariables(void) {
+
 }

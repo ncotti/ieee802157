@@ -30,7 +30,7 @@ message PLMEGetRequest {
 
 message PLMEGetConfirm {
     phyStatus_t status;
-    uint8_t PIBAttribute;
+    PIBAttribute_t PIBAttribute;
     uint64_t PIBAttributeValue;
 };
 
