@@ -64,7 +64,7 @@ class Phy : public cSimpleModule {
         void plme_get_confirm(phyStatus_t status, PIBAttribute_t PIBAttribute, uint64_t PIBAttributeValue);
 
         void plme_set_request(PLMESetRequest* msg);
-        void plme_set_confirm(PLMESetConfirm* msg);
+        void plme_set_confirm(phyStatus_t status, PIBAttribute_t PIBAttribute);
 
         void plme_set_trx_state_request(PLMESetTrxStateRequest* msg);
         void plme_set_trx_state_confirm(phyStatus_t status);

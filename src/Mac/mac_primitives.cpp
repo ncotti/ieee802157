@@ -920,7 +920,6 @@ void Mac::plme_set_request(PIBAttribute_t PIBAttribute, uint64_t PIBAttributeVal
 
     msg->setKind(PLME_SET_REQUEST);
     send(msg, "indicationOut");
-    delete msg;
 }
 
 /// Done

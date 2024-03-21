@@ -96,40 +96,38 @@ void Phy::plme_get_confirm(phyStatus_t status, PIBAttribute_t PIBAttribute, uint
 }
 
 void Phy::plme_set_request(PLMESetRequest* msg) {
-    PLMESetConfirm *xMsg = new PLMESetConfirm();
-
-    xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
-    xMsg->setPIBAttribute(msg->getPIBAttribute());
+    phyStatus_t status = phyStatus_t::SUCCESS_PHY;
+    uint64_t value = msg->getPIBAttributeValue();
 
     switch (msg->getPIBAttribute()) {
         case PIBAttribute_t::PHY_CURRENT_CHANNEL: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 7) {
-                this->phyCurrentChannel = (opticalChannel_t) msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 7) {
+                this->phyCurrentChannel = (opticalChannel_t) value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
 
         case PIBAttribute_t::PHY_CCA_MODE: {
-            this->phyCCAMode = (uint8_t) msg->getPIBAttributeValue();
+            this->phyCCAMode = (uint8_t) value;
             break;
         }
 
         case PIBAttribute_t::PHY_DIM: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 1000) {
-                this->phyDim = msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 1000) {
+                this->phyDim = value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
 
         case PIBAttribute_t::PHY_USE_EXTENDED_MODE: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 1) {
-                this->phyUseExtendedMode = msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 1) {
+                this->phyUseExtendedMode = value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
@@ -145,52 +143,56 @@ void Phy::plme_set_request(PLMESetRequest* msg) {
         }
 
         case PIBAttribute_t::PHY_BLINKING_NOTIFICATION_FREQUENCY: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 10) {
-                this->phyBlinkingNotificationFrequency = msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 10) {
+                this->phyBlinkingNotificationFrequency = value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
 
         case PIBAttribute_t::PHY_OCC_ENABLE: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 1) {
-                this->phyOccEnable = msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 1) {
+                this->phyOccEnable = value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
 
         case PIBAttribute_t::PHY_OCC_MCS_ID: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 15) {
-                this->phyOccMcsID = msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 15) {
+                this->phyOccMcsID = value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
 
         case PIBAttribute_t::PHY_PSDU_LENGTH: {
-            if (msg->getPIBAttributeValue() >= 0 && msg->getPIBAttributeValue() <= 0xffff) {
-                this->phyPSDULength = msg->getPIBAttributeValue();
+            if (value >= 0 && value <= 0xffff) {
+                this->phyPSDULength = value;
             } else {
-                xMsg->setStatus(phyStatus_t::INVALID_PARAMETER_PHY);
+                status = phyStatus_t::INVALID_PARAMETER_PHY;
             }
             break;
         }
 
         default: {
-            xMsg->setStatus(phyStatus_t::UNSUPPORTED_ATTRIBUTE);
+            status = phyStatus_t::UNSUPPORTED_ATTRIBUTE;
            break;
         }
     }
 
-    this->plme_set_confirm(xMsg);
-    delete xMsg;
+    this->plme_set_confirm(status, msg->getPIBAttribute());
 }
 
-void Phy::plme_set_confirm(PLMESetConfirm* msg) {
+void Phy::plme_set_confirm(phyStatus_t status, PIBAttribute_t PIBAttribute) {
+    PLMESetConfirm *msg = new PLMESetConfirm();
+
+    msg->setStatus(status);
+    msg->setPIBAttribute(PIBAttribute);
+
     msg->setKind(PLME_SET_CONFIRM);
     send(msg, "confirmOut");
 }
