@@ -38,6 +38,8 @@ OBJS = \
     $O/Mac/mac_command_frame.o \
     $O/Mac/mac_primitives.o \
     $O/Mac/mac_procedures.o \
+    $O/Mac/fsm_cca/fsm_cca_states.o \
+    $O/Mac/fsm_cca/fsm_cca_transitions.o \
     $O/Mac/fsm_data/fsm_data_states.o \
     $O/Mac/fsm_data/fsm_data_transitions.o \
     $O/Mac/fsm_get/fsm_get_states.o \
@@ -62,7 +64,7 @@ OBJS = \
     $O/msgs/mcps_m.o \
     $O/msgs/mlme_m.o \
     $O/msgs/pd_m.o \
-    $O/msgs/phy_msg_m.o \
+    $O/msgs/phy_frame_m.o \
     $O/msgs/plme_m.o \
     $O/msgs/types_m.o
 
@@ -72,7 +74,7 @@ MSGFILES = \
     msgs/mcps.msg \
     msgs/mlme.msg \
     msgs/pd.msg \
-    msgs/phy_msg.msg \
+    msgs/phy_frame.msg \
     msgs/plme.msg \
     msgs/types.msg
 

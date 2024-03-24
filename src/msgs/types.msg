@@ -303,3 +303,10 @@ enum phyStatus_t {
     TX_ON                   = 0x09;
     UNSUPPORTED_ATTRIBUTE   = 0x0a;
 };
+
+enum topology_t {
+    TOPOLOGY_INDEPENDENT = 0x00;
+    TOPOLOGY_PEER_TO_PEER = 0x01;
+    TOPOLOGY_STAR = 0x02;
+    TOPOLOGY_BROADCAST = 0x03;
+}

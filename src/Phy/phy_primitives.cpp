@@ -8,27 +8,30 @@
 #include "phy.h"
 
 void Phy::plme_cca_request(PLMECCARequest* msg) {
-    PLMECCAConfirm *xMsg = new PLMECCAConfirm();
+    phyStatus_t status = phyStatus_t::IDLE;
 
     if (this->trxState == phyStatus_t::TRX_OFF || this->trxState == phyStatus_t::TX_ON) {
-        xMsg->setStatus(this->trxState);
+        status = this->trxState;
     } else {
         if (this->phyCCAMode & 0b1) {
             // Energy above threshold
+            // TODO return BUSY or IDLE
         } else if (this->phyCCAMode & 0b10) {
             // Carrier sense
+            // TODO return BUSY or IDLE
         } else {
             // Carrier sense with energy above threshold
+            // TODO return BUSY or IDLE
         }
-
-        xMsg->setStatus(this->CCA);
     }
-
-    this->plme_cca_confirm(xMsg);
-    delete xMsg;
+    this->plme_cca_confirm(status);
 }
 
-void Phy::plme_cca_confirm(PLMECCAConfirm* msg) {
+void Phy::plme_cca_confirm(phyStatus_t status) {
+    PLMECCAConfirm *msg = new PLMECCAConfirm();
+
+    msg->setStatus(status);
+
     msg->setKind(PLME_CCA_CONFIRM);
     send(msg, "confirmOut");
 }
@@ -243,16 +246,23 @@ void Phy::plme_switch_confirm(PLMESwitchConfirm* msg) {
 }
 
 void Phy::pd_data_request(PDDataRequest* msg) {
-    PDDataConfirm* xMsg = new PDDataConfirm();
     if (this->trxState == phyStatus_t::RX_ON || this->trxState == phyStatus_t::TRX_OFF) {
-        xMsg->setStatus(this->trxState);
+        this->pd_data_confirm(this->trxState);
     } else {
-        // TODO transmit data
-        xMsg->setStatus(phyStatus_t::SUCCESS_PHY);
+        this->notificationStartTx = true;
+        this->phyPSDULength = msg->getPsduLength();
+        this->psdu = new uint8_t(phyPSDULength);
+        for (uint16_t i = 0; i < phyPSDULength; i++) {
+            this->psdu[i] = msg->getPsdu(i);
+        }
     }
 }
 
-void Phy::pd_data_confirm(PDDataConfirm* msg) {
+void Phy::pd_data_confirm(phyStatus_t status) {
+    PDDataConfirm* msg = new PDDataConfirm();
+
+    msg->setStatus(status);
+
     msg->setKind(PD_DATA_CONFIRM);
     send(msg, "confirmOut");
 }

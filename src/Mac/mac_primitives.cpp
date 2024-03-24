@@ -846,6 +846,8 @@ void Mac::mlme_associate_response(MLMEAssociateResponse* msg) {
 void Mac::plme_cca_confirm(cMessage* msg) {
     PLMECCAConfirm *xMsg = check_and_cast<PLMECCAConfirm *>(msg);
 
+    this->confirmPhyStatus = xMsg->getStatus();
+
     delete xMsg;
 }
 
@@ -898,7 +900,6 @@ void Mac::plme_cca_request(void) {
 
     msg->setKind(PLME_CCA_REQUEST);
     send(msg, "indicationOut");
-    delete msg;
 }
 
 /// Done
@@ -940,8 +941,15 @@ void Mac::plme_switch_request(bool* swBitMap, bool dir) {
     delete msg;
 }
 
-void Mac::pd_data_request(uint64_t psduLength, uint8_t* psdu, uint8_t bandplanID) {
+void Mac::pd_data_request(uint16_t psduLength, uint8_t* psdu, opticalChannel_t bandplanID) {
     PDDataRequest *msg = new PDDataRequest();
+
+    msg->setPsduLength(psduLength);
+    msg->setPsduArraySize(psduLength);
+    for(uint16_t i = 0; i < psduLength; i++) {
+        msg->setPsdu(i, psdu[i]);
+    }
+    msg->setBandplanID(bandplanID);
 
     msg->setKind(PD_DATA_REQUEST);
     send(msg, "indicationOut");

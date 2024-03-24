@@ -13,10 +13,12 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
+import types;
+
 message PDDataRequest {
-    uint32_t psduLength;
+    uint16_t psduLength;
     uint8_t psdu[];
-    uint32_t bandplanID;
+    opticalChannel_t bandplanID;
 };
 
 message PDDataConfirm {
@@ -24,7 +26,7 @@ message PDDataConfirm {
 };
 
 message PDDataIndication {
-	uint32_t psduLength;
+	uint16_t psduLength;
 	uint8_t psdu[];
 	uint32_t ppduLinkQuality;
 };

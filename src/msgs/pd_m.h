@@ -19,24 +19,26 @@
 class PDDataRequest;
 class PDDataConfirm;
 class PDDataIndication;
+#include "types_m.h" // import types
+
 /**
- * Class generated from <tt>msgs/pd.msg:16</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/pd.msg:18</tt> by opp_msgtool.
  * <pre>
  * message PDDataRequest
  * {
- *     uint32_t psduLength;
+ *     uint16_t psduLength;
  *     uint8_t psdu[];
- *     uint32_t bandplanID;
+ *     opticalChannel_t bandplanID;
  * }
  * </pre>
  */
 class PDDataRequest : public ::omnetpp::cMessage
 {
   protected:
-    uint32_t psduLength = 0;
+    uint16_t psduLength = 0;
     uint8_t *psdu = nullptr;
     size_t psdu_arraysize = 0;
-    uint32_t bandplanID = 0;
+    opticalChannel_t bandplanID = static_cast<opticalChannel_t>(-1);
 
   private:
     void copy(const PDDataRequest& other);
@@ -53,8 +55,8 @@ class PDDataRequest : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint32_t getPsduLength() const;
-    virtual void setPsduLength(uint32_t psduLength);
+    virtual uint16_t getPsduLength() const;
+    virtual void setPsduLength(uint16_t psduLength);
 
     virtual void setPsduArraySize(size_t size);
     virtual size_t getPsduArraySize() const;
@@ -65,15 +67,15 @@ class PDDataRequest : public ::omnetpp::cMessage
     virtual void appendPsdu(uint8_t psdu);
     virtual void erasePsdu(size_t k);
 
-    virtual uint32_t getBandplanID() const;
-    virtual void setBandplanID(uint32_t bandplanID);
+    virtual opticalChannel_t getBandplanID() const;
+    virtual void setBandplanID(opticalChannel_t bandplanID);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const PDDataRequest& obj) {obj.parsimPack(b);}
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PDDataRequest& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/pd.msg:22</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/pd.msg:24</tt> by opp_msgtool.
  * <pre>
  * message PDDataConfirm
  * {
@@ -109,11 +111,11 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PDDataConfirm& obj) {
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PDDataConfirm& obj) {obj.parsimUnpack(b);}
 
 /**
- * Class generated from <tt>msgs/pd.msg:26</tt> by opp_msgtool.
+ * Class generated from <tt>msgs/pd.msg:28</tt> by opp_msgtool.
  * <pre>
  * message PDDataIndication
  * {
- *     uint32_t psduLength;
+ *     uint16_t psduLength;
  *     uint8_t psdu[];
  *     uint32_t ppduLinkQuality;
  * }
@@ -122,7 +124,7 @@ inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PDDataConfirm& obj) {obj.
 class PDDataIndication : public ::omnetpp::cMessage
 {
   protected:
-    uint32_t psduLength = 0;
+    uint16_t psduLength = 0;
     uint8_t *psdu = nullptr;
     size_t psdu_arraysize = 0;
     uint32_t ppduLinkQuality = 0;
@@ -142,8 +144,8 @@ class PDDataIndication : public ::omnetpp::cMessage
     virtual void parsimPack(omnetpp::cCommBuffer *b) const override;
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
-    virtual uint32_t getPsduLength() const;
-    virtual void setPsduLength(uint32_t psduLength);
+    virtual uint16_t getPsduLength() const;
+    virtual void setPsduLength(uint16_t psduLength);
 
     virtual void setPsduArraySize(size_t size);
     virtual size_t getPsduArraySize() const;

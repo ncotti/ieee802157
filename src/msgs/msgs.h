@@ -13,6 +13,8 @@
 #include "mlme_m.h"
 #include "pd_m.h"
 #include "plme_m.h"
+#include "phy_frame_m.h"
+#include "mac_frame_m.h"
 
 
 #endif /* MSGS_H_ */

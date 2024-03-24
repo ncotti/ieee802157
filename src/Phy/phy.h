@@ -36,6 +36,7 @@ class Phy : public cSimpleModule {
         uint8_t phyOccMcsID;
         uint16_t phyPSDULength;
 
+
         // PLME-SET-TRX and transmitter
         phyStatus_t trxState = phyStatus_t::TRX_OFF;
         phyStatus_t futureTrxState;
@@ -47,18 +48,18 @@ class Phy : public cSimpleModule {
 
         MCS_t varMCS;
 
-        phyStatus_t CCA;   // BUSY or IDLE
-
-        uint8_t varTopology = 1; // 1 == P1, 2 == P2 ...
-
-
+        topology_t topology;
 
 
     public:
 
+        // FSM TX
+        uint8_t* psdu;
+        bool notificationStartTx = false;
+
         /*---------------- Start primitives -------------------------------*/
         void plme_cca_request(PLMECCARequest* msg);
-        void plme_cca_confirm(PLMECCAConfirm* msg);
+        void plme_cca_confirm(phyStatus_t status);
 
         void plme_get_request(PLMEGetRequest* msg);
         void plme_get_confirm(phyStatus_t status, PIBAttribute_t PIBAttribute, uint64_t PIBAttributeValue);
@@ -73,11 +74,11 @@ class Phy : public cSimpleModule {
         void plme_switch_confirm(PLMESwitchConfirm* msg);
 
         void pd_data_request(PDDataRequest* msg);
-        void pd_data_confirm(PDDataConfirm* msg);
+        void pd_data_confirm(phyStatus_t status);
         void pd_data_indication(PDDataIndication* msg);
         /*---------------- End primitives -------------------------------*/
 
-        void transmitToChannel(uint8_t* payload, size_t payloadLength);
+        void transmitToChannel();
 };
 
 

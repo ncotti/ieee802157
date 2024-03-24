@@ -210,12 +210,12 @@ void PDDataRequest::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->bandplanID);
 }
 
-uint32_t PDDataRequest::getPsduLength() const
+uint16_t PDDataRequest::getPsduLength() const
 {
     return this->psduLength;
 }
 
-void PDDataRequest::setPsduLength(uint32_t psduLength)
+void PDDataRequest::setPsduLength(uint16_t psduLength)
 {
     this->psduLength = psduLength;
 }
@@ -286,12 +286,12 @@ void PDDataRequest::erasePsdu(size_t k)
     psdu_arraysize = newSize;
 }
 
-uint32_t PDDataRequest::getBandplanID() const
+opticalChannel_t PDDataRequest::getBandplanID() const
 {
     return this->bandplanID;
 }
 
-void PDDataRequest::setBandplanID(uint32_t bandplanID)
+void PDDataRequest::setBandplanID(opticalChannel_t bandplanID)
 {
     this->bandplanID = bandplanID;
 }
@@ -424,9 +424,9 @@ const char *PDDataRequestDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint32_t",    // FIELD_psduLength
+        "uint16_t",    // FIELD_psduLength
         "uint8_t",    // FIELD_psdu
-        "uint32_t",    // FIELD_bandplanID
+        "opticalChannel_t",    // FIELD_bandplanID
     };
     return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
 }
@@ -440,6 +440,10 @@ const char **PDDataRequestDescriptor::getFieldPropertyNames(int field) const
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_bandplanID: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         default: return nullptr;
     }
 }
@@ -453,6 +457,9 @@ const char *PDDataRequestDescriptor::getFieldProperty(int field, const char *pro
         field -= base->getFieldCount();
     }
     switch (field) {
+        case FIELD_bandplanID:
+            if (!strcmp(propertyName, "enum")) return "opticalChannel_t";
+            return nullptr;
         default: return nullptr;
     }
 }
@@ -515,7 +522,7 @@ std::string PDDataRequestDescriptor::getFieldValueAsString(omnetpp::any_ptr obje
     switch (field) {
         case FIELD_psduLength: return ulong2string(pp->getPsduLength());
         case FIELD_psdu: return ulong2string(pp->getPsdu(i));
-        case FIELD_bandplanID: return ulong2string(pp->getBandplanID());
+        case FIELD_bandplanID: return enum2string(pp->getBandplanID(), "opticalChannel_t");
         default: return "";
     }
 }
@@ -534,7 +541,7 @@ void PDDataRequestDescriptor::setFieldValueAsString(omnetpp::any_ptr object, int
     switch (field) {
         case FIELD_psduLength: pp->setPsduLength(string2ulong(value)); break;
         case FIELD_psdu: pp->setPsdu(i,string2ulong(value)); break;
-        case FIELD_bandplanID: pp->setBandplanID(string2ulong(value)); break;
+        case FIELD_bandplanID: pp->setBandplanID((opticalChannel_t)string2enum(value, "opticalChannel_t")); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PDDataRequest'", field);
     }
 }
@@ -551,7 +558,7 @@ omnetpp::cValue PDDataRequestDescriptor::getFieldValue(omnetpp::any_ptr object, 
     switch (field) {
         case FIELD_psduLength: return (omnetpp::intval_t)(pp->getPsduLength());
         case FIELD_psdu: return (omnetpp::intval_t)(pp->getPsdu(i));
-        case FIELD_bandplanID: return (omnetpp::intval_t)(pp->getBandplanID());
+        case FIELD_bandplanID: return static_cast<int>(pp->getBandplanID());
         default: throw omnetpp::cRuntimeError("Cannot return field %d of class 'PDDataRequest' as cValue -- field index out of range?", field);
     }
 }
@@ -568,9 +575,9 @@ void PDDataRequestDescriptor::setFieldValue(omnetpp::any_ptr object, int field, 
     }
     PDDataRequest *pp = omnetpp::fromAnyPtr<PDDataRequest>(object); (void)pp;
     switch (field) {
-        case FIELD_psduLength: pp->setPsduLength(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
+        case FIELD_psduLength: pp->setPsduLength(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_psdu: pp->setPsdu(i,omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
-        case FIELD_bandplanID: pp->setBandplanID(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
+        case FIELD_bandplanID: pp->setBandplanID(static_cast<opticalChannel_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PDDataRequest'", field);
     }
 }
@@ -1030,12 +1037,12 @@ void PDDataIndication::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->ppduLinkQuality);
 }
 
-uint32_t PDDataIndication::getPsduLength() const
+uint16_t PDDataIndication::getPsduLength() const
 {
     return this->psduLength;
 }
 
-void PDDataIndication::setPsduLength(uint32_t psduLength)
+void PDDataIndication::setPsduLength(uint16_t psduLength)
 {
     this->psduLength = psduLength;
 }
@@ -1244,7 +1251,7 @@ const char *PDDataIndicationDescriptor::getFieldTypeString(int field) const
         field -= base->getFieldCount();
     }
     static const char *fieldTypeStrings[] = {
-        "uint32_t",    // FIELD_psduLength
+        "uint16_t",    // FIELD_psduLength
         "uint8_t",    // FIELD_psdu
         "uint32_t",    // FIELD_ppduLinkQuality
     };
@@ -1388,7 +1395,7 @@ void PDDataIndicationDescriptor::setFieldValue(omnetpp::any_ptr object, int fiel
     }
     PDDataIndication *pp = omnetpp::fromAnyPtr<PDDataIndication>(object); (void)pp;
     switch (field) {
-        case FIELD_psduLength: pp->setPsduLength(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
+        case FIELD_psduLength: pp->setPsduLength(omnetpp::checked_int_cast<uint16_t>(value.intValue())); break;
         case FIELD_psdu: pp->setPsdu(i,omnetpp::checked_int_cast<uint8_t>(value.intValue())); break;
         case FIELD_ppduLinkQuality: pp->setPpduLinkQuality(omnetpp::checked_int_cast<uint32_t>(value.intValue())); break;
         default: throw omnetpp::cRuntimeError("Cannot set field %d of class 'PDDataIndication'", field);

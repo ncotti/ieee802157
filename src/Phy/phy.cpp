@@ -71,10 +71,13 @@ void Phy::processMsgFromHigherLayer(cMessage* msg) {
     }
 }
 
-void Phy::transmitToChannel(uint8_t* payload, size_t payloadLength) {
-    // Add FLP
-    uint64_t FLP = 0xaaaaaaaaaaaaaaaa;
+void Phy::transmitToChannel() {
+    PhyFrame *frame = new PhyFrame();
     uint64_t TDP;
+
+    frame->setFLP(0xaaaaaaaaaaaaaaaa);
+
+
 
     if (this->varTopology == 1) {
         TDP = (TDP_VISIBILITY_P1) | ((~TDP_VISIBILITY_P1) << 15) | (TDP_VISIBILITY_P1 << 30) | ((~TDP_VISIBILITY_P1) << 45);

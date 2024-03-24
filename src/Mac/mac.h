@@ -242,7 +242,7 @@ public:
     void plme_set_request(PIBAttribute_t PIBAttribute, uint64_t PIBAttributeValue);
     void plme_set_trx_state_request(phyStatus_t state);
     void plme_switch_request(bool* swBitMap, bool dir);
-    void pd_data_request(uint64_t psduLength, uint8_t* psdu, uint8_t bandplanID);
+    void pd_data_request(uint16_t psduLength, uint8_t* psdu, opticalChannel_t bandplanID);
     // --------------- End phy primitives ------------------- //
 };
 

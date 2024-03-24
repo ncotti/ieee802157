@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/types.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs//types.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -1622,6 +1622,8 @@ Register_Enum(scanType_t, (scanType_t::ACTIVE_SCAN, scanType_t::PASSIVE_SCAN, sc
 Register_Enum(MCS_t, (MCS_t::PHYI_11_67K, MCS_t::PHYI_24_44K, MCS_t::PHYI_48_89K, MCS_t::PHYI_73_3K, MCS_t::PHYI_100K, MCS_t::PHYI_35_56K, MCS_t::PHYI_71_11K, MCS_t::PHYI_124_4K, MCS_t::PHYI_266_6K, MCS_t::PHYII_1_25M, MCS_t::PHYII_2M, MCS_t::PHYII_2_5M, MCS_t::PHYII_4M, MCS_t::PHYII_5M, MCS_t::PHYII_6M, MCS_t::PHYII_9_6M, MCS_t::PHYII_12M, MCS_t::PHYII_19_2M, MCS_t::PHYII_24M, MCS_t::PHYII_38_4M, MCS_t::PHYII_48M, MCS_t::PHYII_76_8M, MCS_t::PHYII_96M));
 
 Register_Enum(phyStatus_t, (phyStatus_t::BUSY, phyStatus_t::BUSY_RX, phyStatus_t::BUSY_TX, phyStatus_t::FORCE_TRX_OFF, phyStatus_t::IDLE, phyStatus_t::INVALID_PARAMETER_PHY, phyStatus_t::RX_ON, phyStatus_t::SUCCESS_PHY, phyStatus_t::TRX_OFF, phyStatus_t::TX_ON, phyStatus_t::UNSUPPORTED_ATTRIBUTE));
+
+Register_Enum(topology_t, (topology_t::TOPOLOGY_INDEPENDENT, topology_t::TOPOLOGY_PEER_TO_PEER, topology_t::TOPOLOGY_STAR, topology_t::TOPOLOGY_BROADCAST));
 
 namespace omnetpp {
 

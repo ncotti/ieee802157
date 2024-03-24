@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs/types.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from msgs//types.msg.
 //
 
 #ifndef __TYPES_M_H
@@ -20,7 +20,7 @@ struct capabilityInformation_t;
 struct security_t;
 struct OWPANDescritpor_t;
 /**
- * Enum generated from <tt>msgs/types.msg:18</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:18</tt> by opp_msgtool.
  * <pre>
  * /// \@brief Logical channels are separated according to the optical wavelength.
  * ///     C_XX_YY indicates an optical channel between wavelengths XX and YY.
@@ -52,7 +52,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const opticalChannel_t& e) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, opticalChannel_t& e) { int n; b->unpack(n); e = static_cast<opticalChannel_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:29</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:29</tt> by opp_msgtool.
  * <pre>
  * enum batteryInformation_t
  * {
@@ -74,7 +74,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const batteryInformation_t&
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, batteryInformation_t& e) { int n; b->unpack(n); e = static_cast<batteryInformation_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:36</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:36</tt> by opp_msgtool.
  * <pre>
  * enum deviceType_t
  * {
@@ -96,7 +96,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const deviceType_t& e) { b-
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, deviceType_t& e) { int n; b->unpack(n); e = static_cast<deviceType_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:43</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:43</tt> by opp_msgtool.
  * <pre>
  * enum colorStabilizationScheme_t
  * {
@@ -118,7 +118,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const colorStabilizationSch
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, colorStabilizationScheme_t& e) { int n; b->unpack(n); e = static_cast<colorStabilizationScheme_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:50</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:50</tt> by opp_msgtool.
  * <pre>
  * enum maxSupportedOpticalClock_t
  * {
@@ -148,7 +148,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const maxSupportedOpticalCl
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, maxSupportedOpticalClock_t& e) { int n; b->unpack(n); e = static_cast<maxSupportedOpticalClock_t>(n); }
 
 /**
- * Struct generated from msgs/types.msg:61 by opp_msgtool.
+ * Struct generated from msgs//types.msg:61 by opp_msgtool.
  */
 struct capabilityInformation_t
 {
@@ -191,7 +191,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const capabilityInformation
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, capabilityInformation_t& obj) { __doUnpacking(b, obj); }
 
 /**
- * Struct generated from msgs/types.msg:94 by opp_msgtool.
+ * Struct generated from msgs//types.msg:94 by opp_msgtool.
  */
 struct security_t
 {
@@ -210,7 +210,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const security_t& obj) { __
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, security_t& obj) { __doUnpacking(b, obj); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:101</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:101</tt> by opp_msgtool.
  * <pre>
  * enum commandFrameIdentifier_t
  * {
@@ -264,7 +264,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const commandFrameIdentifie
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, commandFrameIdentifier_t& e) { int n; b->unpack(n); e = static_cast<commandFrameIdentifier_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:124</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:124</tt> by opp_msgtool.
  * <pre>
  * enum macStatus_t
  * {
@@ -316,7 +316,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const macStatus_t& e) { b->
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, macStatus_t& e) { int n; b->unpack(n); e = static_cast<macStatus_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:146</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:146</tt> by opp_msgtool.
  * <pre>
  * enum frameType_t
  * {
@@ -340,7 +340,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const frameType_t& e) { b->
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, frameType_t& e) { int n; b->unpack(n); e = static_cast<frameType_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:154</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:154</tt> by opp_msgtool.
  * <pre>
  * enum addressingMode_t
  * {
@@ -362,7 +362,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const addressingMode_t& e) 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, addressingMode_t& e) { int n; b->unpack(n); e = static_cast<addressingMode_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:161</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:161</tt> by opp_msgtool.
  * <pre>
  * enum dataType_t
  * {
@@ -382,7 +382,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const dataType_t& e) { b->p
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, dataType_t& e) { int n; b->unpack(n); e = static_cast<dataType_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:167</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:167</tt> by opp_msgtool.
  * <pre>
  * enum PIBAttribute_t
  * {
@@ -539,7 +539,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const PIBAttribute_t& e) { 
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, PIBAttribute_t& e) { int n; b->unpack(n); e = static_cast<PIBAttribute_t>(n); }
 
 /**
- * Struct generated from msgs/types.msg:242 by opp_msgtool.
+ * Struct generated from msgs//types.msg:242 by opp_msgtool.
  */
 struct OWPANDescritpor_t
 {
@@ -567,7 +567,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const OWPANDescritpor_t& ob
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, OWPANDescritpor_t& obj) { __doUnpacking(b, obj); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:258</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:258</tt> by opp_msgtool.
  * <pre>
  * enum scanType_t
  * {
@@ -587,7 +587,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const scanType_t& e) { b->p
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, scanType_t& e) { int n; b->unpack(n); e = static_cast<scanType_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:265</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:265</tt> by opp_msgtool.
  * <pre>
  * enum MCS_t
  * {
@@ -648,7 +648,7 @@ inline void doParsimPacking(omnetpp::cCommBuffer *b, const MCS_t& e) { b->pack(s
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, MCS_t& e) { int n; b->unpack(n); e = static_cast<MCS_t>(n); }
 
 /**
- * Enum generated from <tt>msgs/types.msg:293</tt> by opp_msgtool.
+ * Enum generated from <tt>msgs//types.msg:293</tt> by opp_msgtool.
  * <pre>
  * enum phyStatus_t
  * {
@@ -682,6 +682,28 @@ enum phyStatus_t {
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const phyStatus_t& e) { b->pack(static_cast<int>(e)); }
 inline void doParsimUnpacking(omnetpp::cCommBuffer *b, phyStatus_t& e) { int n; b->unpack(n); e = static_cast<phyStatus_t>(n); }
+
+/**
+ * Enum generated from <tt>msgs//types.msg:307</tt> by opp_msgtool.
+ * <pre>
+ * enum topology_t
+ * {
+ *     TOPOLOGY_INDEPENDENT = 0x00;
+ *     TOPOLOGY_PEER_TO_PEER = 0x01;
+ *     TOPOLOGY_STAR = 0x02;
+ *     TOPOLOGY_BROADCAST = 0x03;
+ * }
+ * </pre>
+ */
+enum topology_t {
+    TOPOLOGY_INDEPENDENT = 0x00,
+    TOPOLOGY_PEER_TO_PEER = 0x01,
+    TOPOLOGY_STAR = 0x02,
+    TOPOLOGY_BROADCAST = 0x03
+};
+
+inline void doParsimPacking(omnetpp::cCommBuffer *b, const topology_t& e) { b->pack(static_cast<int>(e)); }
+inline void doParsimUnpacking(omnetpp::cCommBuffer *b, topology_t& e) { int n; b->unpack(n); e = static_cast<topology_t>(n); }
 
 
 namespace omnetpp {
